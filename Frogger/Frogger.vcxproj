@@ -11,10 +11,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\vsLogLib.h" />
+    <ClInclude Include="lib\vsMathLib.h" />
+    <ClInclude Include="lib\vsResourceLib.h" />
     <ClInclude Include="lib\vsResSurfRevLib.h" />
+    <ClInclude Include="lib\vsShaderLib.h" />
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lib\vsLogLib.cpp" />
+    <ClCompile Include="lib\vsMathLib.cpp" />
+    <ClCompile Include="lib\vsResourceLib.cpp" />
     <ClCompile Include="lib\vsResSurfRevLib.cpp" />
+    <ClCompile Include="lib\vsShaderLib.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC24F681-3B60-4EF6-BA13-F1821A11124A}</ProjectGuid>
@@ -50,6 +60,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
