@@ -10,6 +10,12 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lib\vsResSurfRevLib.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lib\vsResSurfRevLib.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC24F681-3B60-4EF6-BA13-F1821A11124A}</ProjectGuid>
     <RootNamespace>Frogger</RootNamespace>
@@ -63,8 +69,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
