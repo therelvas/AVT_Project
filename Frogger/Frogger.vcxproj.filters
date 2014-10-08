@@ -30,11 +30,11 @@
     <ClInclude Include="lib\vsLogLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lib\vsShaderLib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="test.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\vsShaderLib.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

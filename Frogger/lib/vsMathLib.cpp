@@ -149,7 +149,6 @@ VSMathLib::loadIdentity(MatrixTypes aType)
 void 
 VSMathLib::multMatrix(MatrixTypes aType, float *aMatrix)
 {
-	
 	float *a, *b, res[16];
 	a = mMatrix[aType];
 	b = aMatrix;

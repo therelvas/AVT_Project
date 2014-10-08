@@ -14,13 +14,14 @@
 
 #include "Test.h"
 #include "lib\vsResSurfRevLib.h"
+#include "lib\vsMathLib.h"
 
 #define CAPTION "Exercise 1"
 
 #pragma comment(lib, "glew32.lib")
 #pragma comment(lib, "freeglut.lib")
 
-int WinX = 640, WinY = 480;
+int WinX = 640, WinY = 320;
 int WindowHandle = 0;
 unsigned int FrameCount = 0;
 
@@ -32,7 +33,8 @@ GLuint VaoId, VboId[4];
 GLuint VertexShaderId, FragmentShaderId, ProgramId;
 GLint UniformId;
 
-VSResSurfRevLib *libClass;
+VSResSurfRevLib resSurfRevLib;
+VSMathLib *mathLib;
 
 /////////////////////////////////////////////////////////////////////// ERRORS
 
@@ -83,7 +85,7 @@ const GLchar* FragmentShader =
 
 	"void main(void)\n"
 	"{\n"
-	"	out_Color = vec4(1.0f, 0.5f, 0.0f, 1.0f);\n"
+	"	out_Color = color;\n"
 	"}\n"
 };
 
@@ -127,64 +129,10 @@ void destroyShaderProgram()
 
 void createBufferObjects()
 {
-	/*
-	glGenVertexArrays(1, &VaoId);
-	glBindVertexArray(VaoId);
-
-	glGenBuffers(4, VboId);
-
-	//vertex coordinates buffer
-	glBindBuffer(GL_ARRAY_BUFFER, VboId[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(VERTEX_COORD_ATTRIB);
-	glVertexAttribPointer(VERTEX_COORD_ATTRIB, 4, GL_FLOAT, 0, 0, 0);
-
-	//normals buffer
-	glBindBuffer(GL_ARRAY_BUFFER, VboId[2]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(normals), normals, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(NORMAL_ATTRIB);
-	glVertexAttribPointer(NORMAL_ATTRIB, 3, GL_FLOAT, 0, 0, 0);
-
-	//texture coordinates buffer
-	glBindBuffer(GL_ARRAY_BUFFER, VboId[1]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(texCoords), texCoords, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(TEXTURE_COORD_ATTRIB);
-	glVertexAttribPointer(TEXTURE_COORD_ATTRIB, 2, GL_FLOAT, 0, 0, 0);
-
-	//index buffer
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VboId[3]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(faceIndex), faceIndex, GL_STATIC_DRAW);
-
-	// unbind the VAO
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	//glDisableVertexAttribArray(VERTICES);
-	//glDisableVertexAttribArray(COLORS);
-
-	checkOpenGLError("ERROR: Could not create VAOs and VBOs."); */
-
-	libClass->createSphere(1.0f, 20);
+	resSurfRevLib.createSphere(2.0f, 40);
 }
 
-void destroyBufferObjects()
-{
-	/*
-	glDisableVertexAttribArray(VERTEX_COORD_ATTRIB);
-	glDisableVertexAttribArray(NORMAL_ATTRIB);
-	glDisableVertexAttribArray(TEXTURE_COORD_ATTRIB);
-
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-
-	glDeleteBuffers(4, VboId);
-	glDeleteVertexArrays(1, &VaoId);
-	checkOpenGLError("ERROR: Could not destroy VAOs and VBOs."); 
-
-	*/
-}
+void destroyBufferObjects(){}
 
 /////////////////////////////////////////////////////////////////////// SCENE
 
@@ -206,19 +154,15 @@ const Matrix M = {
 
 void renderScene()
 {
+	mathLib->loadIdentity(VSMathLib::MatrixTypes::VIEW);
+	mathLib->loadIdentity(VSMathLib::MatrixTypes::MODEL);
+	mathLib->lookAt(0, 0, 0, 0, 0, 0, 0, 1, 0);
 	
-	//glBindVertexArray(VaoId);
-
-	glUseProgram(ProgramId);
+	//glUseProgram(ProgramId);
 	
-	glUniformMatrix4fv(UniformId, 1, GL_TRUE, I);
-	//glDrawElements(GL_TRIANGLES, faceCount * 3, GL_UNSIGNED_INT, (GLvoid*)0);
+	resSurfRevLib.render();
 
-	/*glUniformMatrix4fv(UniformId, 1, GL_TRUE, M);
-	glDrawElements(GL_TRIANGLES, faceCount * 3, GL_UNSIGNED_INT, (GLvoid*)0); */
-	libClass->render();
-	glUseProgram(0);
-	//glBindVertexArray(0); 
+	//glUseProgram(0);
 	
 	checkOpenGLError("ERROR: Could not draw scene.");
 }
@@ -249,6 +193,11 @@ void reshape(int w, int h)
 	WinX = w;
 	WinY = h;
 	glViewport(0, 0, WinX, WinY);
+
+	float ratio = (1.0f * w) / h;
+
+	mathLib->loadIdentity(VSMathLib::PROJECTION);
+	mathLib->perspective(45.00f, ratio, 1.0f, 100.0f);
 }
 
 void timer(int value)
@@ -305,7 +254,7 @@ void setupGLUT(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 
-	glutInitContextVersion(2, 1);
+	glutInitContextVersion(3, 1);
 	glutInitContextFlags(GLUT_FORWARD_COMPATIBLE);
 	glutInitContextProfile(GLUT_CORE_PROFILE);
 
@@ -322,10 +271,12 @@ void setupGLUT(int argc, char* argv[])
 
 void init(int argc, char* argv[])
 {
+	//Setup external libraries
+	mathLib = mathLib->getInstance();
+
 	setupGLUT(argc, argv);
 	setupGLEW();
 	setupOpenGL();
-	libClass = new VSResSurfRevLib();
 	createShaderProgram();
 	createBufferObjects();
 	setupCallbacks();

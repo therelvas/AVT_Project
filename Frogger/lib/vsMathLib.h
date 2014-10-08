@@ -76,6 +76,7 @@ class VSMathLib {
 				AUX2,
 				AUX3
 		} ; 
+
 		/// Enumeration of derived matrices
 		enum ComputedMatrixTypes {
 			VIEW_MODEL,
