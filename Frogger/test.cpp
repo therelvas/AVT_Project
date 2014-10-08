@@ -83,7 +83,7 @@ const GLchar* FragmentShader =
 
 	"void main(void)\n"
 	"{\n"
-	"	out_Color = color;\n"
+	"	out_Color = vec4(1.0f, 0.5f, 0.0f, 1.0f);\n"
 	"}\n"
 };
 
@@ -206,19 +206,20 @@ const Matrix M = {
 
 void renderScene()
 {
-	/*
-	glBindVertexArray(VaoId);
+	
+	//glBindVertexArray(VaoId);
+
 	glUseProgram(ProgramId);
-
+	
 	glUniformMatrix4fv(UniformId, 1, GL_TRUE, I);
-	glDrawElements(GL_TRIANGLES, faceCount * 3, GL_UNSIGNED_INT, (GLvoid*)0);
+	//glDrawElements(GL_TRIANGLES, faceCount * 3, GL_UNSIGNED_INT, (GLvoid*)0);
 
-	glUniformMatrix4fv(UniformId, 1, GL_TRUE, M);
-	glDrawElements(GL_TRIANGLES, faceCount * 3, GL_UNSIGNED_INT, (GLvoid*)0);
-
-	glUseProgram(0);
-	glBindVertexArray(0); */
+	/*glUniformMatrix4fv(UniformId, 1, GL_TRUE, M);
+	glDrawElements(GL_TRIANGLES, faceCount * 3, GL_UNSIGNED_INT, (GLvoid*)0); */
 	libClass->render();
+	glUseProgram(0);
+	//glBindVertexArray(0); 
+	
 	checkOpenGLError("ERROR: Could not draw scene.");
 }
 
