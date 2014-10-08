@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\Downloads\lighting\vsShaderLib.h" />
     <ClInclude Include="Frog.h" />
     <ClInclude Include="lib\vsLogLib.h" />
     <ClInclude Include="lib\vsMathLib.h" />
@@ -28,11 +29,12 @@
     <ClCompile Include="lib\vsResSurfRevLib.cpp" />
     <ClCompile Include="lib\vsShaderLib.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="readShaders.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Labs\lab1\fragmentShader.frag" />
-    <None Include="..\..\Labs\lab1\vertexShader.vert" />
+    <None Include="Shaders\fragmentShader2.frag" />
+    <None Include="Shaders\vertexShader2.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC24F681-3B60-4EF6-BA13-F1821A11124A}</ProjectGuid>

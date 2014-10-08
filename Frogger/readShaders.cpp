@@ -1,5 +1,6 @@
 // PRIVATE METHODS
 
+/*
 char * textFileRead(std::string fileName) {
 
 
@@ -71,4 +72,4 @@ void createShaderProgram()
 		checkOpenGLError("ERROR: Could not create shaders.");
 	}
 	return content;
-}
+}*/

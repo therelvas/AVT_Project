@@ -36,6 +36,15 @@
     <ClInclude Include="lib\vsShaderLib.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="Frog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Downloads\lighting\vsShaderLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\vsResSurfRevLib.cpp">
@@ -56,12 +65,21 @@
     <ClCompile Include="test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Frog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="readShaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Labs\lab1\fragmentShader.frag">
+    <None Include="Shaders\fragmentShader2.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\..\Labs\lab1\vertexShader.vert">
+    <None Include="Shaders\vertexShader2.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

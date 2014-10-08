@@ -15,6 +15,7 @@
 #include "Test.h"
 #include "lib\vsResSurfRevLib.h"
 #include "lib\vsMathLib.h"
+#include "lib\vsShaderLib.h"
 
 #define CAPTION "Exercise 1"
 
@@ -25,9 +26,7 @@ int WinX = 640, WinY = 320;
 int WindowHandle = 0;
 unsigned int FrameCount = 0;
 
-#define VERTEX_COORD_ATTRIB 0
-#define NORMAL_ATTRIB 1
-#define TEXTURE_COORD_ATTRIB 2
+VSShaderLib shader, shaderF;
 
 GLuint VaoId, VboId[4];
 GLuint VertexShaderId, FragmentShaderId, ProgramId;
@@ -60,72 +59,23 @@ void checkOpenGLError(std::string error)
 
 /////////////////////////////////////////////////////////////////////// SHADERs
 
-const GLchar* VertexShader =
+GLuint createShaderProgram()
 {
-	"#version 330 core\n"
+	shaderF.init();
+	shaderF.loadShader(VSShaderLib::VERTEX_SHADER, "Shaders/vertexShader2.vert");
+	shaderF.loadShader(VSShaderLib::FRAGMENT_SHADER, "Shaders/fragmentShader2.frag");
 
-	"in vec4 in_Position;\n"
-	"uniform mat4 Matrix;\n"
-	"out vec4 color;\n"
-
-	"void main(void)\n"
-	"{\n"
-	"	color = in_Position;\n"
-	"	gl_Position = Matrix * in_Position;\n"
-
-	"}\n"
-};
-
-const GLchar* FragmentShader =
-{
-	"#version 330 core\n"
-
-	"in vec4 color;\n"
-	"out vec4 out_Color;\n"
-
-	"void main(void)\n"
-	"{\n"
-	"	out_Color = color;\n"
-	"}\n"
-};
-
-void createShaderProgram()
-{
-	VertexShaderId = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(VertexShaderId, 1, &VertexShader, 0);
-	glCompileShader(VertexShaderId);
-
-	FragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(FragmentShaderId, 1, &FragmentShader, 0);
-	glCompileShader(FragmentShaderId);
-
-	ProgramId = glCreateProgram();
-	glAttachShader(ProgramId, VertexShaderId);
-	glAttachShader(ProgramId, FragmentShaderId);
-
-	glBindAttribLocation(ProgramId, VERTEX_COORD_ATTRIB, "in_Position");
-
-	glLinkProgram(ProgramId);
-	UniformId = glGetUniformLocation(ProgramId, "Matrix");
+	//shaderF.setProgramOutput(0, "outputF");
+	//shaderF.setVertexAttribName(VSShaderLib::VERTEX_COORD_ATTRIB, "position");
+	
+	shader.prepareProgram();
 
 	checkOpenGLError("ERROR: Could not create shaders.");
-}
 
-void destroyShaderProgram()
-{
-	glUseProgram(0);
-	glDetachShader(ProgramId, VertexShaderId);
-	glDetachShader(ProgramId, FragmentShaderId);
-
-	glDeleteShader(FragmentShaderId);
-	glDeleteShader(VertexShaderId);
-	glDeleteProgram(ProgramId);
-
-	checkOpenGLError("ERROR: Could not destroy shaders.");
+	return(shader.isProgramValid());
 }
 
 /////////////////////////////////////////////////////////////////////// VAOs & VBOs
-
 
 void createBufferObjects()
 {
@@ -136,33 +86,17 @@ void destroyBufferObjects(){}
 
 /////////////////////////////////////////////////////////////////////// SCENE
 
-typedef GLfloat Matrix[16];
-
-const Matrix I = {
-	1.0f, 0.0f, 0.0f, 0.0f,
-	0.0f, 1.0f, 0.0f, 0.0f,
-	0.0f, 0.0f, 1.0f, 0.0f,
-	0.0f, 0.0f, 0.0f, 1.0f
-}; // Row Major (GLSL is Column Major)
-
-const Matrix M = {
-	1.0f, 0.0f, 0.0f, -1.0f,
-	0.0f, 1.0f, 0.0f, -1.0f,
-	0.0f, 0.0f, 1.0f, 0.0f,
-	0.0f, 0.0f, 0.0f, 1.0f
-}; // Row Major (GLSL is Column Major)
-
 void renderScene()
 {
 	mathLib->loadIdentity(VSMathLib::MatrixTypes::VIEW);
 	mathLib->loadIdentity(VSMathLib::MatrixTypes::MODEL);
 	mathLib->lookAt(0, 0, 0, 0, 0, 0, 0, 1, 0);
 	
-	//glUseProgram(ProgramId);
+	glUseProgram(ProgramId);
 	
 	resSurfRevLib.render();
 
-	//glUseProgram(0);
+	glUseProgram(0);
 	
 	checkOpenGLError("ERROR: Could not draw scene.");
 }
@@ -171,7 +105,7 @@ void renderScene()
 
 void cleanup()
 {
-	destroyShaderProgram();
+	//destroyShaderProgram();
 	destroyBufferObjects();
 }
 
@@ -273,6 +207,8 @@ void init(int argc, char* argv[])
 {
 	//Setup external libraries
 	mathLib = mathLib->getInstance();
+	mathLib->setUniformBlockName("Matrices");
+	mathLib->setUniformName(VSMathLib::PROJ_VIEW_MODEL, "pvm");
 
 	setupGLUT(argc, argv);
 	setupGLEW();
