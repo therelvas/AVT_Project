@@ -11,19 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Frog.h" />
     <ClInclude Include="lib\vsLogLib.h" />
     <ClInclude Include="lib\vsMathLib.h" />
     <ClInclude Include="lib\vsResourceLib.h" />
     <ClInclude Include="lib\vsResSurfRevLib.h" />
     <ClInclude Include="lib\vsShaderLib.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Frog.cpp" />
     <ClCompile Include="lib\vsLogLib.cpp" />
     <ClCompile Include="lib\vsMathLib.cpp" />
     <ClCompile Include="lib\vsResourceLib.cpp" />
     <ClCompile Include="lib\vsResSurfRevLib.cpp" />
     <ClCompile Include="lib\vsShaderLib.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
