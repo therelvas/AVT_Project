@@ -11,6 +11,7 @@
 
 //Objects libraries
 #include "frog.h"
+#include "Scenario.h"
 
 // Use Very Simple Libs
 #include "lib/VSMathlib.h"
@@ -38,6 +39,7 @@ float alpha = -43.0f, beta = 48.0f;
 float r = 5.25f;
 
 Frog *frog;
+Scenario *scenario;
 
 // ------------------------------------------------------------
 //
@@ -52,6 +54,7 @@ void renderScene(void) {
 
 	glUseProgram(shader.getProgramIndex());
 	frog->render();
+	scenario->render();
 	glUseProgram(0);
 }
 
@@ -241,6 +244,7 @@ GLuint setupShaders() {
 void setupObjects() {
 
 	frog = new Frog();
+	scenario = new Scenario();
 }
 
 // ------------------------------------------------------------
