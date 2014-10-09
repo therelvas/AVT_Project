@@ -27,7 +27,7 @@ public:
 	float* getActualPostion();
 	float* getLastPosition();
 
-	void updatePosition(int x, int y){
+	void updatePosition(float x, float y){
 		actualPosition[0] = x;
 		actualPosition[1] = y;
 		lastPosition[0] = actualPosition[0];

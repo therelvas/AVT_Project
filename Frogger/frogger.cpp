@@ -86,6 +86,7 @@ void changeSize(int w, int h) {
 	glViewport(0, 0, WinX, WinY);
 	
 	float ratio = (1.0f * w) / h;
+
 	vsml->loadIdentity(VSMathLib::PROJECTION);
 	vsml->perspective(53.13f, ratio, 0.1f, 1000.0f);
 }
