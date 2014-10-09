@@ -9,6 +9,9 @@
 // GLUT is the toolkit to interface with the OS
 #include <GL/freeglut.h>
 
+//Objects libraries
+#include "frog.h"
+
 // Use Very Simple Libs
 #include "lib/VSMathlib.h"
 #include "lib/VSShaderlib.h"
@@ -34,6 +37,8 @@ int startX, startY, tracking = 0;
 float alpha = -43.0f, beta = 48.0f;
 float r = 5.25f;
 
+Frog *frog;
+
 // ------------------------------------------------------------
 //
 // Render stuff
@@ -46,7 +51,8 @@ void renderScene(void) {
 	vsml->lookAt(camX, camY, camZ, 0, 0, 0, 0, 1, 0);
 
 	glUseProgram(shader.getProgramIndex());
-	vsres.render();
+	frog->render();
+	glUseProgram(0);
 }
 
 
@@ -231,7 +237,7 @@ GLuint setupShaders() {
 
 void setupObjects() {
 
-	vsres.createSphere(2.0f, 40);
+	frog = new Frog();
 }
 
 // ------------------------------------------------------------
