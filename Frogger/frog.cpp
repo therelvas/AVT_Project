@@ -25,7 +25,7 @@ float* Frog::getLastPosition(){
 }
 
 void Frog::setupObjects() {
-
+//	vsres[1]->setColor(VSResourceLib::MaterialSemantics::AMBIENT, color);
 	vsres[0]->createCylinder(2.0f, 0.5f, 30);
 	vsres[1]->createSphere(1.0f, 30);
 }
@@ -33,14 +33,12 @@ void Frog::setupObjects() {
 void Frog::render() {
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	translate();
-	vsres[1]->render();
+	vsml->translate(2, -2, 0);
+	vsres[0]->render();
 	vsml->popMatrix(VSMathLib::MODEL);
-}
-
-void Frog::translate(){
+	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(2, 0, 0);
+	vsml->translate(-2, 2, 0);
 	vsres[0]->render();
 	vsml->popMatrix(VSMathLib::MODEL);
 }

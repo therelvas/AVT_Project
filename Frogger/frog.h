@@ -4,6 +4,7 @@
 
 #include "Lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
+#include "lib/vsResourceLib.h"
 
 class Frog{
 
@@ -12,6 +13,7 @@ private:
 	int lifes;
 	float actualPosition[4];
 	float lastPosition[4];
+	float color[4];
 
 	VSMathLib *vsml;
 	VSResSurfRevLib *vsres[2];
@@ -35,5 +37,4 @@ public:
 
 	void setupObjects();
 	void render();
-	void translate();
 };
