@@ -33,10 +33,10 @@
     <ClInclude Include="..\..\..\..\Downloads\lighting\vsShaderLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="frog.h">
+    <ClInclude Include="map1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="map.h">
+    <ClInclude Include="frog1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,10 +59,10 @@
     <ClCompile Include="frogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="map.cpp">
+    <ClCompile Include="map1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="frog.cpp">
+    <ClCompile Include="frog1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

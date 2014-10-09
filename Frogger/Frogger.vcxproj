@@ -12,21 +12,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Downloads\lighting\vsShaderLib.h" />
-    <ClInclude Include="frog.h" />
+    <ClInclude Include="frog1.h" />
     <ClInclude Include="lib\vsLogLib.h" />
     <ClInclude Include="lib\vsMathLib.h" />
     <ClInclude Include="lib\vsResourceLib.h" />
     <ClInclude Include="lib\vsResSurfRevLib.h" />
-    <ClInclude Include="map.h" />
+    <ClInclude Include="map1.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="frog.cpp" />
+    <ClCompile Include="frog1.cpp" />
     <ClCompile Include="lib\vsLogLib.cpp" />
     <ClCompile Include="lib\vsMathLib.cpp" />
     <ClCompile Include="lib\vsResourceLib.cpp" />
     <ClCompile Include="lib\vsResSurfRevLib.cpp" />
     <ClCompile Include="lib\vsShaderLib.cpp" />
-    <ClCompile Include="map.cpp" />
+    <ClCompile Include="map1.cpp" />
     <ClCompile Include="frogger.cpp" />
   </ItemGroup>
   <ItemGroup>
