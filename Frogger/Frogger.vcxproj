@@ -12,7 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Downloads\lighting\vsShaderLib.h" />
+    <ClInclude Include="cube.h" />
     <ClInclude Include="frog.h" />
+    <ClInclude Include="cubeData.h" />
     <ClInclude Include="lib\vsLogLib.h" />
     <ClInclude Include="lib\vsMathLib.h" />
     <ClInclude Include="lib\vsResourceLib.h" />
@@ -20,6 +22,7 @@
     <ClInclude Include="map.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cube.cpp" />
     <ClCompile Include="frog.cpp" />
     <ClCompile Include="lib\vsLogLib.cpp" />
     <ClCompile Include="lib\vsMathLib.cpp" />

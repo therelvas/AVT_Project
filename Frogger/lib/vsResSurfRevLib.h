@@ -53,8 +53,7 @@ public:
 	void createCylinder(float height, float radius, int sides);
 	void createCone(float height, float baseRadius, int sides);
 	void createPawn();
-	void createCube();
-
+	
 	virtual void clone(VSResourceLib *res);
 	/** implementation of the superclass abstract method
 	  * \param filename the model's filename
