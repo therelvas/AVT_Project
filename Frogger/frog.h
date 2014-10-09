@@ -11,9 +11,10 @@ class Frog{
 private:
 
 	int lifes;
-	float actualPosition[4];
-	float lastPosition[4];
+	float actualPosition[3];
+	float lastPosition[3];
 	float color[4];
+	bool initialized;
 
 	VSMathLib *vsml;
 	VSResSurfRevLib *vsres[2];
