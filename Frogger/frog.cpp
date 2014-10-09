@@ -31,9 +31,16 @@ void Frog::setupObjects() {
 }
 
 void Frog::render() {
-
+	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsres[0]->render();
+	translate();
 	vsres[1]->render();
+	vsml->popMatrix(VSMathLib::MODEL);
+}
+
+void Frog::translate(){
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(2, 0, 0);
+	vsres[0]->render();
 	vsml->popMatrix(VSMathLib::MODEL);
 }

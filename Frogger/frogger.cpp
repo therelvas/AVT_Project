@@ -216,6 +216,9 @@ void mouseWheel(int wheel, int direction, int x, int y) {
 
 GLuint setupShaders() {
 
+	vsml = VSMathLib::getInstance();
+	vsml->setUniformBlockName("Matrices");
+	vsml->setUniformName(VSMathLib::PROJ_VIEW_MODEL, "pvm");
 	// Shader for models
 	shader.init();
 	shader.loadShader(VSShaderLib::VERTEX_SHADER, "Shaders/vertexShader.vert");
@@ -329,10 +332,6 @@ int init(int argc, char **argv) {
 	setupShaders();
 	setupObjects();
 	setupOpenGL();
-
-	vsml = VSMathLib::getInstance();
-	vsml->setUniformBlockName("Matrices");
-	vsml->setUniformName(VSMathLib::PROJ_VIEW_MODEL, "pvm");
 
 	return(0);
 }

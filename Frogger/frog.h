@@ -26,7 +26,7 @@ public:
 
 	void updatePosition(int x, int y){
 		actualPosition[0] = x;
-		actualPosition[y] = y;
+		actualPosition[1] = y;
 		lastPosition[0] = actualPosition[0];
 		lastPosition[1] = actualPosition[1];
 		lastPosition[2] = actualPosition[2];
@@ -35,4 +35,5 @@ public:
 
 	void setupObjects();
 	void render();
+	void translate();
 };
