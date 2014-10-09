@@ -30,19 +30,13 @@
     <ClInclude Include="lib\vsLogLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\vsShaderLib.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Frog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\Downloads\lighting\vsShaderLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="frog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,24 +56,21 @@
     <ClCompile Include="lib\vsShaderLib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
+    <ClCompile Include="frogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Frog.cpp">
+    <ClCompile Include="map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="readShaders.cpp">
+    <ClCompile Include="frog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fragmentShader2.frag">
+    <None Include="Shaders\fragmentShader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\vertexShader2.vert">
+    <None Include="Shaders\vertexShader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

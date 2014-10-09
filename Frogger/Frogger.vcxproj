@@ -12,29 +12,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Downloads\lighting\vsShaderLib.h" />
-    <ClInclude Include="Frog.h" />
+    <ClInclude Include="frog.h" />
     <ClInclude Include="lib\vsLogLib.h" />
     <ClInclude Include="lib\vsMathLib.h" />
     <ClInclude Include="lib\vsResourceLib.h" />
     <ClInclude Include="lib\vsResSurfRevLib.h" />
-    <ClInclude Include="lib\vsShaderLib.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="test.h" />
+    <ClInclude Include="map.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Frog.cpp" />
+    <ClCompile Include="frog.cpp" />
     <ClCompile Include="lib\vsLogLib.cpp" />
     <ClCompile Include="lib\vsMathLib.cpp" />
     <ClCompile Include="lib\vsResourceLib.cpp" />
     <ClCompile Include="lib\vsResSurfRevLib.cpp" />
     <ClCompile Include="lib\vsShaderLib.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="readShaders.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="frogger.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fragmentShader2.frag" />
-    <None Include="Shaders\vertexShader2.vert" />
+    <None Include="Shaders\fragmentShader.frag" />
+    <None Include="Shaders\vertexShader.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC24F681-3B60-4EF6-BA13-F1821A11124A}</ProjectGuid>
