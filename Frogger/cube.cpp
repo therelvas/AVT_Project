@@ -1,6 +1,5 @@
 #include "cube.h"
 #include "cubeData.h"
-
 Cube::Cube() {
 
 	vsml = VSMathLib::getInstance();

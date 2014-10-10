@@ -43,6 +43,20 @@ Scenario *scenario;
 
 // ------------------------------------------------------------
 //
+// Color stuff
+//
+
+void setColor(float r, float g, float b, float alpha) {
+
+	float f[4] = { r, g, b, alpha };
+
+	GLint myLoc = glGetUniformLocation(shader.getProgramIndex(), "color");
+	glProgramUniform4fv(shader.getProgramIndex(), myLoc, 1, f);
+}
+
+
+// ------------------------------------------------------------
+//
 // Render stuff
 //
 
@@ -53,8 +67,12 @@ void renderScene(void) {
 	vsml->lookAt(camX, camY, camZ, 0, 0, 0, 0, 1, 0);
 
 	glUseProgram(shader.getProgramIndex());
+
+	setColor(0.0f, 1.0f, 0.0f, 1.0f);
 	frog->render();
+	setColor(0.0f, 0.7f, 0.0f, 1.0f);
 	scenario->render();
+	
 	glUseProgram(0);
 }
 
