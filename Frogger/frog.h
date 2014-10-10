@@ -38,4 +38,9 @@ public:
 
 	void setupObjects();
 	void render();
+
+	void moveToFront();
+	void moveToBack();
+	void moveToLeft();
+	void moveToRight();
 };

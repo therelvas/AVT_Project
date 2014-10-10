@@ -123,7 +123,18 @@ void processKeys(unsigned char key, int xx, int yy)
 	case 'c':
 		printf("Camera Spherical Coordinates (%f, %f, %f)\n", alpha, beta, r);
 		break;
-
+	case 'a':
+		frog->moveToBack();
+		break;
+	case 'q':
+		frog->moveToFront();
+		break;
+	case 'o':
+		frog->moveToLeft();
+		break;
+	case 'p':
+		frog->moveToRight();
+		break;
 	}
 }
 

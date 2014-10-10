@@ -5,26 +5,20 @@
 #include "lib/vsResSurfRevLib.h"
 #include "lib/vsResourceLib.h"
 
+#include "Cube.h"
+
 class Scenario{
 
 private:
 
-	float actualPosition[3];
 	VSMathLib *vsml;
 	VSResSurfRevLib *vsres[6];
+	Cube* cube[6];
 
 
 public:
 	Scenario();
 	~Scenario();
-
-	float* getActualPostion();
-
-	void updatePosition(int x, int y, int z){
-		actualPosition[0] = x;
-		actualPosition[1] = y;
-		actualPosition[2] = z;
-	}
 
 	void setupObjects();
 	void render();
