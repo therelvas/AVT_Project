@@ -89,6 +89,7 @@ void changeSize(int w, int h) {
 	glViewport(0, 0, WinX, WinY);
 	
 	float ratio = (1.0f * w) / h;
+
 	vsml->loadIdentity(VSMathLib::PROJECTION);
 	vsml->perspective(53.13f, ratio, 0.1f, 1000.0f);
 }
@@ -222,6 +223,7 @@ GLuint setupShaders() {
 	vsml = VSMathLib::getInstance();
 	vsml->setUniformBlockName("Matrices");
 	vsml->setUniformName(VSMathLib::PROJ_VIEW_MODEL, "pvm");
+	 
 	// Shader for models
 	shader.init();
 	shader.loadShader(VSShaderLib::VERTEX_SHADER, "Shaders/vertexShader.vert");
@@ -278,7 +280,7 @@ void setupOpenGL()
 	camY = r *   						     sin(beta * 3.14f / 180.0f);
 
 	std::cerr << "CONTEXT: OpenGL v" << glGetString(GL_VERSION) << std::endl;
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glDepthMask(GL_TRUE);
@@ -287,6 +289,8 @@ void setupOpenGL()
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
 }
 
 
@@ -318,7 +322,7 @@ void setupGLUT(int argc, char* argv[])
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 
 	glutInitWindowSize(WinX, WinY);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
 
 	WindowHandle = glutCreateWindow(CAPTION);
 	if (WindowHandle < 1) {
