@@ -61,6 +61,7 @@ void renderScene(void) {
 	
 	frog->render();
 	scenario->render();
+	//enemy->render();
 	
 	glUseProgram(0);
 }
@@ -272,7 +273,7 @@ void setupObjects() {
 
 	frog = new Frog();
 	scenario = new Scenario();
-	enemy = new Enemy(); 
+	enemy = new Enemy(true); 
 }
 
 
