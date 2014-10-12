@@ -22,6 +22,7 @@
 
 #define CAPTION "Frogger"
 
+VSResSurfRevLib mySurfRes;
 VSMathLib *vsml;
 VSShaderLib shader;
 
@@ -59,6 +60,7 @@ void renderScene(void) {
 
 	glUseProgram(shader.getProgramIndex());
 	
+	mySurfRes.render();
 	frog->render();
 	scenario->render();
 	//enemy->render();
