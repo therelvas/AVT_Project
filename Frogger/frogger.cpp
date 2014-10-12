@@ -273,9 +273,10 @@ GLuint setupShaders() {
 
 void setupObjects() {
 
-	frog = new Frog();
-	scenario = new Scenario();
-	enemy = new Enemy(true); 
+	mySurfRes.createCone(3.0f, 2.0f, 40);
+	//frog = new Frog();
+	//scenario = new Scenario();
+	//enemy = new Enemy(); 
 }
 
 

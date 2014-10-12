@@ -51,7 +51,7 @@ void Camera::draw(float x, float y, float z) {
 		vsml->loadIdentity(VSMathLib::VIEW);
 		vsml->loadIdentity(VSMathLib::MODEL);
 
-		vsml->lookAt(8.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+		vsml->lookAt(-8.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	}
 
 	//Temporary settings
