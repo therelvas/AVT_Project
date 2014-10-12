@@ -30,13 +30,25 @@
     <ClInclude Include="lib\vsLogLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Downloads\lighting\vsShaderLib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="frog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cubeData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenario.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\vsShaderLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,12 +77,33 @@
     <ClCompile Include="map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenario.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fragmentShader.frag">
+    <None Include="Shaders\color.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\vertexShader.vert">
+    <None Include="Shaders\color.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\spotlight.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\spotlight.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\..\..\Desktop\Lighting_JAP\shaders\pointlight.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\..\..\Desktop\Lighting_JAP\shaders\pointlight.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

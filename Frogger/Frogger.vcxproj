@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Downloads\lighting\vsShaderLib.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="frog.h" />
     <ClInclude Include="cubeData.h" />
@@ -19,10 +19,12 @@
     <ClInclude Include="lib\vsMathLib.h" />
     <ClInclude Include="lib\vsResourceLib.h" />
     <ClInclude Include="lib\vsResSurfRevLib.h" />
+    <ClInclude Include="lib\vsShaderLib.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="Scenario.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="frog.cpp" />
     <ClCompile Include="lib\vsLogLib.cpp" />
@@ -35,8 +37,12 @@
     <ClCompile Include="Scenario.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fragmentShader.frag" />
-    <None Include="Shaders\vertexShader.vert" />
+    <None Include="..\..\..\..\Desktop\Lighting_JAP\shaders\pointlight.frag" />
+    <None Include="..\..\..\..\Desktop\Lighting_JAP\shaders\pointlight.vert" />
+    <None Include="Shaders\color.frag" />
+    <None Include="Shaders\color.vert" />
+    <None Include="Shaders\spotlight.frag" />
+    <None Include="Shaders\spotlight.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC24F681-3B60-4EF6-BA13-F1821A11124A}</ProjectGuid>
