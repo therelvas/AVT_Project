@@ -10,7 +10,7 @@
 // Use Very Simple Libs
 #include "lib/VSMathlib.h"
 
-#define ORTHO 4
+#define ORTHO 5
 
 class Camera {
 

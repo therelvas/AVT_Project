@@ -1,4 +1,4 @@
-#version 330 core
+#version 140 core
 
 layout (std140) uniform Matrices {
 	mat4 pvm;
