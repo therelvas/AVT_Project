@@ -1,11 +1,13 @@
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
 #include "Lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 #include "lib/vsResourceLib.h"
-#ifndef ENEMY_H
-#define ENEMY_H
+
 
 #include "Cube.h"
 

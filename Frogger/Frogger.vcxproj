@@ -39,12 +39,8 @@
     <ClCompile Include="Scenario.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Desktop\Lighting_JAP\shaders\pointlight.frag" />
-    <None Include="..\..\..\..\Desktop\Lighting_JAP\shaders\pointlight.vert" />
-    <None Include="Shaders\color.frag" />
-    <None Include="Shaders\color.vert" />
-    <None Include="Shaders\spotlight.frag" />
-    <None Include="Shaders\spotlight.vert" />
+    <None Include="shaders\color.frag" />
+    <None Include="shaders\color.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC24F681-3B60-4EF6-BA13-F1821A11124A}</ProjectGuid>

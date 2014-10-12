@@ -1,3 +1,6 @@
+#ifndef CAMERA_H
+#define CAMERA_H
+
 // include GLEW to access OpenGL 3.3 functions
 #include <GL/glew.h>
 
@@ -28,3 +31,5 @@ public:
 	int getView(void);
 	void setView(int view);
 };
+
+#endif

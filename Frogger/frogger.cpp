@@ -1,30 +1,7 @@
-//
-// Lighthouse3D.com OpenGL Lighting Sample
-//
-//
-// This demo was built for learning purposes only.
-// Some code could be severely optimised, but I tried to
-// keep as simple and clear as possible.
-//
-// The code comes with no warranties, use it at your own risk.
-// You may use it, or parts of it, wherever you want.
-//
-// If you do use it I would love to hear about it. Just post a comment
-// at Lighthouse3D.com
-
-// This demo requires GLEW and FreeGLUT
-
-// Have Fun :-)
-
-/*
-
-In the setupShaders function we can set the light type and shading model!
-
-*/
-
-
 #include <math.h>
 #include <string>
+#include <sstream>
+#include <iostream>
 
 // include GLEW to access OpenGL 3.3 functions
 #include <GL/glew.h>
@@ -34,17 +11,23 @@ In the setupShaders function we can set the light type and shading model!
 
 //
 #include "Scenario.h"
-#include "frog.h"
+#include "Frog.h"
 #include "Enemy.h"
+#include "Camera.h"
 
 // Use Very Simple Libs
 #include "lib/vsMathLib.h"
 #include "lib/vsShaderLib.h"
 #include "lib/vsResSurfRevLib.h"
 
+#define CAPTION "Frogger"
+
 VSMathLib *vsml;
-VSShaderLib shader, shaderF;
-VSResSurfRevLib mySurfRev;
+VSShaderLib shader;
+
+int WinX = 640, WinY = 320;
+int WindowHandle = 0;
+unsigned int FrameCount = 0;
 
 // Camera Position
 float camX, camY, camZ;
@@ -53,92 +36,76 @@ float camX, camY, camZ;
 int startX, startY, tracking = 0;
 
 // Camera Spherical Coordinates
-float alpha = 39.0f, beta = 51.0f;
-float r = 10.0f;
-
-// Frame counting and FPS computation
-long myTime, timebase = 0, frame = 0;
-char s[32];
-
-// light direction
-float lightDir[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
-float lightPos[4] = { 4.0f, 6.0f, 2.0f, 1.0f };
-float spotDir[4] = { -4.0f, -6.0f, -2.0f, 0.0f };
+float alpha = -43.0f, beta = 48.0f;
+float r = 5.25f;
 
 Scenario *scenario;
 Frog *frog;
 Enemy *enemy;
+Cube *cube;
 
-// ------------------------------------------------------------
-//
-// Reshape Callback Function
-//
-
-void changeSize(int w, int h) {
-
-	float ratio;
-	// Prevent a divide by zero, when window is too short
-	// (you cant make a window of zero width).
-	if (h == 0)
-		h = 1;
-
-	// Set the viewport to be the entire window
-	glViewport(0, 0, w, h);
-
-	ratio = (1.0f * w) / h;
-	vsml->loadIdentity(VSMathLib::PROJECTION);
-	vsml->perspective(53.13f, ratio, 0.1f, 10000.0f);
-}
-
+//Camera
+Camera *camera;
+int view = 1;
 
 // ------------------------------------------------------------
 //
 // Render stuff
 //
 
-
-
 void renderScene(void) {
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	camera->draw(camX, camY, camZ);
 
-	vsml->loadIdentity(VSMathLib::VIEW);
-	vsml->loadIdentity(VSMathLib::MODEL);
-	// set camera
-	vsml->lookAt(camX, camY, camZ, 0, 0, 0, 0, 1, 0);
-
-	// transform light to camera space and send it to GLSL
-	float res[4];
-	vsml->multMatrixPoint(VSMathLib::VIEW, lightDir, res);
-	vsml->normalize(res);
-	shader.setBlockUniform("Lights", "l_dir", res);
-
-	vsml->multMatrixPoint(VSMathLib::VIEW, lightPos, res);
-	shader.setBlockUniform("Lights", "l_pos", res);
-
-	vsml->multMatrixPoint(VSMathLib::VIEW, spotDir, res);
-	shader.setBlockUniform("Lights", "l_spotDir", res);
-
-	// use our shader
 	glUseProgram(shader.getProgramIndex());
-
-	/*
-	int modelLines = 2;
-	for (int i = -modelLines + 1; i < modelLines; ++i) {
-		for (int j = -modelLines + 1; j < modelLines; ++j) {
-			vsml->pushMatrix(VSMathLib::MODEL);
-			vsml->translate(i*2.0f, 0.0f, j*2.0f);
-			mySurfRev.render();
-			vsml->popMatrix(VSMathLib::MODEL);
-		}
-	}*/
-
+	
 	frog->render();
 	scenario->render();
-	enemy->render();
+	
+	glUseProgram(0);
+}
 
-	//swap buffers
+
+// ------------------------------------------------------------
+//
+// Callback function
+//
+
+void display()
+{
+	++FrameCount;
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	renderScene();
 	glutSwapBuffers();
+}
+
+void idle()
+{
+	glutPostRedisplay();
+}
+
+void changeSize(int w, int h) {
+
+	if (h == 0)
+		h = 1;
+
+	WinX = w;
+	WinY = h;
+
+	glViewport(0, 0, WinX, WinY);
+	camera = new Camera(w, h, view);
+}
+
+void timer(int value)
+{
+	std::ostringstream oss;
+	oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")";
+	std::string s = oss.str();
+	glutSetWindow(WindowHandle);
+	glutSetWindowTitle(s.c_str());
+	FrameCount = 0;
+	glutTimerFunc(1000, timer, 0);
 }
 
 
@@ -152,17 +119,36 @@ void processKeys(unsigned char key, int xx, int yy)
 	switch (key) {
 
 	case 27:
-
 		glutLeaveMainLoop();
 		break;
-	case 'c': printf("Camera Spherical Coordinates (%f, %f, %f)\n", alpha, beta, r);
+	case 'c':
+		printf("Camera Spherical Coordinates (%f, %f, %f)\n", alpha, beta, r);
 		break;
-	case 'm': glEnable(GL_MULTISAMPLE); break;
-	case 'n': glDisable(GL_MULTISAMPLE); break;
+	case 'a':
+		frog->moveToBack();
+		break;
+	case 'q':
+		frog->moveToFront();
+		break;
+	case 'o':
+		frog->moveToLeft();
+		break;
+	case 'p':
+		frog->moveToRight();
+		break;
+	case '1':
+		camera->setView(1);
+		view = 1;
+		break;
+	case '2':
+		camera->setView(2);
+		view = 2;
+		break;
+	case '3':
+		camera->setView(3);
+		view = 3;
+		break;
 	}
-
-	//  uncomment this if not using an idle func
-	//	glutPostRedisplay();
 }
 
 
@@ -236,13 +222,7 @@ void processMouseMotion(int xx, int yy)
 	camX = rAux * sin(alphaAux * 3.14f / 180.0f) * cos(betaAux * 3.14f / 180.0f);
 	camZ = rAux * cos(alphaAux * 3.14f / 180.0f) * cos(betaAux * 3.14f / 180.0f);
 	camY = rAux *   						       sin(betaAux * 3.14f / 180.0f);
-
-	//  uncomment this if not using an idle func
-	//	glutPostRedisplay();
 }
-
-
-
 
 
 void mouseWheel(int wheel, int direction, int x, int y) {
@@ -254,12 +234,7 @@ void mouseWheel(int wheel, int direction, int x, int y) {
 	camX = r * sin(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
 	camZ = r * cos(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
 	camY = r *   						     sin(beta * 3.14f / 180.0f);
-
-	//  uncomment this if not using an idle func
-	//	glutPostRedisplay();
 }
-
-
 
 
 // --------------------------------------------------------
@@ -267,121 +242,51 @@ void mouseWheel(int wheel, int direction, int x, int y) {
 // Shader Stuff
 //
 
-
 GLuint setupShaders() {
 
-	// Shader for fonts
-	shaderF.init();
-	shaderF.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/color.vert");
-	shaderF.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/color.frag");
-
-	// set semantics for the shader variables
-	shaderF.setProgramOutput(0, "outputF");
-	shaderF.setVertexAttribName(VSShaderLib::VERTEX_COORD_ATTRIB, "position");
-	shaderF.setVertexAttribName(VSShaderLib::TEXTURE_COORD_ATTRIB, "texCoord");
-
-	shaderF.prepareProgram();
-
-	// add sampler uniforms
-	shaderF.setUniform("texUnit", 0);
-
-	printf("InfoLog for Font Shader\n%s\n\n", shaderF.getAllInfoLogs().c_str());
+	vsml = VSMathLib::getInstance();
+	vsml->setUniformBlockName("Matrices");
+	vsml->setUniformName(VSMathLib::PROJ_VIEW_MODEL, "pvm");
 
 	// Shader for models
 	shader.init();
-
-
-	shader.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/spotlight.vert");
-	shader.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/spotlight.frag");
+	shader.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/color.vert");
+	shader.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/color.frag");
 
 	// set semantics for the shader variables
-	shader.setProgramOutput(0, "outputF");
-	shader.setVertexAttribName(VSShaderLib::VERTEX_COORD_ATTRIB, "position");
-	shader.setVertexAttribName(VSShaderLib::NORMAL_ATTRIB, "normal");
-	shader.setVertexAttribName(VSShaderLib::TEXTURE_COORD_ATTRIB, "texCoord");
+	shader.setProgramOutput(0, "out_Color");
+	shader.setVertexAttribName(VSShaderLib::VERTEX_COORD_ATTRIB, "in_Position");
+
 	shader.prepareProgram();
-
-	
-	shader.setUniform("texUnit", 0);
-	float f3 = 0.0f;
-	shader.setBlockUniform("Lights", "l_spotCutOff", &f3);
-
-
-	printf("InfoLog for Model Shader\n%s\n\n", shader.getAllInfoLogs().c_str());
 
 	return(shader.isProgramValid());
 }
 
 
-
-// ------------------------------------------------------------
+// --------------------------------------------------------
 //
-// Model loading and OpenGL setup
+// Object creation
 //
 
-
-void init()
-{
-
-	camX = r * sin(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
-	camZ = r * cos(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
-	camY = r *   						     sin(beta * 3.14f / 180.0f);
+void setupObjects() {
 
 	frog = new Frog();
 	scenario = new Scenario();
-	enemy = new Enemy();
-	
-
-	/*mySurfRev.setMaterialBlockName("Materials");
-
-	float f[4] = { 0.8f, 0.6f, 0.4f, 1.0f };
-	mySurfRev.setColor(VSResourceLib::DIFFUSE, f);
-	float f2[4] = { 0.2f, 0.15f, 0.1f, 1.0f };
-	mySurfRev.setColor(VSResourceLib::AMBIENT, f2);*/
-
-	// some GL settings
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_MULTISAMPLE);
-
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	enemy = new Enemy(); 
 }
 
-
-void initVSL() {
-
-	//	 Init VSML
-	vsml = VSMathLib::getInstance();
-	vsml->setUniformBlockName("Matrices");
-	vsml->setUniformName(VSMathLib::PROJ_VIEW_MODEL, "m_pvm");
-	vsml->setUniformName(VSMathLib::NORMAL, "m_normal");
-	vsml->setUniformName(VSMathLib::VIEW_MODEL, "m_viewModel");
-}
 
 // ------------------------------------------------------------
 //
-// Main function
+// General setup
 //
 
-
-int main(int argc, char **argv) {
-
-	//  GLUT initialization
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
-
-	glutInitContextVersion(3, 1);
-	glutInitContextProfile(GLUT_CORE_PROFILE);
-
-	glutInitWindowPosition(100, 100);
-	glutInitWindowSize(512, 512);
-	glutCreateWindow("Lighthouse3D - Lighting Demo");
-
-
+void setupCallbacks()
+{
 	//  Callback Registration
-	glutDisplayFunc(renderScene);
+	glutDisplayFunc(display);
+	glutIdleFunc(idle);
 	glutReshapeFunc(changeSize);
-	glutIdleFunc(renderScene);
 
 	//	Mouse and Keyboard Callbacks
 	glutKeyboardFunc(processKeys);
@@ -390,35 +295,81 @@ int main(int argc, char **argv) {
 
 	glutMouseWheelFunc(mouseWheel);
 
-	//	return from main loop
-	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
+	glutTimerFunc(0, timer, 0);
+}
 
-	//	Init GLEW
+void setupOpenGL()
+{
+	// set the camera position based on its spherical coordinates
+	camX = r * sin(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
+	camZ = r * cos(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
+	camY = r *   						     sin(beta * 3.14f / 180.0f);
+
+	std::cerr << "CONTEXT: OpenGL v" << glGetString(GL_VERSION) << std::endl;
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glDepthMask(GL_TRUE);
+	glDepthRange(0.0, 1.0);
+	glClearDepth(1.0);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+}
+
+
+void setupGLEW() {
 	glewExperimental = GL_TRUE;
-	glewInit();
-
+	GLenum result = glewInit();
+	if (result != GLEW_OK) {
+		std::cerr << "ERROR glewInit: " << glewGetString(result) << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	GLenum err_code = glGetError();
 	printf("Vendor: %s\n", glGetString(GL_VENDOR));
 	printf("Renderer: %s\n", glGetString(GL_RENDERER));
 	printf("Version: %s\n", glGetString(GL_VERSION));
 	printf("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-	int param;
-	glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &param);
-	if (param == GL_CONTEXT_CORE_PROFILE_BIT)
-		printf("Context Profile: Core\n");
-	else
-		printf("Context Profile: Compatibility\n");
-
-	if (!setupShaders())
-		exit(1);
-
-	init();
-
-	initVSL();
-
-	//  GLUT main loop
-	glutMainLoop();
-
-	return(0);
-
 }
 
+
+void setupGLUT(int argc, char* argv[])
+{
+	glutInit(&argc, argv);
+
+	glutInitContextVersion(3, 1);
+	glutInitContextFlags(GLUT_FORWARD_COMPATIBLE);
+	glutInitContextProfile(GLUT_CORE_PROFILE);
+
+	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
+
+	glutInitWindowSize(WinX, WinY);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	
+	WindowHandle = glutCreateWindow(CAPTION);
+	if (WindowHandle < 1) {
+		std::cerr << "ERROR: Could not create a new rendering window." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+}
+
+
+int init(int argc, char **argv) {
+
+	setupGLUT(argc, argv);
+	setupGLEW();
+	setupCallbacks();
+	setupShaders();
+	setupObjects();
+	setupOpenGL();
+
+	return(0);
+}
+
+
+int main(int argc, char *argv[]) {
+
+	init(argc, argv);
+	glutMainLoop();
+	exit(EXIT_SUCCESS);
+}

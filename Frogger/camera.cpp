@@ -50,7 +50,16 @@ void Camera::draw(float x, float y, float z) {
 		vsml->lookAt(0.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
 	}
 
+	//Temporary settings
 	else if (view == 3) {
+
+		vsml->loadIdentity(VSMathLib::PROJECTION);
+		vsml->perspective(50.00f, ratio, 0.1f, 1000.0f);
+
+		vsml->loadIdentity(VSMathLib::VIEW);
+		vsml->loadIdentity(VSMathLib::MODEL);
+
+		vsml->lookAt(x, y, z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	}
 }
