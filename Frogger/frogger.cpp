@@ -370,7 +370,7 @@ int main(int argc, char **argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
 
-	glutInitContextVersion(3, 3);
+	glutInitContextVersion(3, 1);
 	glutInitContextProfile(GLUT_CORE_PROFILE);
 
 	glutInitWindowPosition(100, 100);
