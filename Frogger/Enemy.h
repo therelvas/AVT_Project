@@ -4,8 +4,10 @@
 #include "Lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 #include "lib/vsResourceLib.h"
-#include "Cube.h"
+#ifndef ENEMY_H
+#define ENEMY_H
 
+#include "Cube.h"
 
 class Enemy{
 
@@ -43,3 +45,5 @@ public:
 	void moveToLeft();
 	void moveToRight();
 };
+
+#endif

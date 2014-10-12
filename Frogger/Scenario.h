@@ -1,3 +1,6 @@
+#ifndef SCENARIO_H
+#define SCENARIO_H
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
@@ -33,3 +36,5 @@ public:
 	void setupObjects();
 	void render();
 };
+
+#endif

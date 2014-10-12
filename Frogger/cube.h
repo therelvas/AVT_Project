@@ -1,3 +1,6 @@
+#ifndef CUBE_H
+#define CUBE_H
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
@@ -20,3 +23,5 @@ public:
 	void setupObjects();
 	void render();
 };
+
+#endif

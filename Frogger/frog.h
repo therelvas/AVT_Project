@@ -1,3 +1,5 @@
+#ifndef FROG_H
+#define FROG_H
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -44,3 +46,5 @@ public:
 	void moveToLeft();
 	void moveToRight();
 };
+
+#endif

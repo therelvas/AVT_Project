@@ -1,3 +1,5 @@
+#ifndef MAP_H
+#define MAP_H
 
 #define SIZE_X 100
 #define SIZE_Y 100
@@ -11,3 +13,5 @@ public :
 	float getPositionValue(int x, int y);
 	void updatePositionValue(int x, int y, float value);
 };
+
+#endif
