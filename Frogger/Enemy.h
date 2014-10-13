@@ -16,7 +16,7 @@ private:
 	float actualPosition[3];
 	Cube* cube[2];
 	VSMathLib *vsml;
-	VSResSurfRevLib *vsres[2];
+	VSResSurfRevLib *vsres[6];
 	bool side;
 
 

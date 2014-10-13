@@ -60,10 +60,10 @@ void renderScene(void) {
 
 	glUseProgram(shader.getProgramIndex());
 	
-	mySurfRes.render();
+	//mySurfRes.render();
 	frog->render();
 	scenario->render();
-	//enemy->render();
+	enemy->render();
 	
 	glUseProgram(0);
 }
@@ -274,9 +274,9 @@ GLuint setupShaders() {
 void setupObjects() {
 
 	mySurfRes.createCone(3.0f, 2.0f, 40);
-	//frog = new Frog();
-	//scenario = new Scenario();
-	//enemy = new Enemy(); 
+	frog = new Frog();
+	scenario = new Scenario();
+	enemy = new Enemy(true); 
 }
 
 
