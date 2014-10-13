@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Car.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="frog.h" />
     <ClInclude Include="cubeData.h" />
@@ -23,10 +23,12 @@
     <ClInclude Include="lib\vsShaderLib.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="Scenario.h" />
+    <ClInclude Include="Turtle.h" />
+    <ClInclude Include="Wood.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="frog.cpp" />
     <ClCompile Include="lib\vsLogLib.cpp" />
@@ -37,6 +39,8 @@
     <ClCompile Include="map.cpp" />
     <ClCompile Include="frogger.cpp" />
     <ClCompile Include="Scenario.cpp" />
+    <ClCompile Include="Turtle.cpp" />
+    <ClCompile Include="Wood.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\color.frag" />
