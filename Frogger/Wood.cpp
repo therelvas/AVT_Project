@@ -1,102 +1,66 @@
-#include "Enemy.h"
+#include "Wood.h"
 
-Enemy::Enemy(bool side){
-	for (int i = 0; i < 6; i++){
+Wood::Wood(bool side){
+	for (int i = 0; i < 3; i++){
 		vsres[i] = new VSResSurfRevLib();
-
+		vsres[i]->setMaterialBlockName("Materials");
 	}
 
 	vsml = VSMathLib::getInstance();
 	setupObjects();
 
-	actualPosition[0] = 3;
+	actualPosition[0] = 10;
 	actualPosition[1] = 0.5;
 	actualPosition[2] = 0;
 
-	Enemy::side = side;
+	Wood::side = side;
 }
 
-Enemy::~Enemy(){}
+Wood::~Wood(){}
 
-float* Enemy::getActualPostion(){
+float* Wood::getActualPostion(){
 	return actualPosition;
 }
 
-void Enemy::setupObjects() {
-
-
-	cube[0] = new Cube();
-	cube[1] = new Cube();
+void Wood::setupObjects() {
 
 	float g[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
 	float w[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	float b[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float b[4] = { 0.5f, 0.3f, 0.0f, 1.0f };
 	float r[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-	vsres[0]->createSphere(0.5f, 30);
+	vsres[0]->createCylinder(5,0.5f, 30);
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[0]->setColor(VSResourceLib::SPECULAR, b);
+	vsres[0]->setColor(VSResourceLib::AMBIENT, b);
 
 	vsres[1]->createSphere(0.5f, 30);
 	vsres[1]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[1]->setColor(VSResourceLib::SPECULAR, b);
+	vsres[1]->setColor(VSResourceLib::AMBIENT, b);
 
 	vsres[2]->createSphere(0.5f, 30);
 	vsres[2]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[2]->setColor(VSResourceLib::SPECULAR, b);
-
-	vsres[3]->createSphere(0.5f, 30);
-	vsres[3]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[3]->setColor(VSResourceLib::SPECULAR, b);
-
-	vsres[4]->createSphere(0.5f, 30);
-	vsres[4]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[4]->setColor(VSResourceLib::SPECULAR, b);
+	vsres[2]->setColor(VSResourceLib::AMBIENT, b);
 }
 
-void Enemy::render() {
+void Wood::render() {
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2]);
-	vsml->scale(2, 1, 5);
-	cube[0]->render();
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1]+1, actualPosition[2]+1);
-	vsml->scale(2,1,3);
-	cube[1]->render();
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	//wheels
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0]+0.15, actualPosition[1], actualPosition[2]+1);
-	vsml->scale(0.5, 1, 1);
+	vsml->translate(actualPosition[0] + 0.15, actualPosition[1], actualPosition[2]);
+	vsml->rotate(90, 1, 0, 0);
 	vsres[0]->render();
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15, actualPosition[1], actualPosition[2] + 4);
-	vsml->scale(0.5, 1, 1);
+	vsml->translate(actualPosition[0] + 0.15, actualPosition[1], actualPosition[2] + 2.5);
 	vsres[1]->render();
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 1.85, actualPosition[1], actualPosition[2] + 4);
-	vsml->scale(0.5, 1, 1);
+	vsml->translate(actualPosition[0] + 0.15, actualPosition[1], actualPosition[2] - 2.5);
 	vsres[2]->render();
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 1.85, actualPosition[1], actualPosition[2] + 1);
-	vsml->scale(0.5, 1, 1);
-	vsres[3]->render();
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	/*vsml->loadIdentity(VSMathLib::MODEL);
@@ -124,7 +88,7 @@ void Enemy::render() {
 	vsml->popMatrix(VSMathLib::MODEL);*/
 }
 
-void Enemy::move(){
+void Wood::move(){
 	if (side){
 		actualPosition[2] += 0.2;
 	}

@@ -12,8 +12,10 @@
 //
 #include "Scenario.h"
 #include "Frog.h"
-#include "Enemy.h"
+#include "Car.h"
 #include "Camera.h"
+#include "Wood.h"
+#include "Turtle.h"
 
 // Use Very Simple Libs
 #include "lib/vsMathLib.h"
@@ -42,8 +44,10 @@ float r = 5.25f;
 
 Scenario *scenario;
 Frog *frog;
-Enemy *enemy;
+Car *car;
 Cube *cube;
+Wood *wood;
+Turtle * turtle;
 
 //Camera
 Camera *camera;
@@ -63,7 +67,9 @@ void renderScene(void) {
 	//mySurfRes.render();
 	frog->render();
 	scenario->render();
-	enemy->render();
+	car->render();
+	wood->render();
+	turtle->render();
 	
 	glUseProgram(0);
 }
@@ -276,7 +282,9 @@ void setupObjects() {
 	mySurfRes.createCone(3.0f, 2.0f, 40);
 	frog = new Frog();
 	scenario = new Scenario();
-	enemy = new Enemy(true); 
+	car = new Car(true); 
+	wood = new Wood(true);
+	turtle = new Turtle(true);
 }
 
 
