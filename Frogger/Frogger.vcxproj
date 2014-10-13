@@ -41,6 +41,8 @@
   <ItemGroup>
     <None Include="shaders\color.frag" />
     <None Include="shaders\color.vert" />
+    <None Include="shaders\pointlight.frag" />
+    <None Include="shaders\pointlight.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC24F681-3B60-4EF6-BA13-F1821A11124A}</ProjectGuid>

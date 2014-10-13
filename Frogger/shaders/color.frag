@@ -1,9 +1,14 @@
-#version 140 core
+#version 330
 
-in vec4 color;
-out vec4 out_Color;
+uniform sampler2D texUnit;
+
+in Data {
+	vec4 texCoord;
+} DataIn;
+
+out vec4 outputF;
 
 void main()
 {
-	out_Color = color;
+	outputF = texture(texUnit, DataIn.texCoord.xy);
 } 

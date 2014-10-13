@@ -100,5 +100,11 @@
     <None Include="shaders\color.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="shaders\pointlight.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\pointlight.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

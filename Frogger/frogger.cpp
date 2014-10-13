@@ -24,7 +24,7 @@
 
 VSResSurfRevLib mySurfRes;
 VSMathLib *vsml;
-VSShaderLib shader;
+VSShaderLib shader, shaderF;
 
 int WinX = 640, WinY = 320;
 int WindowHandle = 0;
@@ -40,14 +40,17 @@ int startX, startY, tracking = 0;
 float alpha = -43.0f, beta = 48.0f;
 float r = 5.25f;
 
+//
 Scenario *scenario;
 Frog *frog;
 Enemy *enemy;
-Cube *cube;
 
 //Camera
 Camera *camera;
 int view = 1;
+
+//Light
+float lightPos[4] = { 4.0f, 6.0f, 2.0f, 1.0f };
 
 // ------------------------------------------------------------
 //
@@ -58,12 +61,14 @@ void renderScene(void) {
 
 	camera->draw(camX, camY, camZ);
 
+	float res[4];
+	vsml->multMatrixPoint(VSMathLib::VIEW, lightPos, res);
+	shader.setBlockUniform("Lights", "l_pos", res);
+
 	glUseProgram(shader.getProgramIndex());
 	
-	cube->render();
-	//mySurfRes.render();
-	//frog->render();
-	//scenario->render();
+	frog->render();
+	scenario->render();
 	
 	glUseProgram(0);
 }
@@ -249,18 +254,37 @@ GLuint setupShaders() {
 
 	vsml = VSMathLib::getInstance();
 	vsml->setUniformBlockName("Matrices");
-	vsml->setUniformName(VSMathLib::PROJ_VIEW_MODEL, "pvm");
+	vsml->setUniformName(VSMathLib::PROJ_VIEW_MODEL, "m_pvm");
+	vsml->setUniformName(VSMathLib::NORMAL, "m_normal");
+	vsml->setUniformName(VSMathLib::VIEW_MODEL, "m_viewModel");
 
 	// Shader for models
-	shader.init();
-	shader.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/color.vert");
-	shader.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/color.frag");
+	shaderF.init();
+	shaderF.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/color.vert");
+	shaderF.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/color.frag");
 
 	// set semantics for the shader variables
-	shader.setProgramOutput(0, "out_Color");
-	shader.setVertexAttribName(VSShaderLib::VERTEX_COORD_ATTRIB, "in_Position");
+	shaderF.setProgramOutput(0, "outputF");
+	shaderF.setVertexAttribName(VSShaderLib::VERTEX_COORD_ATTRIB, "position");
+	shaderF.setVertexAttribName(VSShaderLib::TEXTURE_COORD_ATTRIB, "texCoord");
+	
+	shaderF.prepareProgram();
 
+	shaderF.setUniform("textUnit", 0);
+
+	//
+	shader.init();
+	
+	shader.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/pointlight.vert");
+	shader.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/pointlight.frag");
+
+	shader.setProgramOutput(0, "outputF");
+	shader.setVertexAttribName(VSShaderLib::VERTEX_COORD_ATTRIB, "position");
+	shader.setVertexAttribName(VSShaderLib::NORMAL_ATTRIB, "normal");
+	shader.setVertexAttribName(VSShaderLib::TEXTURE_COORD_ATTRIB, "texCoord");
 	shader.prepareProgram();
+
+	shader.setUniform("texUnit", 0);
 
 	return(shader.isProgramValid());
 }
@@ -273,11 +297,9 @@ GLuint setupShaders() {
 
 void setupObjects() {
 
-	cube = new Cube();
-	//mySurfRes.createCone(3.0f, 2.0f, 40);
-	//frog = new Frog();
-	//scenario = new Scenario();
-	//enemy = new Enemy(); 
+	frog = new Frog();
+	scenario = new Scenario();
+	enemy = new Enemy(); 
 }
 
 

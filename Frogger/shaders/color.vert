@@ -1,14 +1,14 @@
-#version 140 core
+#version 330
 
-layout (std140) uniform Matrices {
-	mat4 pvm;
-};
+uniform sampler2D texUnit;
 
-in vec4 in_Position;
-out vec4 color;
+in Data {
+	vec4 texCoord;
+} DataIn;
+
+out vec4 outputF;
 
 void main()
 {
-	color = in_Position;
-	gl_Position = pvm * in_Position;
+	outputF = texture(texUnit, DataIn.texCoord.xy);
 } 
