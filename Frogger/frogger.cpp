@@ -12,7 +12,7 @@
 //
 #include "Scenario.h"
 #include "Frog.h"
-#include "Enemy.h"
+#include "Car.h"
 #include "Camera.h"
 
 // Use Very Simple Libs
@@ -43,7 +43,7 @@ float r = 5.25f;
 //
 Scenario *scenario;
 Frog *frog;
-Enemy *enemy;
+Car *enemy;
 
 //Camera
 Camera *camera;
@@ -69,6 +69,7 @@ void renderScene(void) {
 	
 	frog->render();
 	scenario->render();
+	enemy->render();
 	
 	glUseProgram(0);
 }
@@ -299,7 +300,7 @@ void setupObjects() {
 
 	frog = new Frog();
 	scenario = new Scenario();
-	enemy = new Enemy(); 
+	enemy = new Car(true); 
 }
 
 
