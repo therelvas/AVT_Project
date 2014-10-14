@@ -38,13 +38,13 @@ void Turtle::setupObjects() {
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, brown_diff);
 	vsres[0]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[0]->setColor(VSResourceLib::SPECULAR, brown_spec);
-	vsres[0]->setColor(VSResourceLib::SHININESS, brown_spec);
+	vsres[0]->setColor(VSResourceLib::SHININESS, brown_shininess);
 
 	vsres[1]->createSphere(0.4f, 30);
 	vsres[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[1]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[1]->setColor(VSResourceLib::SPECULAR, body_spec);
-	vsres[1]->setColor(VSResourceLib::SHININESS, body_shininess);
+	vsres[1]->setColor(VSResourceLib::SHININESS, brown_shininess);
 
 	vsres[2]->createSphere(0.3f, 30);
 	vsres[2]->setColor(VSResourceLib::DIFFUSE, body_diff);
