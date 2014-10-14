@@ -2,7 +2,7 @@
 
 out vec4 colorOut;
 
-layout (std140) uniform Materials {
+struct Materials {
 	vec4 diffuse;
 	vec4 ambient;
 	vec4 specular;
@@ -10,6 +10,8 @@ layout (std140) uniform Materials {
 	float shininess;
 	int texCount;
 };
+
+uniform Materials mat;
 
 in Data {
 	vec3 normal;
@@ -32,8 +34,8 @@ void main() {
 
 		vec3 h = normalize(l + e);
 		float intSpec = max(dot(h,n), 0.0);
-		spec = mat.specular * pow(intSpec, shininess);
+		spec = mat.specular * pow(intSpec, mat.shininess);
 	}
 	
-	colorOut = max(intensity * diffuse + spec, ambient);
+	colorOut = max(2.0 * intensity * mat.diffuse + spec, mat.ambient);
 }

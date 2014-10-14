@@ -33,7 +33,7 @@ public:
 	}
 
 	void setupObjects();
-	void render();
+	void render(VSShaderLib shader);
 
 	void move();
 };

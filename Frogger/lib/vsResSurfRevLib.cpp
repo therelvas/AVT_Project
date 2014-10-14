@@ -327,55 +327,55 @@ VSResSurfRevLib::computeVAO(int numP, float *p, float *points, int sides, float 
 	glGenVertexArrays(1, &mMyMesh.vao);
 	glBindVertexArray(mMyMesh.vao);
 
-	GLuint buffers[4];
-	glGenBuffers(4, buffers);
-	//vertex coordinates buffer
+	//Using buffer subdata
+	GLuint buffers[2];
+	glGenBuffers(2, buffers);
 	glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * 4, vertex, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, numVertices*sizeof(float)* 4 * 3, NULL, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, numVertices*sizeof(float)* 4, vertex);
+	glBufferSubData(GL_ARRAY_BUFFER, numVertices*sizeof(float)* 4, numVertices*sizeof(float)* 4, normal);
+	glBufferSubData(GL_ARRAY_BUFFER, numVertices*sizeof(float)* 4 * 2, numVertices*sizeof(float)* 4, textco);
+
 	glEnableVertexAttribArray(VSShaderLib::VERTEX_COORD_ATTRIB);
 	glVertexAttribPointer(VSShaderLib::VERTEX_COORD_ATTRIB, 4, GL_FLOAT, 0, 0, 0);
-
-	//texture coordinates buffer
-	glBindBuffer(GL_ARRAY_BUFFER, buffers[1]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * 4, textco, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(VSShaderLib::TEXTURE_COORD_ATTRIB);
-	glVertexAttribPointer(VSShaderLib::TEXTURE_COORD_ATTRIB, 4, GL_FLOAT, 0, 0, 0);
-
-	//normals buffer
-	glBindBuffer(GL_ARRAY_BUFFER, buffers[2]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * numVertices * 4, normal, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(VSShaderLib::NORMAL_ATTRIB);
-	glVertexAttribPointer(VSShaderLib::NORMAL_ATTRIB, 4, GL_FLOAT, 0, 0, 0);
+	glVertexAttribPointer(VSShaderLib::NORMAL_ATTRIB, 4, GL_FLOAT, 0, 0, (void *)(numVertices*sizeof(float)* 4));
+	glEnableVertexAttribArray(VSShaderLib::TEXTURE_COORD_ATTRIB);
+	glVertexAttribPointer(VSShaderLib::TEXTURE_COORD_ATTRIB, 4, GL_FLOAT, 0, 0, (void *)(numVertices*sizeof(float)* 4 * 2));
 
 	//index buffer
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[3]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * mMyMesh.numIndexes, faceIndex , GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[1]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)* mMyMesh.numIndexes, faceIndex, GL_STATIC_DRAW);
 
-	// unbind the VAO
+	//unbind the VAO
 	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glDisableVertexAttribArray(VSShaderLib::VERTEX_COORD_ATTRIB);
+	glDisableVertexAttribArray(VSShaderLib::NORMAL_ATTRIB);
+	glDisableVertexAttribArray(VSShaderLib::TEXTURE_COORD_ATTRIB);
 
 	mMyMesh.type = GL_TRIANGLES;
-	mMyMesh.mat.ambient[0] = 0.2f;
-	mMyMesh.mat.ambient[1] = 0.2f;
-	mMyMesh.mat.ambient[2] = 0.2f;
-	mMyMesh.mat.ambient[3] = 1.0f;
-	
-	mMyMesh.mat.diffuse[0] = 0.8f;
-	mMyMesh.mat.diffuse[1] = 0.8f;
-	mMyMesh.mat.diffuse[2] = 0.8f;
-	mMyMesh.mat.diffuse[3] = 1.0f;
-
-	mMyMesh.mat.specular[0] = 0.8f;
-	mMyMesh.mat.specular[1] = 0.8f;
-	mMyMesh.mat.specular[2] = 0.8f;
-	mMyMesh.mat.specular[3] = 1.0f;
-
-	mMyMesh.mat.shininess = 100.0f;
 }
 
 
 void 
-VSResSurfRevLib::render () {
+VSResSurfRevLib::render(VSShaderLib shader) {
+
+	//send matrices to shaders
+	mVSML->matricesToGL(shader);
+
+	//set material
+	setMaterial(shader, mMyMesh.mat);
+
+	// Render mesh
+	glBindVertexArray(mMyMesh.vao);
+	glDrawElements(mMyMesh.type, mMyMesh.numIndexes, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+}
+
+void 
+VSResSurfRevLib::render() {
 
 	// send matrices to shaders
 	mVSML->matricesToGL();
@@ -404,8 +404,6 @@ VSResSurfRevLib::render () {
 	}
 
 }
-
-
 
 
 void 

@@ -40,7 +40,7 @@
 #include "vsResourceLib.h"
 
 
-class VSResSurfRevLib : public VSResourceLib{
+class VSResSurfRevLib : public VSResourceLib {
 
 public:
 
@@ -60,7 +60,9 @@ public:
 	*/
 	virtual bool load(std::string filename);
 	/// implementation of the superclass abstract method
+	virtual void render(VSShaderLib shader);
 	virtual void render();
+
 	/// set a color component for all meshes
 	void setColor(VSResourceLib::MaterialSemantics m, float *values);
 	/// set a color component for a particular mesh

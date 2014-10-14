@@ -4,9 +4,8 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-#include "Lib/vsMathLib.h"
+#include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
-#include "lib/vsResourceLib.h"
 
 class Frog{
 
@@ -39,7 +38,7 @@ public:
 	}
 
 	void setupObjects();
-	void render();
+	void render(VSShaderLib shader);
 
 	void moveToFront();
 	void moveToBack();

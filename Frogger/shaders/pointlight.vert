@@ -1,14 +1,10 @@
 #version 330
 
-layout (std140) uniform Matrices {
-	mat4 m_pvm;
-	mat4 m_viewModel;
-	mat3 m_normal;
-};
+uniform	mat4 m_pvm;
+uniform	mat4 m_viewModel;
+uniform	mat3 m_normal;
 
-layout (st140) uniform Lights {
-	vec4 l_pos;
-};
+uniform vec4 l_pos;
 
 in vec4 position;
 in vec4 normal;    //por causa do gerador de geometria
@@ -23,7 +19,7 @@ void main () {
 
 	vec4 pos = m_viewModel * position;
 
-	DataOut.normal = normalize(m_normal * normal);
+	DataOut.normal = normalize(m_normal * normal.xyz);
 	DataOut.lightDir = vec3(l_pos - pos);
 	DataOut.eye = vec3(-pos);
 

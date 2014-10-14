@@ -1,7 +1,7 @@
 #include <math.h>
-#include <string>
-#include <sstream>
 #include <iostream>
+#include <sstream>
+#include <string>
 
 // include GLEW to access OpenGL 3.3 functions
 #include <GL/glew.h>
@@ -9,26 +9,27 @@
 // GLUT is the toolkit to interface with the OS
 #include <GL/freeglut.h>
 
+// Use Very Simple Libs
+#include "lib/VSShaderlib.h"
+#include "lib/vsMathLib.h"
+#include "lib/vsResSurfRevLib.h"
+
 //
 #include "Scenario.h"
 #include "Frog.h"
 #include "Car.h"
-#include "Camera.h"
-
-// Use Very Simple Libs
-#include "lib/vsMathLib.h"
-#include "lib/vsShaderLib.h"
-#include "lib/vsResSurfRevLib.h"
+#include "camera.h"
 
 #define CAPTION "Frogger"
 
-VSResSurfRevLib mySurfRes;
-VSMathLib *vsml;
-VSShaderLib shader, shaderF;
-
-int WinX = 640, WinY = 320;
 int WindowHandle = 0;
+int WinX = 640, WinY = 480;
+
 unsigned int FrameCount = 0;
+
+VSResSurfRevLib vsrs;
+VSMathLib *vsml;
+VSShaderLib shader;
 
 // Camera Position
 float camX, camY, camZ;
@@ -37,43 +38,44 @@ float camX, camY, camZ;
 int startX, startY, tracking = 0;
 
 // Camera Spherical Coordinates
-float alpha = -43.0f, beta = 48.0f;
-float r = 5.25f;
+float alpha = 39.0f, beta = 51.0f;
+float r = 10.0f;
 
-//
+//Light position
+float lightPos[4] = { 40.0f, 40.0f, 0.0f, 1.0f };
+
+//Objects
 Scenario *scenario;
 Frog *frog;
 Car *enemy;
 
 //Camera
 Camera *camera;
-int view = 1;
-
-//Light
-float lightPos[4] = { 4.0f, 6.0f, 2.0f, 1.0f };
+int view = 3;
 
 // ------------------------------------------------------------
 //
-// Render stuff
+// Render stufff
 //
 
 void renderScene(void) {
 
 	camera->draw(camX, camY, camZ);
 
-	float res[4];
-	vsml->multMatrixPoint(VSMathLib::VIEW, lightPos, res);
-	shader.setBlockUniform("Lights", "l_pos", res);
-
+	// use our shader
 	glUseProgram(shader.getProgramIndex());
-	
-	frog->render();
-	scenario->render();
-	enemy->render();
-	
-	glUseProgram(0);
-}
 
+	//send the light position in eye coordinates
+	float res[4];
+	vsml->multMatrixPoint(VSMathLib::VIEW, lightPos, res);   //lightPos defined in World Coord so is converted to eye space
+	GLint lPos_uniformId = glGetUniformLocation(shader.getProgramIndex(), "l_pos");
+	glUniform4fv(lPos_uniformId, 1, res);
+
+	//render objects
+	frog->render(shader);
+	scenario->render(shader);
+	enemy->render(shader);
+}
 
 // ------------------------------------------------------------
 //
@@ -83,16 +85,17 @@ void renderScene(void) {
 void display()
 {
 	++FrameCount;
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderScene();
 	glutSwapBuffers();
 }
 
+
 void idle()
 {
 	glutPostRedisplay();
 }
+
 
 void changeSize(int w, int h) {
 
@@ -105,6 +108,7 @@ void changeSize(int w, int h) {
 	glViewport(0, 0, WinX, WinY);
 	camera = new Camera(w, h, view);
 }
+
 
 void timer(int value)
 {
@@ -193,7 +197,6 @@ void processMouseButtons(int button, int state, int xx, int yy)
 	}
 }
 
-// Track mouse motion while buttons are pressed
 
 void processMouseMotion(int xx, int yy)
 {
@@ -254,38 +257,21 @@ void mouseWheel(int wheel, int direction, int x, int y) {
 GLuint setupShaders() {
 
 	vsml = VSMathLib::getInstance();
-	vsml->setUniformBlockName("Matrices");
-	vsml->setUniformName(VSMathLib::PROJ_VIEW_MODEL, "m_pvm");
-	vsml->setUniformName(VSMathLib::NORMAL, "m_normal");
-	vsml->setUniformName(VSMathLib::VIEW_MODEL, "m_viewModel");
 
 	// Shader for models
-	shaderF.init();
-	shaderF.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/color.vert");
-	shaderF.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/color.frag");
-
-	// set semantics for the shader variables
-	shaderF.setProgramOutput(0, "outputF");
-	shaderF.setVertexAttribName(VSShaderLib::VERTEX_COORD_ATTRIB, "position");
-	shaderF.setVertexAttribName(VSShaderLib::TEXTURE_COORD_ATTRIB, "texCoord");
-	
-	shaderF.prepareProgram();
-
-	shaderF.setUniform("textUnit", 0);
-
-	//
 	shader.init();
-	
 	shader.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/pointlight.vert");
 	shader.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/pointlight.frag");
 
-	shader.setProgramOutput(0, "outputF");
-	shader.setVertexAttribName(VSShaderLib::VERTEX_COORD_ATTRIB, "position");
-	shader.setVertexAttribName(VSShaderLib::NORMAL_ATTRIB, "normal");
-	shader.setVertexAttribName(VSShaderLib::TEXTURE_COORD_ATTRIB, "texCoord");
-	shader.prepareProgram();
+	// set semantics for the shader variables
+	glBindFragDataLocation(shader.getProgramIndex(), 0, "colorOut");
+	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::VERTEX_COORD_ATTRIB, "position");
+	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::NORMAL_ATTRIB, "normal");
+	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::TEXTURE_COORD_ATTRIB, "texCoord");
 
-	shader.setUniform("texUnit", 0);
+	glLinkProgram(shader.getProgramIndex());
+
+	printf("InfoLog for Hello World Shader\n%s\n\n", shader.getAllInfoLogs().c_str());
 
 	return(shader.isProgramValid());
 }
@@ -300,7 +286,7 @@ void setupObjects() {
 
 	frog = new Frog();
 	scenario = new Scenario();
-	enemy = new Car(true); 
+	enemy = new Car(true);
 }
 
 
@@ -326,8 +312,14 @@ void setupCallbacks()
 	glutTimerFunc(0, timer, 0);
 }
 
+
 void setupOpenGL()
 {
+	// set the camera position based on its spherical coordinates
+	camX = r * sin(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
+	camZ = r * cos(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
+	camY = r *   						     sin(beta * 3.14f / 180.0f);
+
 	// set the camera position based on its spherical coordinates
 	camX = r * sin(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
 	camZ = r * cos(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
@@ -373,7 +365,7 @@ void setupGLUT(int argc, char* argv[])
 
 	glutInitWindowSize(WinX, WinY);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	
+
 	WindowHandle = glutCreateWindow(CAPTION);
 	if (WindowHandle < 1) {
 		std::cerr << "ERROR: Could not create a new rendering window." << std::endl;
@@ -401,3 +393,4 @@ int main(int argc, char *argv[]) {
 	glutMainLoop();
 	exit(EXIT_SUCCESS);
 }
+

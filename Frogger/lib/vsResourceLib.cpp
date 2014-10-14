@@ -82,6 +82,23 @@ VSResourceLib::setMaterialBlockName(std::string name) {
 	mMaterialBlockName = name;
 }
 
+// project purposes only
+void
+VSResourceLib::setMaterial(VSShaderLib shader, Material &aMat) {
+
+	GLint loc;
+
+	loc = glGetUniformLocation(shader.getProgramIndex(), "mat.ambient");
+	glUniform4fv(loc, 1, aMat.ambient);
+	loc = glGetUniformLocation(shader.getProgramIndex(), "mat.diffuse");
+	glUniform4fv(loc, 1, aMat.diffuse);
+	loc = glGetUniformLocation(shader.getProgramIndex(), "mat.specular");
+	glUniform4fv(loc, 1, aMat.specular);
+	loc = glGetUniformLocation(shader.getProgramIndex(), "mat.shininess");
+	glUniform1f(loc, aMat.shininess);
+	loc = glGetUniformLocation(shader.getProgramIndex(), "mat.emissive");
+	glUniform4fv(loc, 1, aMat.emissive);
+}
 
 // useful to set uniforms inside a named block
 void

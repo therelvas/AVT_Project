@@ -68,7 +68,6 @@
 // semantic of the vertex arrays
 #include "vsShaderLib.h"
 
-
 class VSResourceLib {
 
 protected:
@@ -162,6 +161,7 @@ protected:
 	static VSLogLib mLogError, mLogInfo;
 	/// set the material uniforms
 	void setMaterial(Material &aMat);
+	void setMaterial(VSShaderLib shader, Material &aMat);
 
 
 	std::map<std::string, MaterialSemantics> mMatSemanticMap;

@@ -24,8 +24,7 @@ class Scenario{
 private:
 
 	VSMathLib *vsml;
-	VSResSurfRevLib *vsres[5];
-	Cube* cube[6];
+	Cube *cube[5];
 	float defaultPosition[3];
 
 
@@ -34,7 +33,7 @@ public:
 	~Scenario();
 
 	void setupObjects();
-	void render();
+	void render(VSShaderLib shader);
 };
 
 #endif

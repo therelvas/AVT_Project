@@ -54,9 +54,6 @@
     <ClInclude Include="Car.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Wood.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Turtle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -96,9 +93,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Car.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Wood.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Turtle.cpp">

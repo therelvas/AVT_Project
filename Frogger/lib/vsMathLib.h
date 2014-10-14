@@ -55,6 +55,7 @@
 #include <string>
 #include <GL/glew.h>
 
+#include "vsShaderLib.h"
 
 class VSMathLib {
 
@@ -290,6 +291,7 @@ class VSMathLib {
 		  * based on if the block name has been set. It updates 
 		  * all matrices whose uniform names have been provided
 		*/
+		void matricesToGL(VSShaderLib shader);
 		void matricesToGL();
 
 

@@ -1,6 +1,7 @@
 #include "Car.h"
 
 Car::Car(bool side){
+
 	for (int i = 0; i < 6; i++){
 		vsres[i] = new VSResSurfRevLib();
 
@@ -54,49 +55,44 @@ void Car::setupObjects() {
 	vsres[4]->setColor(VSResourceLib::SPECULAR, b);
 }
 
-void Car::render() {
+void Car::render(VSShaderLib shader) {
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2]);
 	vsml->scale(2, 1, 5);
-	cube[0]->render();
+	cube[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0], actualPosition[1]+1, actualPosition[2]+1);
 	vsml->scale(2,1,3);
-	cube[1]->render();
+	cube[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//wheels
-	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0]+0.15, actualPosition[1], actualPosition[2]+1);
 	vsml->scale(0.5, 1, 1);
-	vsres[0]->render();
+	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0] + 0.15, actualPosition[1], actualPosition[2] + 4);
 	vsml->scale(0.5, 1, 1);
-	vsres[1]->render();
+	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0] + 1.85, actualPosition[1], actualPosition[2] + 4);
 	vsml->scale(0.5, 1, 1);
-	vsres[2]->render();
+	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0] + 1.85, actualPosition[1], actualPosition[2] + 1);
 	vsml->scale(0.5, 1, 1);
-	vsres[3]->render();
+	vsres[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	/*vsml->loadIdentity(VSMathLib::MODEL);

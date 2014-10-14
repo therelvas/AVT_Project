@@ -523,6 +523,20 @@ VSMathLib::matrixToGL(ComputedMatrixTypes aType)
 	}
 }
 
+// Implemented for project purposes only
+void VSMathLib::matricesToGL(VSShaderLib shader) {
+
+	GLint pvm_uniformId = glGetUniformLocation(shader.getProgramIndex(), "m_pvm");
+	GLint vm_uniformId = glGetUniformLocation(shader.getProgramIndex(), "m_viewModel");
+	GLint normal_uniformId = glGetUniformLocation(shader.getProgramIndex(), "m_normal");
+	
+	computeDerivedMatrix(PROJ_VIEW_MODEL);
+	glUniformMatrix4fv(vm_uniformId, 1, GL_FALSE, mCompMatrix[VIEW_MODEL]);
+	glUniformMatrix4fv(pvm_uniformId, 1, GL_FALSE, mCompMatrix[PROJ_VIEW_MODEL]);
+	computeNormalMatrix3x3();
+	glUniformMatrix3fv(normal_uniformId, 1, GL_FALSE, mNormal3x3); 
+}
+
 
 // Sends all matrices whose respectived uniforms have been named
 void

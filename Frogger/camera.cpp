@@ -39,7 +39,7 @@ void Camera::draw(float x, float y, float z) {
 		vsml->loadIdentity(VSMathLib::VIEW);
 		vsml->loadIdentity(VSMathLib::MODEL);
 
-		vsml->lookAt(0.0f, ORTHO, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
+		vsml->lookAt(0.0f, ORTHO, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
 	}
 
 	//Perspective projection
@@ -51,7 +51,7 @@ void Camera::draw(float x, float y, float z) {
 		vsml->loadIdentity(VSMathLib::VIEW);
 		vsml->loadIdentity(VSMathLib::MODEL);
 
-		vsml->lookAt(-8.0f, 10.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+		vsml->lookAt(-30.0f, 50.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	}
 
 	//Temporary settings
