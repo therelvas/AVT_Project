@@ -8,7 +8,7 @@ Scenario::Scenario(){
 	
 	defaultPosition[0] = 0;
 	defaultPosition[1] = -1.5;
-	defaultPosition[2] = -50;
+	defaultPosition[2] = 0;
 
 	vsml = VSMathLib::getInstance();
 	setupObjects();

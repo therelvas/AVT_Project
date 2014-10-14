@@ -21,16 +21,10 @@ private:
 
 
 public:
-	Car(bool side);
+	Car(bool side, float x, float y, float z);
 	~Car();
 
 	float* getActualPostion();
-	float* getLastPosition();
-
-	void updatePosition(float x, float y){
-		actualPosition[0] = x;
-		actualPosition[1] = y;
-	}
 
 	void setupObjects();
 	void render(VSShaderLib shader);

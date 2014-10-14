@@ -3,7 +3,6 @@
 
 #include "Lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
-#include "lib/vsResourceLib.h"
 #ifndef Turtle_H
 #define Turtle_H
 
@@ -19,12 +18,12 @@ private:
 
 
 public:
-	Turtle(bool side);
+	Turtle(bool side, float x, float y, float z);
 	~Turtle();
 
 	float* getActualPostion();
 	void setupObjects();
-	void render();
+	void render(VSShaderLib shader);
 	void move();
 };
 
