@@ -42,7 +42,7 @@ float alpha = 39.0f, beta = 51.0f;
 float r = 10.0f;
 
 //Light position
-float lightPos[4] = { 20.0f, 50.0f, 0.0f, 1.0f };
+float lightPos[4] = { 15.5f, 30.0f, 50.0f, 1.0f };
 
 //Objects
 Scenario *scenario;
@@ -138,6 +138,7 @@ void processKeys(unsigned char key, int xx, int yy)
 		break;
 	case 'c':
 		printf("Camera Spherical Coordinates (%f, %f, %f)\n", alpha, beta, r);
+		printf("Camera  Coordinates (%f, %f, %f)\n", camX, camY, camZ);
 		break;
 	case 'a':
 		frog->moveToBack();
@@ -162,10 +163,6 @@ void processKeys(unsigned char key, int xx, int yy)
 	case '3':
 		camera->setView(3);
 		view = 3;
-		break;
-	case '4':
-		camera->setView(4);
-		view = 4;
 		break;
 	}
 }
@@ -289,7 +286,7 @@ GLuint setupShaders() {
 
 void setupObjects() {
 
-	frog = new Frog(0,0,50);
+	frog = new Frog(0, 0, 50);
 	scenario = new Scenario();
 	enemy = new Car(true, 3, 0.5, 0);
 	turtle = new Turtle(true, 15, 0.5, 0);
@@ -321,16 +318,6 @@ void setupCallbacks()
 
 void setupOpenGL()
 {
-	// set the camera position based on its spherical coordinates
-	camX = r * sin(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
-	camZ = r * cos(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
-	camY = r *   						     sin(beta * 3.14f / 180.0f);
-
-	// set the camera position based on its spherical coordinates
-	camX = r * sin(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
-	camZ = r * cos(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
-	camY = r *   						     sin(beta * 3.14f / 180.0f);
-
 	std::cerr << "CONTEXT: OpenGL v" << glGetString(GL_VERSION) << std::endl;
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glEnable(GL_DEPTH_TEST);

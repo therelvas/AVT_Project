@@ -39,19 +39,19 @@ void Camera::draw(float camX, float camY, float camZ, float oX, float oY, float 
 		vsml->loadIdentity(VSMathLib::VIEW);
 		vsml->loadIdentity(VSMathLib::MODEL);
 
-		vsml->lookAt(15.0f, 20.0f, 0.0f, 15.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
+		vsml->lookAt(15.5f, 1.0f, 50.0f, 15.5f, 0.0f, 50.0f, 1.0f, 0.0f, 0.0f);
 	}
 
 	//Perspective projection
 	else if (view == 2) {
 
 		vsml->loadIdentity(VSMathLib::PROJECTION);
-		vsml->perspective(50.00f, ratio, 0.1f, 1000.0f);
+		vsml->perspective(60.00f, ratio, 0.1f, 1000.0f);
 
 		vsml->loadIdentity(VSMathLib::VIEW);
 		vsml->loadIdentity(VSMathLib::MODEL);
 
-		vsml->lookAt(-30.0f, 50.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+		vsml->lookAt(15.5f, 55.0f, 50.0f, 15.5f, 0.0f, 50.0f, 1.0f, 0.0f, 0.0f);
 	}
 
 	//Chase cam
@@ -63,18 +63,6 @@ void Camera::draw(float camX, float camY, float camZ, float oX, float oY, float 
 		vsml->loadIdentity(VSMathLib::VIEW);
 		vsml->loadIdentity(VSMathLib::MODEL);
 
-		vsml->lookAt(oX - 12.0f, oY + 6.0f, oZ, oX, oY, oZ, 0.0f, 1.0f, 0.0f);
-	}
-
-	//Temporary settings
-	else if (view == 4) {
-
-		vsml->loadIdentity(VSMathLib::PROJECTION);
-		vsml->perspective(50.00f, ratio, 0.1f, 1000.0f);
-
-		vsml->loadIdentity(VSMathLib::VIEW);
-		vsml->loadIdentity(VSMathLib::MODEL);
-
-		vsml->lookAt(camX, camY, camZ, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+		vsml->lookAt(oX - 10.0f, oY + 6.0f, oZ, oX + camX, oY + camY, oZ + camZ, 0.0f, 1.0f, 0.0f);
 	}
 }
