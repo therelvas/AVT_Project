@@ -292,9 +292,9 @@ void setupObjects() {
 
 	frog = new Frog(0, 0, 50);
 	scenario = new Scenario();
-	enemy = new Car(true, 3, 0.5, 0);
-	turtle = new Turtle(true, 15, 0.5, 0);
-	wood = new Wood(true, 20, 0.5, 0);
+	enemy = new Car(true, 3, 0.5, 50);
+	turtle = new Turtle(true, 15, 0.5, 50);
+	wood = new Wood(true, 20, 0.5, 50);
 }
 
 
