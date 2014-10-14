@@ -27,7 +27,6 @@ int WinX = 640, WinY = 480;
 
 unsigned int FrameCount = 0;
 
-VSResSurfRevLib vsrs;
 VSMathLib *vsml;
 VSShaderLib shader;
 
@@ -51,7 +50,7 @@ Car *enemy;
 
 //Camera
 Camera *camera;
-int view = 3;
+int view = 1;
 
 // ------------------------------------------------------------
 //

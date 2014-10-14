@@ -42,8 +42,13 @@ void Cube::setupObjects() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[3]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(faceIndex), faceIndex, GL_STATIC_DRAW);
 
-	// unbind the VAO
+	//unbind the VAO
 	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glDisableVertexAttribArray(VSShaderLib::VERTEX_COORD_ATTRIB);
+	glDisableVertexAttribArray(VSShaderLib::NORMAL_ATTRIB);
+	glDisableVertexAttribArray(VSShaderLib::TEXTURE_COORD_ATTRIB);
 }
 
 
