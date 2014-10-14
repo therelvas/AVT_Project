@@ -48,16 +48,16 @@
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Car1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Turtle1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenario1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="wood1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="car.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scenario.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,16 +92,16 @@
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Wood1.cpp">
+    <ClCompile Include="car.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Turtle1.cpp">
+    <ClCompile Include="scenario.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Car1.cpp">
+    <ClCompile Include="turtle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenario1.cpp">
+    <ClCompile Include="wood.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
