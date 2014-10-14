@@ -42,22 +42,22 @@
     <ClInclude Include="cubeData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scenario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="lib\vsShaderLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Car.h">
+    <ClInclude Include="Car1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Turtle.h">
+    <ClInclude Include="Turtle1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Wood.h">
+    <ClInclude Include="Scenario1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wood1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,19 +89,19 @@
     <ClCompile Include="cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenario.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Car.cpp">
+    <ClCompile Include="Wood1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Turtle.cpp">
+    <ClCompile Include="Turtle1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Wood.cpp">
+    <ClCompile Include="Car1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenario1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,9 +1,9 @@
 #include "Wood.h"
 
 Wood::Wood(bool side, float x, float y, float z){
+	
 	for (int i = 0; i < 3; i++){
 		vsres[i] = new VSResSurfRevLib();
-		vsres[i]->setMaterialBlockName("Materials");
 	}
 
 	vsml = VSMathLib::getInstance();
@@ -29,7 +29,7 @@ void Wood::setupObjects() {
 	float brown_spec[4] = { 0.774597f, 0.458561f, 0.200621f, 1.0f };
 	float body_shininess[] = { 76.8f };
 
-	vsres[0]->createCylinder(5,0.5f, 30);
+	vsres[0]->createCylinder(5.0f, 0.5f, 30);
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, brown_diff);
 	vsres[0]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[0]->setColor(VSResourceLib::SPECULAR, brown_spec);
@@ -52,52 +52,29 @@ void Wood::render(VSShaderLib shader) {
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15, actualPosition[1], actualPosition[2]);
-	vsml->rotate(90, 1, 0, 0);
+	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2]);
+	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15, actualPosition[1], actualPosition[2] + 2.5);
+	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2] + 2.5f);
 	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15, actualPosition[1], actualPosition[2] - 2.5);
+	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2] - 2.5f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
-
-	/*vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2] - 0.5);
-	vsres[5]->render();
-	vsml->popMatrix(VSMathLib::MODEL);
-	//head
-	/*vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.5, actualPosition[1] + 0.5, actualPosition[2]);
-	vsres[1]->render();
-	vsml->popMatrix(VSMathLib::MODEL);
-	//eyes
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2] + 0.2);
-	vsres[2]->render();
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2] - 0.2);
-	vsres[3]->render();
-	vsml->popMatrix(VSMathLib::MODEL);*/
 }
 
 void Wood::move(){
+
 	if (side){
-		actualPosition[2] += 0.2;
+		actualPosition[2] += 0.2f;
 	}
 	else
-		actualPosition[2] -= 0.2;
+		actualPosition[2] -= 0.2f;
 }

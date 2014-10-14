@@ -54,8 +54,6 @@ void Cube::setupObjects() {
 
 void Cube::setColor(VSResourceLib::MaterialSemantics mSemantics, float *values) {
 
-	GLint loc;
-
 	switch (mSemantics) {
 		case VSResourceLib::DIFFUSE:
 			memcpy(mat.diffuse, values, sizeof(float)* 4);

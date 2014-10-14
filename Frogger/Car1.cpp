@@ -36,16 +36,18 @@ void Car::setupObjects() {
 
 	float tires_diff[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
+	//Body
 	cube[0]->setColor(VSResourceLib::AMBIENT, body_amb);
 	cube[0]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	cube[0]->setColor(VSResourceLib::SPECULAR, body_spec);
 	cube[0]->setColor(VSResourceLib::SHININESS, body_shininess);
-	//Road
+	
 	cube[1]->setColor(VSResourceLib::AMBIENT, body_amb);
 	cube[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	cube[1]->setColor(VSResourceLib::SPECULAR, body_spec);
 	cube[1]->setColor(VSResourceLib::SHININESS, body_shininess);
 
+	//Tires
 	vsres[0]->createSphere(0.5f, 30);
 	vsres[0]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, tires_diff);
@@ -80,40 +82,42 @@ void Car::setupObjects() {
 void Car::render(VSShaderLib shader) {
 
 	vsml->loadIdentity(VSMathLib::MODEL);
+
+	//Body
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2]);
-	vsml->scale(2, 1, 5);
+	vsml->scale(2.0f, 1.0f, 5.0f);
 	cube[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1]+1, actualPosition[2]+1);
-	vsml->scale(2,1,3);
+	vsml->translate(actualPosition[0], actualPosition[1] + 1.0f, actualPosition[2] + 1.0f);
+	vsml->scale(2.0f, 1.0f, 3.0f);
 	cube[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//wheels
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0]+0.15, actualPosition[1], actualPosition[2]+1);
-	vsml->scale(0.5, 1, 1);
+	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2] + 1.0f);
+	vsml->scale(0.5f, 1.0f, 1.0f);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15, actualPosition[1], actualPosition[2] + 4);
-	vsml->scale(0.5, 1, 1);
+	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2] + 4.0f);
+	vsml->scale(0.5f, 1.0f, 1.0f);
 	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 1.85, actualPosition[1], actualPosition[2] + 4);
-	vsml->scale(0.5, 1, 1);
+	vsml->translate(actualPosition[0] + 1.85f, actualPosition[1], actualPosition[2] + 4.0f);
+	vsml->scale(0.5f, 1.0f, 1.0f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 1.85, actualPosition[1], actualPosition[2] + 1);
-	vsml->scale(0.5, 1, 1);
+	vsml->translate(actualPosition[0] + 1.85f, actualPosition[1], actualPosition[2] + 1.0f);
+	vsml->scale(0.5f, 1.0f, 1.0f);
 	vsres[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }

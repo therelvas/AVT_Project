@@ -28,6 +28,13 @@ void Frog::setupObjects() {
 
 	float eyes_diff[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
+	//Head
+	vsres[1]->createSphere(0.5f, 40);
+	vsres[1]->setColor(VSResourceLib::AMBIENT, body_amb);
+	vsres[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
+	vsres[1]->setColor(VSResourceLib::SPECULAR, body_spec);
+	vsres[1]->setColor(VSResourceLib::SHININESS, body_shininess);
+
 	//Eyes
 	vsres[2]->createSphere(0.2f, 40);
 	vsres[2]->setColor(VSResourceLib::DIFFUSE, eyes_diff);
@@ -44,12 +51,6 @@ void Frog::setupObjects() {
 	vsres[0]->setColor(VSResourceLib::SPECULAR, body_spec);
 	vsres[0]->setColor(VSResourceLib::SHININESS, body_shininess);
 
-	vsres[1]->createSphere(0.5f, 40);
-	vsres[1]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	vsres[1]->setColor(VSResourceLib::SPECULAR, body_spec);
-	vsres[1]->setColor(VSResourceLib::SHININESS, body_shininess);
-
 	vsres[4]->createSphere(0.5f, 40);
 	vsres[4]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[4]->setColor(VSResourceLib::DIFFUSE, body_diff);
@@ -65,42 +66,44 @@ void Frog::setupObjects() {
 
 void Frog::render(VSShaderLib shader) {
 	
-	//body
+	//Head
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0],actualPosition[1],actualPosition[2]);
-	vsml->rotate(90, 1, 0, 0);
-	vsres[0]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2]+0.5);
-	vsres[4]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2]-0.5);
-	vsres[5]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-	//head
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0]+0.5, actualPosition[1]+0.5, actualPosition[2]);
+	vsml->translate(actualPosition[0] + 0.5f, actualPosition[1] + 0.5f, actualPosition[2]);
 	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
-	//eyes
+
+	//Eyes
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2] + 0.2);
+	vsml->translate(actualPosition[0] + 0.8f, actualPosition[1] + 0.8f, actualPosition[2] + 0.2f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2]-0.2);
+	vsml->translate(actualPosition[0] + 0.8f, actualPosition[1] + 0.8f, actualPosition[2] - 0.2f);
 	vsres[3]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
+
+	//Body
+	vsml->loadIdentity(VSMathLib::MODEL);
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(actualPosition[0],actualPosition[1],actualPosition[2]);
+	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	vsres[0]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
+
+	vsml->loadIdentity(VSMathLib::MODEL);
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2] + 0.5f);
+	vsres[4]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
+
+	vsml->loadIdentity(VSMathLib::MODEL);
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2] - 0.5f);
+	vsres[5]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 

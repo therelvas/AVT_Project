@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
-    <ClInclude Include="Car.h" />
+    <ClInclude Include="Car1.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="frog.h" />
     <ClInclude Include="cubeData.h" />
@@ -22,13 +22,13 @@
     <ClInclude Include="lib\vsResSurfRevLib.h" />
     <ClInclude Include="lib\vsShaderLib.h" />
     <ClInclude Include="map.h" />
-    <ClInclude Include="Scenario.h" />
-    <ClInclude Include="Turtle.h" />
-    <ClInclude Include="Wood.h" />
+    <ClInclude Include="Scenario1.h" />
+    <ClInclude Include="Turtle1.h" />
+    <ClInclude Include="wood1.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="Car.cpp" />
+    <ClCompile Include="Car1.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="frog.cpp" />
     <ClCompile Include="lib\vsLogLib.cpp" />
@@ -38,9 +38,9 @@
     <ClCompile Include="lib\vsShaderLib.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="frogger.cpp" />
-    <ClCompile Include="Scenario.cpp" />
-    <ClCompile Include="Turtle.cpp" />
-    <ClCompile Include="Wood.cpp" />
+    <ClCompile Include="Scenario1.cpp" />
+    <ClCompile Include="Turtle1.cpp" />
+    <ClCompile Include="Wood1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\color.frag" />
