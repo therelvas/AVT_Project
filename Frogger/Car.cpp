@@ -1,6 +1,6 @@
 #include "Car.h"
 
-Car::Car(bool side){
+Car::Car(bool side, float x, float y, float z){
 
 	for (int i = 0; i < 6; i++){
 		vsres[i] = new VSResSurfRevLib();
@@ -10,9 +10,9 @@ Car::Car(bool side){
 	vsml = VSMathLib::getInstance();
 	setupObjects();
 
-	actualPosition[0] = 3;
-	actualPosition[1] = 0.5;
-	actualPosition[2] = 0;
+	actualPosition[0] = x;
+	actualPosition[1] = y;
+	actualPosition[2] = z;
 
 	Car::side = side;
 }
@@ -29,30 +29,52 @@ void Car::setupObjects() {
 	cube[0] = new Cube();
 	cube[1] = new Cube();
 
-	float g[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
-	float w[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	float b[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	float r[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float body_amb[] = { 0.0,0.0,0.0 };
+	float body_diff[] = { 0.5,0.0,0.0 };
+	float body_spec[] = { 0.7,0.6,0.6 };
+	float body_shininess[] = { 0.25 };
+
+	float tires_diff[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+	cube[0]->setColor(VSResourceLib::AMBIENT, body_amb);
+	cube[0]->setColor(VSResourceLib::DIFFUSE, body_diff);
+	cube[0]->setColor(VSResourceLib::SPECULAR, body_spec);
+	cube[0]->setColor(VSResourceLib::SHININESS, body_shininess);
+	//Road
+	cube[1]->setColor(VSResourceLib::AMBIENT, body_amb);
+	cube[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
+	cube[1]->setColor(VSResourceLib::SPECULAR, body_spec);
+	cube[1]->setColor(VSResourceLib::SHININESS, body_shininess);
 
 	vsres[0]->createSphere(0.5f, 30);
-	vsres[0]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[0]->setColor(VSResourceLib::SPECULAR, b);
+	vsres[0]->setColor(VSResourceLib::AMBIENT, tires_diff);
+	vsres[0]->setColor(VSResourceLib::DIFFUSE, tires_diff);
+	vsres[0]->setColor(VSResourceLib::SPECULAR, tires_diff);
+	vsres[0]->setColor(VSResourceLib::SHININESS, tires_diff);
 
 	vsres[1]->createSphere(0.5f, 30);
-	vsres[1]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[1]->setColor(VSResourceLib::SPECULAR, b);
+	vsres[1]->setColor(VSResourceLib::AMBIENT, tires_diff);
+	vsres[1]->setColor(VSResourceLib::DIFFUSE, tires_diff);
+	vsres[1]->setColor(VSResourceLib::SPECULAR, tires_diff);
+	vsres[1]->setColor(VSResourceLib::SHININESS, tires_diff);
 
 	vsres[2]->createSphere(0.5f, 30);
-	vsres[2]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[2]->setColor(VSResourceLib::SPECULAR, b);
+	vsres[2]->setColor(VSResourceLib::AMBIENT, tires_diff);
+	vsres[2]->setColor(VSResourceLib::DIFFUSE, tires_diff);
+	vsres[2]->setColor(VSResourceLib::SPECULAR, tires_diff);
+	vsres[2]->setColor(VSResourceLib::SHININESS, tires_diff);
 
 	vsres[3]->createSphere(0.5f, 30);
-	vsres[3]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[3]->setColor(VSResourceLib::SPECULAR, b);
+	vsres[3]->setColor(VSResourceLib::AMBIENT, tires_diff);
+	vsres[3]->setColor(VSResourceLib::DIFFUSE, tires_diff);
+	vsres[3]->setColor(VSResourceLib::SPECULAR, tires_diff);
+	vsres[3]->setColor(VSResourceLib::SHININESS, tires_diff);
 
 	vsres[4]->createSphere(0.5f, 30);
-	vsres[4]->setColor(VSResourceLib::DIFFUSE, b);
-	vsres[4]->setColor(VSResourceLib::SPECULAR, b);
+	vsres[4]->setColor(VSResourceLib::AMBIENT, tires_diff);
+	vsres[4]->setColor(VSResourceLib::DIFFUSE, tires_diff);
+	vsres[4]->setColor(VSResourceLib::SPECULAR, tires_diff);
+	vsres[4]->setColor(VSResourceLib::SHININESS, tires_diff);
 }
 
 void Car::render(VSShaderLib shader) {
@@ -94,36 +116,12 @@ void Car::render(VSShaderLib shader) {
 	vsml->scale(0.5, 1, 1);
 	vsres[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
-
-	/*vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2] - 0.5);
-	vsres[5]->render();
-	vsml->popMatrix(VSMathLib::MODEL);
-	//head
-	/*vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.5, actualPosition[1] + 0.5, actualPosition[2]);
-	vsres[1]->render();
-	vsml->popMatrix(VSMathLib::MODEL);
-	//eyes
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2] + 0.2);
-	vsres[2]->render();
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2] - 0.2);
-	vsres[3]->render();
-	vsml->popMatrix(VSMathLib::MODEL);*/
 }
 
 void Car::move(){
 	if (side){
-		actualPosition[2] += 0.2;
+		actualPosition[2] += 0.2f;
 	}
 	else
-		actualPosition[2] -= 0.2;
+		actualPosition[2] -= 0.2f;
 }

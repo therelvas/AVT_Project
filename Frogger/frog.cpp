@@ -1,6 +1,6 @@
 #include "Frog.h"
 
-Frog::Frog(){
+Frog::Frog(float x, float y, float z){
 
 	for (int i = 0; i < 6; i++){
 		vsres[i] = new VSResSurfRevLib();
@@ -8,19 +8,15 @@ Frog::Frog(){
 
 	vsml = VSMathLib::getInstance();
 	setupObjects();
-	actualPosition[0] = 0;
-	actualPosition[1] = 0;
-	actualPosition[2] = 0; 
+	actualPosition[0] = x;
+	actualPosition[1] = y;
+	actualPosition[2] = z; 
 }
 
 Frog::~Frog(){}
 
 float* Frog::getActualPostion(){
 	return actualPosition;
-}
-
-float* Frog::getLastPosition(){
-	return lastPosition;
 }
 
 void Frog::setupObjects() {
@@ -109,14 +105,14 @@ void Frog::render(VSShaderLib shader) {
 }
 
 void Frog::moveToFront(){
-	actualPosition[0] += 0.2;
+	actualPosition[0] += 0.2f;
 }
 void Frog::moveToBack(){
-	actualPosition[0] -= 0.2;
+	actualPosition[0] -= 0.2f;
 }
 void Frog::moveToLeft(){
-	actualPosition[2] -= 0.2;
+	actualPosition[2] -= 0.2f;
 }
 void Frog::moveToRight(){
-	actualPosition[2] += 0.2;
+	actualPosition[2] += 0.2f;
 }

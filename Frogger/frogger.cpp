@@ -19,6 +19,7 @@
 #include "Frog.h"
 #include "Car.h"
 #include "camera.h"
+#include "Turtle.h"
 
 #define CAPTION "Frogger"
 
@@ -47,6 +48,7 @@ float lightPos[4] = { 40.0f, 40.0f, 0.0f, 1.0f };
 Scenario *scenario;
 Frog *frog;
 Car *enemy;
+Turtle *turtle;
 
 //Camera
 Camera *camera;
@@ -74,6 +76,7 @@ void renderScene(void) {
 	frog->render(shader);
 	scenario->render(shader);
 	enemy->render(shader);
+	turtle->render(shader);
 }
 
 // ------------------------------------------------------------
@@ -283,9 +286,10 @@ GLuint setupShaders() {
 
 void setupObjects() {
 
-	frog = new Frog();
+	frog = new Frog(0,0,50);
 	scenario = new Scenario();
-	enemy = new Car(true);
+	enemy = new Car(true, 3, 0.5, 0);
+	turtle = new Turtle(true, 15, 0.5, 0);
 }
 
 
