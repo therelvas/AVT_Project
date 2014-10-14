@@ -37,5 +37,5 @@ void main() {
 		spec = mat.specular * pow(intSpec, mat.shininess);
 	}
 	
-	colorOut = max(2.0 * intensity * mat.diffuse + spec, mat.ambient);
+	colorOut = max(1.3 * intensity * mat.diffuse + spec, mat.ambient);
 }

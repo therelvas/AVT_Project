@@ -27,7 +27,7 @@ public:
 	Camera(int w, int h, int v);
 	~Camera(void);
 
-	void draw(float x, float y, float z);
+	void draw(float x, float y, float z, float oX, float oY, float oZ);
 	int getView(void);
 	void setView(int view);
 };
