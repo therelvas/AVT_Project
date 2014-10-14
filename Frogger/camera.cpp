@@ -63,6 +63,6 @@ void Camera::draw(float camX, float camY, float camZ, float oX, float oY, float 
 		vsml->loadIdentity(VSMathLib::VIEW);
 		vsml->loadIdentity(VSMathLib::MODEL);
 
-		vsml->lookAt(oX - 10.0f, oY + 6.0f, oZ, oX + camX, oY + camY, oZ + camZ, 0.0f, 1.0f, 0.0f);
+		vsml->lookAt(oX - 10.0f, oY + 6.0f, oZ, oX - camX, oY - camY, oZ - camZ, 0.0f, 1.0f, 0.0f);
 	}
 }
