@@ -41,7 +41,7 @@ float alpha = 39.0f, beta = 51.0f;
 float r = 10.0f;
 
 //Light position
-float lightPos[4] = { 40.0f, 40.0f, 0.0f, 1.0f };
+float lightPos[4] = { 20.0f, 50.0f, 0.0f, 1.0f };
 
 //Objects
 Scenario *scenario;
@@ -59,7 +59,7 @@ int view = 1;
 
 void renderScene(void) {
 
-	camera->draw(camX, camY, camZ);
+	camera->draw(camX, camY, camZ, frog->getActualPostion()[0], frog->getActualPostion()[1], frog->getActualPostion()[2]);
 
 	// use our shader
 	glUseProgram(shader.getProgramIndex());
@@ -160,6 +160,10 @@ void processKeys(unsigned char key, int xx, int yy)
 		camera->setView(3);
 		view = 3;
 		break;
+	case '4':
+		camera->setView(4);
+		view = 4;
+		break;
 	}
 }
 
@@ -209,7 +213,6 @@ void processMouseMotion(int xx, int yy)
 
 	// left mouse button: move camera
 	if (tracking == 1) {
-
 
 		alphaAux = alpha + deltaX;
 		betaAux = beta + deltaY;

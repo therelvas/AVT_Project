@@ -19,27 +19,28 @@ float* Frog::getActualPostion(){
 	return actualPosition;
 }
 
-float* Frog::getLastPosition(){
-	return lastPosition;
-}
-
 void Frog::setupObjects() {
 	
-	float body_amb[] = { 0.05f, 0.05f, 0.0f, 1.0f };
-	float body_diff[] = { 0.1f, 0.55f, 0.1f, 1.0f };
-	float body_spec[] = { 0.35f, 0.65f, 0.45f, 1.0f };
-	float body_shininess[] = { 0.25f };
+	float body_amb[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float body_diff[] = { 0.1f, 0.35f, 0.1f, 1.0f };
+	float body_spec[] = { 0.45f, 0.55f, 0.45f, 1.0f };
+	float body_shininess[] = { 32.0f };
 
-	float eyes_diff[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float eyes_amb[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	//Head
+	vsres[1]->createSphere(0.5f, 40);
+	vsres[1]->setColor(VSResourceLib::AMBIENT, body_amb);
+	vsres[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
+	vsres[1]->setColor(VSResourceLib::SPECULAR, body_spec);
+	vsres[1]->setColor(VSResourceLib::SHININESS, body_shininess);
 
 	//Eyes
 	vsres[2]->createSphere(0.2f, 40);
-	vsres[2]->setColor(VSResourceLib::DIFFUSE, eyes_diff);
-	vsres[2]->setColor(VSResourceLib::SPECULAR, eyes_diff);
+	vsres[2]->setColor(VSResourceLib::AMBIENT, eyes_amb);
 
 	vsres[3]->createSphere(0.2f, 40);
-	vsres[3]->setColor(VSResourceLib::DIFFUSE, eyes_diff);
-	vsres[3]->setColor(VSResourceLib::SPECULAR, eyes_diff);
+	vsres[3]->setColor(VSResourceLib::AMBIENT, eyes_amb);
 
 	//Body
 	vsres[0]->createCylinder(1.0f, 0.5f, 40);
@@ -47,12 +48,6 @@ void Frog::setupObjects() {
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[0]->setColor(VSResourceLib::SPECULAR, body_spec);
 	vsres[0]->setColor(VSResourceLib::SHININESS, body_shininess);
-
-	vsres[1]->createSphere(0.5f, 40);
-	vsres[1]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	vsres[1]->setColor(VSResourceLib::SPECULAR, body_spec);
-	vsres[1]->setColor(VSResourceLib::SHININESS, body_shininess);
 
 	vsres[4]->createSphere(0.5f, 40);
 	vsres[4]->setColor(VSResourceLib::AMBIENT, body_amb);
@@ -69,54 +64,52 @@ void Frog::setupObjects() {
 
 void Frog::render(VSShaderLib shader) {
 	
-	//body
 	vsml->loadIdentity(VSMathLib::MODEL);
+	
+	//Head
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(actualPosition[0] + 0.5, actualPosition[1] + 0.5, actualPosition[2]);
+	vsres[1]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
+
+	//Eyes
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2] + 0.2);
+	vsres[2]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
+
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2] - 0.2);
+	vsres[3]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
+
+	//Body
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0],actualPosition[1],actualPosition[2]);
 	vsml->rotate(90, 1, 0, 0);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2]+0.5);
 	vsres[4]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2]-0.5);
 	vsres[5]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
-	//head
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0]+0.5, actualPosition[1]+0.5, actualPosition[2]);
-	vsres[1]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-	//eyes
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2] + 0.2);
-	vsres[2]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8, actualPosition[1] + 0.8, actualPosition[2]-0.2);
-	vsres[3]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
 }
 
 void Frog::moveToFront(){
-	actualPosition[0] += 0.2;
+	actualPosition[0] += DISPLACEMENT;
 }
 void Frog::moveToBack(){
-	actualPosition[0] -= 0.2;
+	actualPosition[0] -= DISPLACEMENT;
 }
 void Frog::moveToLeft(){
-	actualPosition[2] -= 0.2;
+	actualPosition[2] -= DISPLACEMENT;
 }
 void Frog::moveToRight(){
-	actualPosition[2] += 0.2;
+	actualPosition[2] += DISPLACEMENT;
 }

@@ -7,6 +7,8 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 
+#define DISPLACEMENT 0.2
+
 class Frog{
 
 private:
@@ -25,20 +27,10 @@ public:
 	Frog();
 	~Frog();
 
-	float* getActualPostion();
-	float* getLastPosition();
-
-	void updatePosition(float x, float y){
-		actualPosition[0] = x;
-		actualPosition[1] = y;
-		lastPosition[0] = actualPosition[0];
-		lastPosition[1] = actualPosition[1];
-		lastPosition[2] = actualPosition[2];
-		lastPosition[3] = actualPosition[3];
-	}
-
 	void setupObjects();
 	void render(VSShaderLib shader);
+
+	float* getActualPostion();
 
 	void moveToFront();
 	void moveToBack();

@@ -22,7 +22,7 @@ void Camera::setView(int v) {
 	view = v;
 }
 
-void Camera::draw(float x, float y, float z) {
+void Camera::draw(float camX, float camY, float camZ, float oX, float oY, float oZ) {
 
 	//Ortoghonal projection
 	if (view == 1) {
@@ -54,7 +54,7 @@ void Camera::draw(float x, float y, float z) {
 		vsml->lookAt(-30.0f, 50.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	}
 
-	//Temporary settings
+	//Chase cam
 	else if (view == 3) {
 
 		vsml->loadIdentity(VSMathLib::PROJECTION);
@@ -63,6 +63,18 @@ void Camera::draw(float x, float y, float z) {
 		vsml->loadIdentity(VSMathLib::VIEW);
 		vsml->loadIdentity(VSMathLib::MODEL);
 
-		vsml->lookAt(x, y, z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+		vsml->lookAt(oX - 12.0f, oY + 6.0f, oZ, oX, oY, oZ, 0.0f, 1.0f, 0.0f);
+	}
+
+	//Temporary settings
+	else if (view == 4) {
+
+		vsml->loadIdentity(VSMathLib::PROJECTION);
+		vsml->perspective(50.00f, ratio, 0.1f, 1000.0f);
+
+		vsml->loadIdentity(VSMathLib::VIEW);
+		vsml->loadIdentity(VSMathLib::MODEL);
+
+		vsml->lookAt(camX, camY, camZ, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	}
 }
