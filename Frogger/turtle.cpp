@@ -18,11 +18,12 @@ Turtle::Turtle(bool side, float x, float y, float z){
 
 Turtle::~Turtle(){}
 
-float* Turtle::getActualPostion(){
+float* Turtle::getActualPosition(){
 	return actualPosition;
 }
 
 void Turtle::setupObjects() {
+
 	float body_amb[] = { 0.05f, 0.05f, 0.0f, 1.0f };
 	float body_diff[] = { 0.1f, 0.55f, 0.1f, 1.0f };
 	float body_spec[] = { 0.35f, 0.65f, 0.45f, 1.0f };

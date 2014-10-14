@@ -1,11 +1,13 @@
+#ifndef CAR_H
+#define CAR_H
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
 #include "Lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 #include "lib/vsResourceLib.h"
-#ifndef Car_H
-#define Car_H
+
 
 #include "Cube.h"
 

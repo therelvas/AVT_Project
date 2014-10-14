@@ -1,11 +1,11 @@
+#ifndef TURTLE_H
+#define TURTLE_H
+
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
 #include "Lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
-#ifndef Turtle_H
-#define Turtle_H
-
 
 class Turtle{
 
@@ -21,7 +21,7 @@ public:
 	Turtle(bool side, float x, float y, float z);
 	~Turtle();
 
-	float* getActualPostion();
+	float* getActualPosition();
 	void setupObjects();
 	void render(VSShaderLib shader);
 	void move();
