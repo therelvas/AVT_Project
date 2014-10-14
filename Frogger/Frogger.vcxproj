@@ -24,7 +24,7 @@
     <ClInclude Include="map.h" />
     <ClInclude Include="scenario.h" />
     <ClInclude Include="turtle.h" />
-    <ClInclude Include="wood1.h" />
+    <ClInclude Include="wood.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
