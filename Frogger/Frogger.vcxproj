@@ -24,6 +24,7 @@
     <ClInclude Include="map.h" />
     <ClInclude Include="Scenario.h" />
     <ClInclude Include="Turtle.h" />
+    <ClInclude Include="Wood.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
@@ -39,6 +40,7 @@
     <ClCompile Include="frogger.cpp" />
     <ClCompile Include="Scenario.cpp" />
     <ClCompile Include="Turtle.cpp" />
+    <ClCompile Include="Wood.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\color.frag" />

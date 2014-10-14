@@ -20,6 +20,7 @@
 #include "Car.h"
 #include "camera.h"
 #include "Turtle.h"
+#include "Wood.h"
 
 #define CAPTION "Frogger"
 
@@ -49,6 +50,8 @@ Scenario *scenario;
 Frog *frog;
 Car *enemy;
 Turtle *turtle;
+Wood* wood;
+
 
 //Camera
 Camera *camera;
@@ -77,6 +80,7 @@ void renderScene(void) {
 	scenario->render(shader);
 	enemy->render(shader);
 	turtle->render(shader);
+	wood->render(shader);
 }
 
 // ------------------------------------------------------------
@@ -290,6 +294,7 @@ void setupObjects() {
 	scenario = new Scenario();
 	enemy = new Car(true, 3, 0.5, 0);
 	turtle = new Turtle(true, 15, 0.5, 0);
+	wood = new Wood(true, 20, 0.5, 0);
 }
 
 
