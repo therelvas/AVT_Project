@@ -68,7 +68,7 @@ void Obstacles::destroyObstacles(){
 	float* actual;
 	for (int i = 0; i < numEnemies.size(); i++){
 		actual = numEnemies[i]->getActualPosition();
-		if (actual[2]>100)
+		if (actual[2]>100||actual[2]<0)
 			numEnemies.erase(numEnemies.begin() + i);
 	}
 }
