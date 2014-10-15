@@ -122,10 +122,10 @@ void Car::render(VSShaderLib shader) {
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 
-void Car::move(){
+void Car::move(float lvl){
 	if (side){
-		actualPosition[2] += 0.2f;
+		actualPosition[2] += 0.2f*lvl;
 	}
 	else
-		actualPosition[2] -= 0.2f;
+		actualPosition[2] -= 0.2f*lvl;
 }
