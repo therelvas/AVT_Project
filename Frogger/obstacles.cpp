@@ -52,7 +52,6 @@ void Obstacles::addEnemy(char* enemy){
 void Obstacles::updatePosition(){
 	for (int i = 0; i < numEnemies.size(); i++)
 		if (!strcmp(numEnemies[i]->toString(), "car")){
-		std::cout << levelRoad << std::endl;
 			numEnemies[i]->move(levelRoad);
 		}
 		else numEnemies[i]->move(levelWater);
