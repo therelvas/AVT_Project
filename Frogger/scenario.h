@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-#include "Lib/vsMathLib.h"
+#include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 #include "lib/vsResourceLib.h"
 
@@ -19,7 +19,7 @@
 #define OTHER_SCALE_FACTOR_X 10
 
 
-class Scenario{
+class Scenario {
 
 private:
 
