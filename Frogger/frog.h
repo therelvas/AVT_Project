@@ -7,7 +7,7 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 
-class Frog{
+class Frog {
 
 private:
 
@@ -21,6 +21,7 @@ private:
 
 
 public:
+
 	Frog(float x, float y, float z);
 	~Frog();
 

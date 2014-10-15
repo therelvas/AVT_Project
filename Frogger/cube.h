@@ -8,7 +8,7 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResourceLib.h"
 
-class Cube{
+class Cube {
 
 private:
 
@@ -27,9 +27,8 @@ private:
 		int texCount;
 	} mat;
 
-	
-
 public:
+
 	Cube();
 	~Cube();
 	
