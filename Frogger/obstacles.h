@@ -33,7 +33,7 @@ public:
 	}
 	void setStartingPosWater(){
 		startingPosWater[0] = 20.0f;
-		startingPosWater[1] = 23.0f;
+		startingPosWater[1] = 26.0f;
 		startingPosWater[2] = 26.0f;
 	}
 

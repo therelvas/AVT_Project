@@ -40,7 +40,7 @@ void Obstacles::addEnemy(char* enemy){
 	}
 	if (!strcmp(enemy, "turtle")){
 		xStart = startingPosWater[v];
-		numEnemies.push_back(new Turtle(true, xStart, 0.0f, 0.0));
+		numEnemies.push_back(new Turtle(false, 23.0f, 0.0f, 100.0));
 	}
 	if (!strcmp(enemy, "wood")){
 		xStart = startingPosWater[v];
