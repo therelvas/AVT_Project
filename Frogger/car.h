@@ -32,7 +32,7 @@ public:
 	void setupObjects();
 	void render(VSShaderLib shader);
 
-	void move();
+	void move(float lvl);
 };
 
 #endif

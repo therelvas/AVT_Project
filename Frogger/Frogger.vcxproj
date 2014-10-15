@@ -22,6 +22,7 @@
     <ClInclude Include="lib\vsResSurfRevLib.h" />
     <ClInclude Include="lib\vsShaderLib.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="obstacles.h" />
     <ClInclude Include="scenario.h" />
     <ClInclude Include="turtle.h" />
     <ClInclude Include="wood.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="lib\vsShaderLib.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="frogger.cpp" />
+    <ClCompile Include="obstacles.cpp" />
     <ClCompile Include="scenario.cpp" />
     <ClCompile Include="turtle.cpp" />
     <ClCompile Include="wood.cpp" />
@@ -76,7 +78,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Users\Utilizador\Desktop\IST\2_1mestrado\AVT\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Utilizador\Desktop\IST\2_1mestrado\AVT\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
