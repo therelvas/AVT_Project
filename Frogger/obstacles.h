@@ -32,7 +32,7 @@ public:
 	void addEnemy();
 	void updatePosition();
 	void render(VSShaderLib shader);
-
+	void destroyObstacles();
 };
 
 #endif

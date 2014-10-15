@@ -34,3 +34,12 @@ void Obstacles::render(VSShaderLib shader) {
 	for (int i = 0; i < numEnemies.size(); i++)
 		numEnemies[i].render(shader);
 }
+
+void Obstacles::destroyObstacles(){
+	float* actual;
+	for (int i = 0; i < numEnemies.size(); i++){
+		actual = numEnemies[i].getActualPostion();
+		if (actual[2]>100)
+			numEnemies.erase(numEnemies.begin() + i);
+	}
+}

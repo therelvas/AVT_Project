@@ -82,6 +82,7 @@ void renderScene(void) {
 	glUniform4fv(lPos_uniformId, 1, res);
 
 	//render objects
+	obstacles->destroyObstacles();
 	frog->render(shader);
 	scenario->render(shader);
 	obstacles->render(shader);
