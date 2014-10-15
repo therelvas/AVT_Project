@@ -14,6 +14,7 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="car.h" />
     <ClInclude Include="cube.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="frog.h" />
     <ClInclude Include="cubeData.h" />
     <ClInclude Include="lib\vsLogLib.h" />

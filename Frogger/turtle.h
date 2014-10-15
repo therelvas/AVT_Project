@@ -7,7 +7,9 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 
-class Turtle{
+#include "enemy.h"
+
+class Turtle :public Enemy{
 
 private:
 
@@ -21,10 +23,11 @@ public:
 	Turtle(bool side, float x, float y, float z);
 	~Turtle();
 
-	float* getActualPosition();
-	void setupObjects();
-	void render(VSShaderLib shader);
-	void move();
+	virtual char* toString(){ return "turtle"; }
+	virtual float* getActualPosition();
+	virtual void setupObjects();
+	virtual void render(VSShaderLib shader);
+	virtual void move(float lvl);
 };
 
 #endif

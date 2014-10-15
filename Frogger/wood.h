@@ -7,8 +7,9 @@
 #ifndef Wood_H
 #define Wood_H
 
+#include "enemy.h"
 
-class Wood{
+class Wood:public Enemy{
 
 private:
 
@@ -22,10 +23,11 @@ public:
 	Wood(bool side, float x, float y, float z);
 	~Wood();
 
-	float* getActualPostion();
-	void setupObjects();
-	void render(VSShaderLib shader);
-	void move();
+	virtual char* toString(){ return "wood"; }
+	virtual float* getActualPosition();
+	virtual void setupObjects();
+	virtual void render(VSShaderLib shader);
+	virtual void move(float lvl);
 };
 
 #endif

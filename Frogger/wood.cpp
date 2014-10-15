@@ -18,7 +18,7 @@ Wood::Wood(bool side, float x, float y, float z){
 
 Wood::~Wood(){}
 
-float* Wood::getActualPostion(){
+float* Wood::getActualPosition(){
 	return actualPosition;
 }
 
@@ -70,11 +70,11 @@ void Wood::render(VSShaderLib shader) {
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 
-void Wood::move(){
+void Wood::move(float lvl){
 
 	if (side){
-		actualPosition[2] += 0.2f;
+		actualPosition[2] += 0.2f*lvl;
 	}
 	else
-		actualPosition[2] -= 0.2f;
+		actualPosition[2] -= 0.2f*lvl;
 }

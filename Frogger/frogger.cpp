@@ -50,14 +50,11 @@ float lightPos[4] = { 15.5f, 30.0f, 50.0f, 1.0f };
 Scenario *scenario;
 Frog *frog;
 Obstacles *obstacles;
-/*
-Car *enemy;
-Turtle *turtle;
-Wood* wood;
-*/
+
 
 //level of speed of the game
-float levelCount = 1.0f;
+float levelRoad = 1.0f;
+float levelWater = 1.0f;
 
 //Camera
 Camera *camera;
@@ -86,11 +83,7 @@ void renderScene(void) {
 	frog->render(shader);
 	scenario->render(shader);
 	obstacles->render(shader);
-	/*
-	enemy->render(shader);
-	turtle->render(shader);
-	wood->render(shader);
-	*/
+
 }
 
 // ------------------------------------------------------------
@@ -137,8 +130,9 @@ void timer(int value)
 	FrameCount = 0;
 
 	//speeds up the game with the passing of time
-	levelCount += 0.1f;
-	obstacles->setLevel(levelCount);
+	levelRoad += 0.05f;
+	levelWater += 0.02f;
+	obstacles->setLevel(levelRoad, levelWater);
 
 	glutTimerFunc(1000, timer, 0);
 }
@@ -146,11 +140,17 @@ void timer(int value)
 //generate enemies
 void incremental(int value){
 
-	int r = rand() % 20;
+	int r = rand() % 50;
 
-	if (r == 0)
-		obstacles->addEnemy();
-
+	if (r < 2){
+		obstacles->addEnemy("car");
+	}
+	if (r==2){
+		obstacles->addEnemy("turtle");
+	}
+	if (r==3){
+		obstacles->addEnemy("wood");
+	}
 	glutTimerFunc(50, incremental, 0);
 }
 
@@ -319,11 +319,7 @@ void setupObjects() {
 	frog = new Frog(0, 0, 50);
 	scenario = new Scenario();
 	obstacles = new Obstacles();
-	/*
-	enemy = new Car(true, 3, 0.5, 50);
-	turtle = new Turtle(true, 15, 0.5, 50);
-	wood = new Wood(true, 20, 0.5, 50);
-	*/
+
 }
 
 

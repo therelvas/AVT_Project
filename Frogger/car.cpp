@@ -19,7 +19,7 @@ Car::Car(bool side, float x, float y, float z){
 
 Car::~Car(){}
 
-float* Car::getActualPostion(){
+float* Car::getActualPosition(){
 	return actualPosition;
 }
 

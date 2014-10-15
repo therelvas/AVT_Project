@@ -8,28 +8,37 @@
 #include "lib/vsResSurfRevLib.h"
 #include "lib/vsResourceLib.h"
 
-
+#include "enemy.h"
 #include "car.h"
+#include "turtle.h"
+#include "wood.h"
 
 class Obstacles{
 
 private:
-	float level;
-	float startingPosX[3];
-	std::vector<Car> numEnemies;
+	float levelRoad;
+	float levelWater;
+	float startingPosCar[3], startingPosWater[3];
+	std::vector<Enemy*> numEnemies;
 
 public:
 	Obstacles();
+	//Obstacles(char* enemy);
 	~Obstacles();
 
-	void setStartingPosX(){
-		startingPosX[0] = 5.0f;
-		startingPosX[1] = 8.0f;
-		startingPosX[2] = 11.0f;
+	void setStartingPosCar(){
+		startingPosCar[0] = 5.0f;
+		startingPosCar[1] = 8.0f;
+		startingPosCar[2] = 11.0f;
+	}
+	void setStartingPosWater(){
+		startingPosWater[0] = 20.0f;
+		startingPosWater[1] = 23.0f;
+		startingPosWater[2] = 26.0f;
 	}
 
-	void setLevel(float lvl);
-	void addEnemy();
+	void setLevel(float road, float water);
+	void addEnemy(char* enemy);
 	void updatePosition();
 	void render(VSShaderLib shader);
 	void destroyObstacles();

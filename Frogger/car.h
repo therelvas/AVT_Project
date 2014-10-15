@@ -10,8 +10,9 @@
 
 
 #include "Cube.h"
+#include "enemy.h"
 
-class Car{
+class Car:public Enemy{
 
 private:
 
@@ -27,12 +28,11 @@ public:
 	Car(bool side, float x, float y, float z);
 	~Car();
 
-	float* getActualPostion();
-
-	void setupObjects();
-	void render(VSShaderLib shader);
-
-	void move(float lvl);
+	virtual char* toString(){ return "car"; }
+	virtual float* getActualPosition();
+	virtual void setupObjects();
+	virtual void render(VSShaderLib shader);
+	virtual void move(float lvl);
 };
 
 #endif

@@ -119,10 +119,10 @@ void Turtle::render(VSShaderLib shader) {
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 
-void Turtle::move(){
+void Turtle::move(float lvl){
 	if (side){
-		actualPosition[2] += 0.2f;
+		actualPosition[2] += 0.2f*lvl;
 	}
 	else
-		actualPosition[2] -= 0.2f;
+		actualPosition[2] -= 0.2f*lvl;
 }
