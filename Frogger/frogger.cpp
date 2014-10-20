@@ -140,7 +140,7 @@ void timer(int value)
 //generate enemies
 void incremental(int value){
 
-	int r = rand() % 50;
+	int r = rand() % 35;
 
 	if (r < 2){
 		obstacles->addEnemy("car");
@@ -181,6 +181,11 @@ void processKeys(unsigned char key, int xx, int yy)
 		break;
 	case 'p':
 		frog->moveToRight();
+		break;
+	case 's':{
+		levelRoad = 1.0f;
+		levelWater = 1.0f; 
+	}
 		break;
 	case '1':
 		camera->setView(1);
