@@ -14,7 +14,6 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 
-//
 #include "Scenario.h"
 #include "Frog.h"
 #include "Car.h"
@@ -51,10 +50,8 @@ Scenario *scenario;
 Frog *frog;
 Obstacles *obstacles;
 
-
 //level of speed of the game
-float levelRoad = 1.0f;
-float levelWater = 1.0f;
+float level = 1.0f;
 
 //Camera
 Camera *camera;
@@ -67,7 +64,7 @@ int view = 1;
 
 void renderScene(void) {
 
-	camera->draw(camX, camY, camZ, frog->getActualPostion()[0], frog->getActualPostion()[1], frog->getActualPostion()[2]);
+	camera->draw(camX, camY, camZ, frog->getPosition()[0], frog->getPosition()[1], frog->getPosition()[2]);
 
 	// use our shader
 	glUseProgram(shader.getProgramIndex());
@@ -79,7 +76,6 @@ void renderScene(void) {
 	glUniform4fv(lPos_uniformId, 1, res);
 
 	//render objects
-	obstacles->destroyObstacles();
 	frog->render(shader);
 	scenario->render(shader);
 	obstacles->render(shader);
@@ -99,14 +95,6 @@ void display()
 	glutSwapBuffers();
 }
 
-
-void idle()
-{
-	obstacles->updatePosition();
-	glutPostRedisplay();
-}
-
-
 void changeSize(int w, int h) {
 
 	if (h == 0)
@@ -119,9 +107,8 @@ void changeSize(int w, int h) {
 	camera = new Camera(w, h, view);
 }
 
+void timer(int value) {
 
-void timer(int value)
-{
 	std::ostringstream oss;
 	oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")";
 	std::string s = oss.str();
@@ -129,29 +116,21 @@ void timer(int value)
 	glutSetWindowTitle(s.c_str());
 	FrameCount = 0;
 
-	//speeds up the game with the passing of time
-	levelRoad += 0.05f;
-	levelWater += 0.02f;
-	obstacles->setLevel(levelRoad, levelWater);
+	//Speeds up the game with the passing of time
+	level += 0.05f;
+	obstacles->setLevel(level);
 
 	glutTimerFunc(1000, timer, 0);
 }
 
-//generate enemies
-void incremental(int value){
+//Generate enemies
+void updateEnemies(int value) {
 
-	int r = rand() % 35;
+	obstacles->updatePosition();
+	obstacles->destroyObstacles();
 
-	if (r < 2){
-		obstacles->addEnemy("car");
-	}
-	if (r==2){
-		obstacles->addEnemy("turtle");
-	}
-	if (r==3){
-		obstacles->addEnemy("wood");
-	}
-	glutTimerFunc(50, incremental, 0);
+	glutPostRedisplay();
+	glutTimerFunc(1000/ 30, updateEnemies, 0);
 }
 
 // ------------------------------------------------------------
@@ -159,8 +138,8 @@ void incremental(int value){
 // Events from the Keyboard
 //
 
-void processKeys(unsigned char key, int xx, int yy)
-{
+void processKeys(unsigned char key, int xx, int yy) {
+
 	switch (key) {
 
 	case 27:
@@ -168,24 +147,21 @@ void processKeys(unsigned char key, int xx, int yy)
 		break;
 	case 'c':
 		printf("Camera Spherical Coordinates (%f, %f, %f)\n", alpha, beta, r);
-		printf("Camera  Coordinates (%f, %f, %f)\n", camX, camY, camZ);
 		break;
 	case 'a':
-		frog->moveToBack();
+		frog->move(-0.2f, 0.0f, 0.0f, 1.0f);
 		break;
 	case 'q':
-		frog->moveToFront();
+		frog->move(0.2f, 0.0f, 0.0f, 1.0f);
 		break;
 	case 'o':
-		frog->moveToLeft();
+		frog->move(0.0f, 0.0f, -0.2f, 1.0f);
 		break;
 	case 'p':
-		frog->moveToRight();
+		frog->move(0.0f, 0.0f, 0.2f, 1.0f);
 		break;
-	case 's':{
-		levelRoad = 1.0f;
-		levelWater = 1.0f; 
-	}
+	case 's':
+		level = 1.0f;
 		break;
 	case '1':
 		camera->setView(1);
@@ -321,10 +297,9 @@ GLuint setupShaders() {
 
 void setupObjects() {
 
-	frog = new Frog(0, 0, 50);
-	scenario = new Scenario();
+	frog = new Frog(0.0f, 0.0f, 50.0f);
+	scenario = new Scenario(0.0f, -1.5f, 0.0f);
 	obstacles = new Obstacles();
-
 }
 
 
@@ -337,7 +312,6 @@ void setupCallbacks()
 {
 	//  Callback Registration
 	glutDisplayFunc(display);
-	glutIdleFunc(idle);
 	glutReshapeFunc(changeSize);
 
 	//	Mouse and Keyboard Callbacks
@@ -348,7 +322,7 @@ void setupCallbacks()
 	glutMouseWheelFunc(mouseWheel);
 
 	glutTimerFunc(0, timer, 0);
-	glutTimerFunc(0, incremental, 0);
+	glutTimerFunc(0, updateEnemies, 0);
 }
 
 

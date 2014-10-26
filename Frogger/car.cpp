@@ -1,33 +1,20 @@
 #include "Car.h"
 
-Car::Car(bool side, float x, float y, float z){
+Car::Car(float x, float y, float z) : DynamicObject(x, y, z) {
 
-	for (int i = 0; i < 6; i++){
+	for (int i = 0; i < 6; i++) {
 		vsres[i] = new VSResSurfRevLib();
-
 	}
 
-	vsml = VSMathLib::getInstance();
+	cube[0] = new Cube();
+	cube[1] = new Cube();
+
 	setupObjects();
-
-	actualPosition[0] = x;
-	actualPosition[1] = y;
-	actualPosition[2] = z;
-
-	Car::side = side;
 }
 
 Car::~Car(){}
 
-float* Car::getActualPosition(){
-	return actualPosition;
-}
-
 void Car::setupObjects() {
-
-
-	cube[0] = new Cube();
-	cube[1] = new Cube();
 
 	float body_amb[] = { 0.1745f, 0.01175f, 0.01175f, 0.55f };
 	float body_diff[] = { 0.61424f, 0.04136f, 0.04136f, 0.55f };
@@ -85,47 +72,46 @@ void Car::render(VSShaderLib shader) {
 
 	//Body
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2]);
+	vsml->translate(position[0], position[1], position[2]);
 	vsml->scale(2.0f, 1.0f, 5.0f);
 	cube[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1] + 1.0f, actualPosition[2] + 1.0f);
+	vsml->translate(position[0], position[1] + 1.0f, position[2] + 1.0f);
 	vsml->scale(2.0f, 1.0f, 3.0f);
 	cube[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	//wheels
+	//Tires
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2] + 1.0f);
+	vsml->translate(position[0] + 0.15f, position[1], position[2] + 1.0f);
 	vsml->scale(0.5f, 1.0f, 1.0f);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2] + 4.0f);
+	vsml->translate(position[0] + 0.15f, position[1], position[2] + 4.0f);
 	vsml->scale(0.5f, 1.0f, 1.0f);
 	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 1.85f, actualPosition[1], actualPosition[2] + 4.0f);
+	vsml->translate(position[0] + 1.85f, position[1], position[2] + 4.0f);
 	vsml->scale(0.5f, 1.0f, 1.0f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 1.85f, actualPosition[1], actualPosition[2] + 1.0f);
+	vsml->translate(position[0] + 1.85f, position[1], position[2] + 1.0f);
 	vsml->scale(0.5f, 1.0f, 1.0f);
 	vsres[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 
-void Car::move(float lvl){
-	if (side){
-		actualPosition[2] += 0.2f*lvl;
-	}
-	else
-		actualPosition[2] -= 0.2f*lvl;
+void Car::move(float x, float y, float z, float speed) {
+
+	position[0] += 0.0f * speed;
+	position[1] += 0.0f * speed;
+	position[2] += 0.2f * speed;
 }

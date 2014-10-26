@@ -8,28 +8,19 @@
 #include "lib/vsResSurfRevLib.h"
 #include "lib/vsResourceLib.h"
 
-#include "Cube.h"
+#include "cube.h"
+#include "staticObject.h"
+#include "constants.h"
 
-#define BORDER2_X 14
-#define BORDER3_X 28
-#define STREET_X 4
-#define WATER_X 18
-#define SCALE_FACTOR_Z 100
-#define BORDER_SCALE_FACTOR_X 4
-#define OTHER_SCALE_FACTOR_X 10
-
-
-class Scenario {
+class Scenario : public StaticObject {
 
 private:
 
-	VSMathLib *vsml;
 	Cube *cube[5];
-	float defaultPosition[3];
-
 
 public:
-	Scenario();
+
+	Scenario(float x, float y, float z);
 	~Scenario();
 
 	void setupObjects();

@@ -1,26 +1,15 @@
 #include "Wood.h"
 
-Wood::Wood(bool side, float x, float y, float z){
+Wood::Wood(float x, float y, float z) : DynamicObject(x, y, z) {
 	
 	for (int i = 0; i < 3; i++){
 		vsres[i] = new VSResSurfRevLib();
 	}
 
-	vsml = VSMathLib::getInstance();
 	setupObjects();
-
-	actualPosition[0] = x;
-	actualPosition[1] = y;
-	actualPosition[2] = z;
-
-	Wood::side = side;
 }
 
 Wood::~Wood(){}
-
-float* Wood::getActualPosition(){
-	return actualPosition;
-}
 
 void Wood::setupObjects() {
 
@@ -51,30 +40,27 @@ void Wood::setupObjects() {
 void Wood::render(VSShaderLib shader) {
 
 	vsml->loadIdentity(VSMathLib::MODEL);
+	
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2]);
+	vsml->translate(position[0] + 0.15f, position[1], position[2]);
 	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2] + 2.5f);
+	vsml->translate(position[0] + 0.15f, position[1], position[2] + 2.5f);
 	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.15f, actualPosition[1], actualPosition[2] - 2.5f);
+	vsml->translate(position[0] + 0.15f, position[1], position[2] - 2.5f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 
-void Wood::move(float lvl){
+void Wood::move(float x, float y, float z, float speed) {
 
-	if (side){
-		actualPosition[2] += 0.2f*lvl;
-	}
-	else
-		actualPosition[2] -= 0.2f*lvl;
+	position[0] += 0.0f * speed;
+	position[1] += 0.0f * speed;
+	position[2] += 0.2f * speed;
 }

@@ -7,33 +7,21 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 
-class Frog {
+#include "dynamicObject.h"
+
+class Frog : public DynamicObject {
 
 private:
 
-	int lifes;
-	float actualPosition[3];
-	float color[4];
-	bool initialized;
-
-	VSMathLib *vsml;
 	VSResSurfRevLib *vsres[2];
-
 
 public:
 
 	Frog(float x, float y, float z);
 	~Frog();
 
-	float* getActualPostion();
-
-	void setupObjects();
-	void render(VSShaderLib shader);
-
-	void moveToFront();
-	void moveToBack();
-	void moveToLeft();
-	void moveToRight();
+	virtual void setupObjects();
+	virtual void render(VSShaderLib shader);
 };
 
 #endif

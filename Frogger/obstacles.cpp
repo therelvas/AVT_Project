@@ -1,74 +1,97 @@
 #include "obstacles.h"
 
-Obstacles::Obstacles(){
-	levelRoad = 1;
-	levelWater = 1;
-	setStartingPosCar();
-	setStartingPosWater();
+Obstacles::Obstacles() {
+	
+	level = 1;
+	setStartingPositions();
+	generateEnemies();
 }
+
 Obstacles::~Obstacles(){};
 
-/*
-Obstacles::Obstacles(char* enemy){
+//Set speed of game
+void Obstacles::setLevel(float level) {
+
+	Obstacles::level = level;
+}
+
+void Obstacles::setStartingPositions(){
 	
-	if (!strcmp(enemy, "car")){
-		numEnemies.push_back(new Car(true, 5.0f, 0.0f, 0.0f));
-	}
-	else if (!strcmp(enemy, "turtle")){
-		numEnemies.push_back(new Turtle(true, 20.0f, 0.0f, 0.0));
-	}
-	else if (!strcmp(enemy, "wood")){
-		numEnemies.push_back(new Wood(true, 23.0f, 0.0f, 0.0));
-	}
-};
-*/
+	startingPosCarX[0] = STARTING_POS_CAR_X1;
+	startingPosCarX[1] = STARTING_POS_CAR_X2;
+	startingPosCarX[2] = STARTING_POS_CAR_X3;
 
-//set speed of game
-void Obstacles::setLevel(float road, float water){
-	levelRoad = road;
-	levelWater = water;
+	startingPosWood[0] = STARTING_POS_WOOD_X1;
+	startingPosWood[1] = STARTING_POS_WOOD_X2;
+	startingPosWood[2] = STARTING_POS_WOOD_X3;
+
+	startingPosTurtle[0] = STARTING_POS_TURTLE_X1;	
 }
 
-//adds enemy
-void Obstacles::addEnemy(char* enemy){
-	int v;
-	float xStart;
-	v = rand() % 3;
-	if (!strcmp(enemy, "car")){
-		xStart = startingPosCar[v];
-		numEnemies.push_back(new Car(true, xStart, 0.0f, 0.0));
-	}
-	if (!strcmp(enemy, "turtle")){
-		xStart = startingPosWater[v];
-		numEnemies.push_back(new Turtle(false, 23.0f, 0.0f, 100.0));
-	}
-	if (!strcmp(enemy, "wood")){
-		xStart = startingPosWater[v];
-		numEnemies.push_back(new Wood(true, xStart, 0.0f, 0.0));
-	}
-}
+//Add enemies randomly
+void Obstacles::generateEnemies() {
+	
+	int size = enemies.size();
 
-//moves every enemy to the right, should be called every display
-void Obstacles::updatePosition(){
-	for (int i = 0; i < numEnemies.size(); i++)
-		if (!strcmp(numEnemies[i]->toString(), "car")){
-			numEnemies[i]->move(levelRoad);
+	while (size < MAX_ENEMIES) {
+
+		int type = rand() % 25;
+		int pos = rand() % 3;
+
+		//Car
+		if (type < 10) {
+			enemies.push_back(new Car(startingPosCarX[pos], 0.0f, 0.0f));
 		}
-		else numEnemies[i]->move(levelWater);
-	
+		//Turtle
+		else if (type >= 10 && type <= 15) {
+			enemies.push_back(new Turtle(startingPosTurtle[0], 0.0f, 0.0f));
+		}
+		//Wood
+		else if (type > 15) {
+			enemies.push_back(new Wood(startingPosWood[pos], 0.0f, 0.0f));
+		}
+
+		size = enemies.size();
+	}
 }
 
-//render enemies
+//Moves every enemy to the right, should be called every display
+void Obstacles::updatePosition() {
+
+	int size = enemies.size();
+	int move;
+
+	for (int i = 0; i < size; i++) {
+		move = rand() % 150;
+		if (enemies[i]->isInitialPos() && move == 1) {
+			enemies[i]->move(0.0f, 0.0f, 0.0f, level); //No parameters given because they control themselves
+		}
+		else if (!enemies[i]->isInitialPos()) {
+			enemies[i]->move(0.0f, 0.0f, 0.0f, level);
+		}
+	}
+}
+
+//Render enemies
 void Obstacles::render(VSShaderLib shader) {
-	for (int i = 0; i < numEnemies.size(); i++)
-		numEnemies[i]->render(shader);
+
+	int size = enemies.size();
+	
+	for (int i = 0; i < size; i++) {
+		if (!enemies[i]->isInitialPos())
+			enemies[i]->render(shader);
+	}
 }
 
-void Obstacles::destroyObstacles(){
-	float* actual;
-	for (int i = 0; i < numEnemies.size(); i++){
-		actual = numEnemies[i]->getActualPosition();
-		if (actual[2]>100||actual[2]<0)
-			numEnemies.erase(numEnemies.begin() + i);
+void Obstacles::destroyObstacles() {
+	
+	float actual;
+	int size = enemies.size();
+
+	for (int i = 0; i < size; i++) {
+		actual = enemies[i]->getPosition()[2];
+		if (actual > SCALE_FACTOR_Z) {
+			enemies[i]->resetPosition();
+		}
 	}
 }

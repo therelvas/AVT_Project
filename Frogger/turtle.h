@@ -7,27 +7,23 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 
-#include "enemy.h"
+#include "dynamicObject.h"
 
-class Turtle :public Enemy{
+class Turtle : public DynamicObject {
 
 private:
 
-	float actualPosition[3];
-	VSMathLib *vsml;
 	VSResSurfRevLib *vsres[7];
-	bool side;
 
 public:
 
-	Turtle(bool side, float x, float y, float z);
+	Turtle(float x, float y, float z);
 	~Turtle();
 
-	virtual char* toString(){ return "turtle"; }
-	virtual float* getActualPosition();
 	virtual void setupObjects();
 	virtual void render(VSShaderLib shader);
-	virtual void move(float lvl);
+
+	virtual void move(float x, float y, float z, float speed);
 };
 
 #endif

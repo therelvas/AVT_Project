@@ -1,23 +1,15 @@
 #include "Frog.h"
 
-Frog::Frog(float x, float y, float z){
+Frog::Frog(float x, float y, float z) : DynamicObject(x, y, z) {
 
 	for (int i = 0; i < 6; i++){
 		vsres[i] = new VSResSurfRevLib();
 	}
 
-	vsml = VSMathLib::getInstance();
 	setupObjects();
-	actualPosition[0] = x;
-	actualPosition[1] = y;
-	actualPosition[2] = z; 
 }
 
 Frog::~Frog(){}
-
-float* Frog::getActualPostion(){
-	return actualPosition;
-}
 
 void Frog::setupObjects() {
 	
@@ -69,53 +61,40 @@ void Frog::render(VSShaderLib shader) {
 	//Head
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.5f, actualPosition[1] + 0.5f, actualPosition[2]);
+	vsml->translate(position[0] + 0.5f, position[1] + 0.5f, position[2]);
 	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//Eyes
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8f, actualPosition[1] + 0.8f, actualPosition[2] + 0.2f);
+	vsml->translate(position[0] + 0.8f, position[1] + 0.8f, position[2] + 0.2f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0] + 0.8f, actualPosition[1] + 0.8f, actualPosition[2] - 0.2f);
+	vsml->translate(position[0] + 0.8f, position[1] + 0.8f, position[2] - 0.2f);
 	vsres[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//Body
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0],actualPosition[1],actualPosition[2]);
+	vsml->translate(position[0], position[1], position[2]);
 	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2] + 0.5f);
+	vsml->translate(position[0], position[1], position[2] + 0.5f);
 	vsres[4]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(actualPosition[0], actualPosition[1], actualPosition[2] - 0.5f);
+	vsml->translate(position[0], position[1], position[2] - 0.5f);
 	vsres[5]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
-}
-
-void Frog::moveToFront(){
-	actualPosition[0] += 0.2f;
-}
-void Frog::moveToBack(){
-	actualPosition[0] -= 0.2f;
-}
-void Frog::moveToLeft(){
-	actualPosition[2] -= 0.2f;
-}
-void Frog::moveToRight(){
-	actualPosition[2] += 0.2f;
 }

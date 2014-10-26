@@ -1,16 +1,11 @@
 #include "Scenario.h"
 
-Scenario::Scenario(){
+Scenario::Scenario(float x, float y, float z) : StaticObject(x, y, z) {
 	
 	for (int i = 0; i < 5; i++){
 		cube[i] = new Cube();
 	}
 	
-	defaultPosition[0] = 0;
-	defaultPosition[1] = -1.5;
-	defaultPosition[2] = 0;
-
-	vsml = VSMathLib::getInstance();
 	setupObjects();
 }
 
@@ -74,35 +69,35 @@ void Scenario::render(VSShaderLib shader) {
 	//Road margin
 	vsml->loadIdentity(VSMathLib::MODEL);
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(defaultPosition[0], defaultPosition[1], defaultPosition[2]);
+	vsml->translate(position[0], position[1], position[2]);
 	vsml->scale(BORDER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
 	cube[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 	
 	//Road
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(STREET_X, defaultPosition[1], defaultPosition[2]);
+	vsml->translate(STREET_X, position[1], position[2]);
 	vsml->scale(OTHER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
 	cube[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 	
 	//First river margin
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(BORDER2_X, defaultPosition[1], defaultPosition[2]);
+	vsml->translate(BORDER2_X, position[1], position[2]);
 	vsml->scale(BORDER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
 	cube[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 	
 	//River
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(WATER_X, defaultPosition[1], defaultPosition[2]);
+	vsml->translate(WATER_X, position[1], position[2]);
 	vsml->scale(OTHER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
 	cube[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 	
 	//Second river margin
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(BORDER3_X, defaultPosition[1], defaultPosition[2]);
+	vsml->translate(BORDER3_X, position[1], position[2]);
 	vsml->scale(BORDER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
 	cube[4]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
