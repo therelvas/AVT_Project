@@ -6,13 +6,12 @@
 
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
-
 #include "dynamicObject.h"
 
 class Frog : public DynamicObject {
 
 private:
-
+	int lifes;
 	VSResSurfRevLib *vsres[2];
 
 public:
@@ -22,6 +21,8 @@ public:
 
 	virtual void setupObjects();
 	virtual void render(VSShaderLib shader);
+	virtual float** getBoundingBox();
+	virtual void loseLife();
 };
 
 #endif

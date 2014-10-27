@@ -106,5 +106,39 @@ void Turtle::move(float x, float y, float z, float speed) {
 
 	position[0] += 0.0f * speed;
 	position[1] += 0.0f * speed;
-	position[2] += 0.1f * speed;
+	position[2] -= 0.1f * speed;
+}
+
+float** Turtle::getBoundingBox(){
+	float** boundingBox = 0;
+	boundingBox = new float*[2];
+	boundingBox[0] = new float[3];
+	boundingBox[1] = new float[3];
+
+	boundingBox[0][0] = position[0] + 1;
+	boundingBox[0][1] = 0;
+	boundingBox[0][2] = position[2] - 1.9;
+
+	boundingBox[1][0] = position[0] - 1;
+	boundingBox[1][1] = 0;
+	boundingBox[1][2] = position[2] + 1.9;
+
+	return boundingBox;
+}
+
+void Turtle::collide(DynamicObject* frog){
+
+
+	if (frog->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
+		&&
+		frog->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
+		return;
+	}
+	if (frog->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
+		frog->getBoundingBox()[1][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[1][2] >= getBoundingBox()[0][2]){
+		return;
+	}
+	//else if ((frog->getPosition()[0] > 18 && frog->getPosition()[0] < 28)){
+	//frog->resetPosition();
+	//}
 }

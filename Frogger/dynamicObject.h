@@ -12,7 +12,6 @@
 class DynamicObject : public GameObject {
 
 public:
-
 	DynamicObject(float x, float y, float z);
 	~DynamicObject();
 
@@ -20,6 +19,9 @@ public:
 	virtual void render(VSShaderLib shader);
 
 	virtual void move(float x, float y, float z, float speed);
+	virtual void moveFrog(float x, float y, float z, float speed);
+	virtual void collide(DynamicObject* frog);
+	virtual float** getBoundingBox();
 };
 
 #endif 

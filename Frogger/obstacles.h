@@ -13,13 +13,14 @@
 #include "car.h"
 #include "turtle.h"
 #include "wood.h"
+#include "frog.h"
 
 class Obstacles {
 
 private:
 
 	int readyRand;
-
+	Frog* frog;
 	float level;
 	float startingPosCarX[3], startingPosCarZ[3];
 	float startingPosWood[3], startingPosTurtle[1];
@@ -30,7 +31,7 @@ private:
 
 public:
 
-	Obstacles();
+	Obstacles(Frog* frog);
 	~Obstacles();
 
 	void setLevel(float level);	

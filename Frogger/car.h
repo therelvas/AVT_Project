@@ -27,6 +27,8 @@ public:
 	virtual void render(VSShaderLib shader);
 
 	virtual void move(float x, float y, float z, float speed);
+	virtual float** getBoundingBox();
+	virtual void collide(DynamicObject* frog);
 };
 
 #endif

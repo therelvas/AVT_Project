@@ -149,16 +149,16 @@ void processKeys(unsigned char key, int xx, int yy) {
 		printf("Camera Spherical Coordinates (%f, %f, %f)\n", alpha, beta, r);
 		break;
 	case 'a':
-		frog->move(-0.2f, 0.0f, 0.0f, 1.0f);
+		frog->moveFrog(-0.2f, 0.0f, 0.0f, 1.0f);
 		break;
 	case 'q':
-		frog->move(0.2f, 0.0f, 0.0f, 1.0f);
+		frog->moveFrog(0.2f, 0.0f, 0.0f, 1.0f);
 		break;
 	case 'o':
-		frog->move(0.0f, 0.0f, -0.2f, 1.0f);
+		frog->moveFrog(0.0f, 0.0f, -0.2f, 1.0f);
 		break;
 	case 'p':
-		frog->move(0.0f, 0.0f, 0.2f, 1.0f);
+		frog->moveFrog(0.0f, 0.0f, 0.2f, 1.0f);
 		break;
 	case 's':
 		level = 1.0f;
@@ -299,7 +299,7 @@ void setupObjects() {
 
 	frog = new Frog(0.0f, 0.0f, 50.0f);
 	scenario = new Scenario(0.0f, -1.5f, 0.0f);
-	obstacles = new Obstacles();
+	obstacles = new Obstacles(frog);
 }
 
 
