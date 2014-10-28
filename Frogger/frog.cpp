@@ -6,6 +6,7 @@ Frog::Frog(float x, float y, float z) : DynamicObject(x, y, z) {
 		vsres[i] = new VSResSurfRevLib();
 	}
 	lifes = 5;
+	Frog::gamePoints = 0;
 
 	setupObjects();
 }
@@ -122,6 +123,7 @@ void Frog::loseLife(){
 
 void Frog::resetLifes(){
 	lifes = 5;
+	gamePoints = 0;
 }
 
 void Frog::collide(DynamicObject* frog){
@@ -134,9 +136,17 @@ void Frog::collide(DynamicObject* frog){
 			loseLife();
 			frog->resetPosition();
 		}
+		if (position[0] > 30){
+			Frog::gamePoints += 10;
+			frog->resetPosition();
+		}
 	}
 }
 
 int Frog::getLifes(){
 	return lifes;
+}
+
+int Frog::getPoints(){
+	return Frog::gamePoints;
 }

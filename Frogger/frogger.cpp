@@ -112,9 +112,9 @@ void timer(int value) {
 	std::ostringstream oss;
 
 	if (frog->getLifes() == 0)
-		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " GAME OVER" ;
+		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " GAME OVER " << " Points: " << frog->getPoints();
 	else
-		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " Lifes: " << frog->getLifes();
+		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " Lifes: " << frog->getLifes() << " Points: " << frog->getPoints();
 
 	std::string s = oss.str();
 	glutSetWindow(WindowHandle);

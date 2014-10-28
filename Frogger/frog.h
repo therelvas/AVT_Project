@@ -11,6 +11,7 @@
 class Frog : public DynamicObject {
 
 private:
+	int gamePoints;
 	VSResSurfRevLib *vsres[2];
 
 public:
@@ -25,6 +26,7 @@ public:
 	virtual void resetLifes();
 	virtual void collide(DynamicObject* frog);
 	virtual int getLifes();
+	int getPoints();
 
 };
 

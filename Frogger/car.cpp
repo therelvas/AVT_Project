@@ -2,7 +2,7 @@
 
 Car::Car(float x, float y, float z) : DynamicObject(x, y, z) {
 
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 4; i++) {
 		vsres[i] = new VSResSurfRevLib();
 	}
 	cube[0] = new Cube();
@@ -57,12 +57,6 @@ void Car::setupObjects() {
 	vsres[3]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[3]->setColor(VSResourceLib::SPECULAR, tires_diff);
 	vsres[3]->setColor(VSResourceLib::SHININESS, tires_diff);
-
-	vsres[4]->createTorus(0.2, 0.5f, 30,30);
-	vsres[4]->setColor(VSResourceLib::AMBIENT, tires_diff);
-	vsres[4]->setColor(VSResourceLib::DIFFUSE, tires_diff);
-	vsres[4]->setColor(VSResourceLib::SPECULAR, tires_diff);
-	vsres[4]->setColor(VSResourceLib::SHININESS, tires_diff);
 }
 
 void Car::render(VSShaderLib shader) {
