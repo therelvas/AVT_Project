@@ -22,18 +22,6 @@ void Wood::setupObjects() {
 	vsres[0]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[0]->setColor(VSResourceLib::SPECULAR, brown_spec);
 	vsres[0]->setColor(VSResourceLib::SHININESS, body_shininess);
-
-	/*vsres[1]->createSphere(1.0f, 30);
-	vsres[1]->setColor(VSResourceLib::DIFFUSE, brown_diff);
-	vsres[1]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[1]->setColor(VSResourceLib::SPECULAR, brown_spec);
-	vsres[1]->setColor(VSResourceLib::SHININESS, body_shininess);
-
-	vsres[2]->createSphere(1.0f, 30);
-	vsres[2]->setColor(VSResourceLib::DIFFUSE, brown_diff);
-	vsres[2]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[2]->setColor(VSResourceLib::SPECULAR, brown_spec);
-	vsres[2]->setColor(VSResourceLib::SHININESS, body_shininess);*/
 }
 
 void Wood::render(VSShaderLib shader) {
@@ -45,16 +33,6 @@ void Wood::render(VSShaderLib shader) {
 	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
-
-	/*vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.15f, position[1], position[2] + 2.5f);
-	vsres[1]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.15f, position[1], position[2] - 2.5f);
-	vsres[2]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);*/
 }
 
 void Wood::move(float x, float y, float z, float speed) {

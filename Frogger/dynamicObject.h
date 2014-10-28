@@ -24,8 +24,10 @@ public:
 
 	virtual void move(float x, float y, float z, float speed);
 	virtual void moveFrog(float x, float y, float z, float speed);
+	
 	virtual void collide(DynamicObject* frog);
 	virtual float** getBoundingBox();
+	
 	virtual void loseLife();
 	virtual int getLifes();
 	virtual void resetLifes();

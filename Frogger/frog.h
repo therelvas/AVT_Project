@@ -19,13 +19,13 @@ public:
 	Frog(float x, float y, float z);
 	~Frog();
 
-	virtual void setupObjects();
-	virtual void render(VSShaderLib shader);
-	virtual float** getBoundingBox();
-	virtual void loseLife();
-	virtual void resetLifes();
-	virtual void collide(DynamicObject* frog);
-	virtual int getLifes();
+	void setupObjects();
+	void render(VSShaderLib shader);
+	float** getBoundingBox();
+	void loseLife();
+	void resetLifes();
+	void collide(DynamicObject* frog);
+	int getLifes();
 	int getPoints();
 
 };

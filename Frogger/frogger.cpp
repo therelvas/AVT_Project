@@ -144,7 +144,7 @@ void updateEnemies(int value) {
 //
 
 void processKeys(unsigned char key, int xx, int yy) {
-	if (key == 'r'){
+	if (key == 'r' && frog->getLifes() == 0){
 		frog->resetLifes();
 		return;
 	}

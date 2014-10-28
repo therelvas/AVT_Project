@@ -23,16 +23,16 @@ public:
 	Car(float x, float y, float z);
 	~Car();
 
-	virtual void setupObjects();
-	virtual void render(VSShaderLib shader);
+	void setupObjects();
+	void render(VSShaderLib shader);
 
-	virtual void move(float x, float y, float z, float speed);
-	virtual float** getBoundingBox();
-	virtual void collide(DynamicObject* frog);
+	void move(float x, float y, float z, float speed);
+	float** getBoundingBox();
+	void collide(DynamicObject* frog);
 
-	virtual void loseLife();
-	virtual int getLifes();
-	virtual void resetLifes();
+	void loseLife();
+	int getLifes();
+	void resetLifes();
 };
 
 #endif
