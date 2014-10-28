@@ -11,7 +11,6 @@
 class Frog : public DynamicObject {
 
 private:
-	int lifes;
 	VSResSurfRevLib *vsres[2];
 
 public:
@@ -23,6 +22,10 @@ public:
 	virtual void render(VSShaderLib shader);
 	virtual float** getBoundingBox();
 	virtual void loseLife();
+	virtual void resetLifes();
+	virtual void collide(DynamicObject* frog);
+	virtual int getLifes();
+
 };
 
 #endif

@@ -136,10 +136,19 @@ float** Car::getBoundingBox(){
 void Car::collide(DynamicObject* frog){
 	if (frog->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
 		&&
-		frog->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[0][2] >= getBoundingBox()[0][2])
+		frog->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
+		frog->loseLife();
 		frog->resetPosition();
+	}
 	else if (frog->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
 		frog->getBoundingBox()[1][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[1][2] >= getBoundingBox()[0][2]){
+		frog->loseLife();
 		frog->resetPosition();
 	}
 }
+
+void Car::loseLife(){}
+int Car::getLifes(){
+	return 0;
+}
+void Car::resetLifes(){}

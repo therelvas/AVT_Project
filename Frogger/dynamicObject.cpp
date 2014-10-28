@@ -32,3 +32,9 @@ void DynamicObject::collide(DynamicObject* frog){
 float** DynamicObject::getBoundingBox(){
 	return NULL;
 }
+
+void DynamicObject::loseLife(){}
+int DynamicObject::getLifes(){
+	return 0;
+}
+void DynamicObject::resetLifes(){}

@@ -110,7 +110,12 @@ void changeSize(int w, int h) {
 void timer(int value) {
 
 	std::ostringstream oss;
-	oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")";
+
+	if (frog->getLifes() == 0)
+		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " GAME OVER" ;
+	else
+		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " Lifes: " << frog->getLifes();
+
 	std::string s = oss.str();
 	glutSetWindow(WindowHandle);
 	glutSetWindowTitle(s.c_str());
@@ -139,42 +144,48 @@ void updateEnemies(int value) {
 //
 
 void processKeys(unsigned char key, int xx, int yy) {
+	if (key == 'r'){
+		frog->resetLifes();
+		return;
+	}
 
-	switch (key) {
+	if (frog->getLifes() > 0){
+		switch (key) {
 
-	case 27:
-		glutLeaveMainLoop();
-		break;
-	case 'c':
-		printf("Camera Spherical Coordinates (%f, %f, %f)\n", alpha, beta, r);
-		break;
-	case 'a':
-		frog->moveFrog(-0.2f, 0.0f, 0.0f, 1.0f);
-		break;
-	case 'q':
-		frog->moveFrog(0.2f, 0.0f, 0.0f, 1.0f);
-		break;
-	case 'o':
-		frog->moveFrog(0.0f, 0.0f, -0.2f, 1.0f);
-		break;
-	case 'p':
-		frog->moveFrog(0.0f, 0.0f, 0.2f, 1.0f);
-		break;
-	case 's':
-		level = 1.0f;
-		break;
-	case '1':
-		camera->setView(1);
-		view = 1;
-		break;
-	case '2':
-		camera->setView(2);
-		view = 2;
-		break;
-	case '3':
-		camera->setView(3);
-		view = 3;
-		break;
+		case 27:
+			glutLeaveMainLoop();
+			break;
+		case 'c':
+			printf("Camera Spherical Coordinates (%f, %f, %f)\n", alpha, beta, r);
+			break;
+		case 'a':
+			frog->moveFrog(-0.5f, 0.0f, 0.0f, 1.5f);
+			break;
+		case 'q':
+			frog->moveFrog(0.5f, 0.0f, 0.0f, 1.5f);
+			break;
+		case 'o':
+			frog->moveFrog(0.0f, 0.0f, -0.5f, 2.0f);
+			break;
+		case 'p':
+			frog->moveFrog(0.0f, 0.0f, 0.5f, 2.0f);
+			break;
+		case 's':
+			level = 1.0f;
+			break;
+		case '1':
+			camera->setView(1);
+			view = 1;
+			break;
+		case '2':
+			camera->setView(2);
+			view = 2;
+			break;
+		case '3':
+			camera->setView(3);
+			view = 3;
+			break;
+		}
 	}
 }
 

@@ -119,3 +119,24 @@ float** Frog::getBoundingBox(){
 void Frog::loseLife(){
 	lifes--;
 }
+
+void Frog::resetLifes(){
+	lifes = 5;
+}
+
+void Frog::collide(DynamicObject* frog){
+	if (Frog::collided){
+		Frog::collided = false;
+		return;
+	}
+	else{
+		if (position[0] > 18 && position[0] < 28){
+			loseLife();
+			frog->resetPosition();
+		}
+	}
+}
+
+int Frog::getLifes(){
+	return lifes;
+}

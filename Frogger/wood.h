@@ -29,6 +29,9 @@ public:
 	
 	virtual float** getBoundingBox();
 	virtual void collide(DynamicObject* frog);
+	virtual void loseLife();
+	virtual int getLifes();
+	virtual void resetLifes();
 };
 
 #endif
