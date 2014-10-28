@@ -34,31 +34,31 @@ void Car::setupObjects() {
 	cube[1]->setColor(VSResourceLib::SHININESS, body_shininess);
 
 	//Tires
-	vsres[0]->createSphere(0.5f, 30);
+	vsres[0]->createTorus(0.2, 0.5f, 30, 30);
 	vsres[0]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[0]->setColor(VSResourceLib::SPECULAR, tires_diff);
 	vsres[0]->setColor(VSResourceLib::SHININESS, tires_diff);
 
-	vsres[1]->createSphere(0.5f, 30);
+	vsres[1]->createTorus(0.2, 0.5f, 30, 30);
 	vsres[1]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[1]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[1]->setColor(VSResourceLib::SPECULAR, tires_diff);
 	vsres[1]->setColor(VSResourceLib::SHININESS, tires_diff);
 
-	vsres[2]->createSphere(0.5f, 30);
+	vsres[2]->createTorus(0.2, 0.5f, 30, 30);
 	vsres[2]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[2]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[2]->setColor(VSResourceLib::SPECULAR, tires_diff);
 	vsres[2]->setColor(VSResourceLib::SHININESS, tires_diff);
 
-	vsres[3]->createSphere(0.5f, 30);
+	vsres[3]->createTorus(0.2, 0.5f, 30, 30);
 	vsres[3]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[3]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[3]->setColor(VSResourceLib::SPECULAR, tires_diff);
 	vsres[3]->setColor(VSResourceLib::SHININESS, tires_diff);
 
-	vsres[4]->createSphere(0.5f, 30);
+	vsres[4]->createTorus(0.2, 0.5f, 30,30);
 	vsres[4]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[4]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[4]->setColor(VSResourceLib::SPECULAR, tires_diff);
@@ -84,26 +84,26 @@ void Car::render(VSShaderLib shader) {
 
 	//Tires
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.15f, position[1], position[2] + 1.0f);
-	vsml->scale(0.5f, 1.0f, 1.0f);
+	vsml->translate(position[0] + 0.05f, position[1], position[2] + 1.0f);
+	vsml->rotate(90, 0, 0, 1);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.15f, position[1], position[2] + 4.0f);
-	vsml->scale(0.5f, 1.0f, 1.0f);
+	vsml->translate(position[0] + 0.05f, position[1], position[2] + 4.0f);
+	vsml->rotate(90, 0, 0, 1);
 	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 1.85f, position[1], position[2] + 4.0f);
-	vsml->scale(0.5f, 1.0f, 1.0f);
+	vsml->translate(position[0] + 1.95f, position[1], position[2] + 4.0f);
+	vsml->rotate(90, 0, 0, 1);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 1.85f, position[1], position[2] + 1.0f);
-	vsml->scale(0.5f, 1.0f, 1.0f);
+	vsml->translate(position[0] + 1.95f, position[1], position[2] + 1.0f);
+	vsml->rotate(90, 0, 0, 1);
 	vsres[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }
