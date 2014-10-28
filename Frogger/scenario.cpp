@@ -16,22 +16,22 @@ void Scenario::setupObjects() {
 	float water_amb[] = { 0.0f, 0.1f, 0.06f, 1.0f };
 	float water_diff[] = { 0.0f, 0.50980392f, 0.50980392f, 1.0f };
 	float water_spec[] = { 0.50196078f, 0.50196078f, 0.50196078f, 1.0f };
-	float water_shin[] = { 32.0f };
+	float water_shin[] = { 80.0f };
 
 	float river_margin_amb[] = { 0.0215f, 0.1745f, 0.0215f, 0.55f };
 	float river_margin_diff[] = { 0.07568f, 0.61424f, 0.07568f, 0.55f };
 	float river_margin_spec[] = { 0.633f, 0.727811f, 0.633f, 0.55f };
-	float river_margin_shin[] = { 76.8f };
+	float river_margin_shin[] = { 80.0f };
 
 	float r_margin_amb[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float r_margin_diff[] = { 0.55f, 0.55f, 0.55f, 1.0f };
 	float r_margin_spec[] = { 0.70f, 0.70f, 0.70f, 1.0f };
-	float r_margin_shin[] = { 32.0f };
+	float r_margin_shin[] = { 80.0f };
 
 	float road_amb[] = { 0.05375f, 0.05f, 0.06625f, 0.82f };
 	float road_diff[] = { 0.18275f, 0.17f, 0.22525f, 0.82f };
 	float road_spec[] = { 0.332741f, 0.328634f, 0.346435f, 0.82f };
-	float road_shin[] = { 38.4f };
+	float road_shin[] = { 80.0f };
 
 	//Road margin
 	cube[0]->setColor(VSResourceLib::AMBIENT, r_margin_amb);

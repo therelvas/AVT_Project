@@ -24,6 +24,7 @@
     <ClInclude Include="lib\vsResourceLib.h" />
     <ClInclude Include="lib\vsResSurfRevLib.h" />
     <ClInclude Include="lib\vsShaderLib.h" />
+    <ClInclude Include="light.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="obstacles.h" />
     <ClInclude Include="scenario.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="lib\vsResourceLib.cpp" />
     <ClCompile Include="lib\vsResSurfRevLib.cpp" />
     <ClCompile Include="lib\vsShaderLib.cpp" />
+    <ClCompile Include="light.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="frogger.cpp" />
     <ClCompile Include="obstacles.cpp" />
@@ -52,10 +54,8 @@
     <ClCompile Include="wood.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\color.frag" />
-    <None Include="shaders\color.vert" />
-    <None Include="shaders\pointlight.frag" />
-    <None Include="shaders\pointlight.vert" />
+    <None Include="shaders\multiplelights.frag" />
+    <None Include="shaders\multiplelights.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC24F681-3B60-4EF6-BA13-F1821A11124A}</ProjectGuid>

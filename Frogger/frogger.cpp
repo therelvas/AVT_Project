@@ -14,13 +14,14 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 
-#include "Scenario.h"
-#include "Frog.h"
-#include "Car.h"
+#include "scenario.h"
+#include "frog.h"
+#include "car.h"
 #include "camera.h"
-#include "Turtle.h"
-#include "Wood.h"
+#include "turtle.h"
+#include "wood.h"
 #include "obstacles.h"
+#include "light.h"
 
 #define CAPTION "Frogger"
 
@@ -42,20 +43,31 @@ int startX, startY, tracking = 0;
 float alpha = 39.0f, beta = 51.0f;
 float r = 10.0f;
 
-//Light position
-float lightPos[4] = { 15.5f, 30.0f, 50.0f, 1.0f };
-
-//Objects
-Scenario *scenario;
-Frog *frog;
-Obstacles *obstacles;
-
 //level of speed of the game
 float level = 1.0f;
+
+//Objects
+Frog *frog;
+Light *light;
+Scenario *scenario;
+Obstacles *obstacles;
 
 //Camera
 Camera *camera;
 int view = 1;
+
+//Light position
+float pointLight1[4] = { 0.0f, 20.0f, 0.0f, 1.0f };
+float pointLight2[4] = { 16.0f, 20.0f, 20.0f, 1.0f };
+float pointLight3[4] = { 0.0f, 20.0f, 40.0f, 1.0f };
+float pointLight4[4] = { 16.0f, 20.0f, 60.0f, 1.0f };
+float pointLight5[4] = { 0.0f, 20.0f, 80.0f, 1.0f };
+float pointLight6[4] = { 16.0f, 20.0f, 100.0f, 1.0f };
+
+float dirLight[4] = { 0.0f, 10.0f, 0.0f, 0.0f };
+
+float spotLight[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+float spotDir[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
 // ------------------------------------------------------------
 //
@@ -69,17 +81,19 @@ void renderScene(void) {
 	// use our shader
 	glUseProgram(shader.getProgramIndex());
 
-	//send the light position in eye coordinates
-	float res[4];
-	vsml->multMatrixPoint(VSMathLib::VIEW, lightPos, res);   //lightPos defined in World Coord so is converted to eye space
-	GLint lPos_uniformId = glGetUniformLocation(shader.getProgramIndex(), "l_pos");
-	glUniform4fv(lPos_uniformId, 1, res);
+	float currentSpotLight[4] = { frog->getPosition()[0], 6.0f, frog->getPosition()[2], 1.0f };
+	float currentSpotDir[4] = { 5.0f, -6.0f, 0.0f, 0.0f };
+
+	//Update frog spotlight position
+	light->updateSpotPosDir(7, currentSpotLight, currentSpotDir);
+
+	//render lighta
+	light->draw(shader);
 
 	//render objects
 	frog->render(shader);
 	scenario->render(shader);
 	obstacles->render(shader);
-
 }
 
 // ------------------------------------------------------------
@@ -130,7 +144,7 @@ void updateEnemies(int value) {
 	obstacles->destroyObstacles();
 
 	glutPostRedisplay();
-	glutTimerFunc(1000/ 30, updateEnemies, 0);
+	glutTimerFunc(1000/ 60, updateEnemies, 0);
 }
 
 // ------------------------------------------------------------
@@ -144,9 +158,6 @@ void processKeys(unsigned char key, int xx, int yy) {
 
 	case 27:
 		glutLeaveMainLoop();
-		break;
-	case 'c':
-		printf("Camera Spherical Coordinates (%f, %f, %f)\n", alpha, beta, r);
 		break;
 	case 'a':
 		frog->move(-0.2f, 0.0f, 0.0f, 1.0f);
@@ -175,9 +186,16 @@ void processKeys(unsigned char key, int xx, int yy) {
 		camera->setView(3);
 		view = 3;
 		break;
+	case 'n':
+		light->switchLight(Light::LightTypes::DIRECTIONAL);
+		light->switchLight(Light::LightTypes::SPOT);
+		break;
+	case 'c':
+		light->switchLight(Light::LightTypes::POINT);
+		light->switchLight(Light::LightTypes::SPOT);
+		break;
 	}
 }
-
 
 // ------------------------------------------------------------
 //
@@ -273,17 +291,16 @@ GLuint setupShaders() {
 
 	// Shader for models
 	shader.init();
-	shader.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/pointlight.vert");
-	shader.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/pointlight.frag");
+	shader.loadShader(VSShaderLib::VERTEX_SHADER, "shaders/multiplelights.vert");
+	shader.loadShader(VSShaderLib::FRAGMENT_SHADER, "shaders/multiplelights.frag");
 
 	// set semantics for the shader variables
 	glBindFragDataLocation(shader.getProgramIndex(), 0, "colorOut");
-	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::VERTEX_COORD_ATTRIB, "position");
-	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::NORMAL_ATTRIB, "normal");
-	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::TEXTURE_COORD_ATTRIB, "texCoord");
-
+	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::VERTEX_COORD_ATTRIB, "vertexPosition");
+	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::NORMAL_ATTRIB, "vertexNormal");
+	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::TEXTURE_COORD_ATTRIB, "vertexTexCoord");
 	glLinkProgram(shader.getProgramIndex());
-
+	
 	printf("InfoLog for Hello World Shader\n%s\n\n", shader.getAllInfoLogs().c_str());
 
 	return(shader.isProgramValid());
@@ -297,9 +314,22 @@ GLuint setupShaders() {
 
 void setupObjects() {
 
+	light = new Light();
+	obstacles = new Obstacles();
 	frog = new Frog(0.0f, 0.0f, 50.0f);
 	scenario = new Scenario(0.0f, -1.5f, 0.0f);
-	obstacles = new Obstacles();
+
+	//Setup lights
+	light->addLight(Light::DIRECTIONAL, dirLight, 0, 0, 0);
+
+	light->addLight(Light::POINT, pointLight1, 0, 0, 1);
+	light->addLight(Light::POINT, pointLight2, 0, 0, 2);
+	light->addLight(Light::POINT, pointLight3, 0, 0, 3);
+	light->addLight(Light::POINT, pointLight4, 0, 0, 4);
+	light->addLight(Light::POINT, pointLight5, 0, 0, 5);
+	light->addLight(Light::POINT, pointLight6, 0, 0, 6);
+
+	light->addLight(Light::SPOT, spotLight, spotDir, 0.9f, 7);
 }
 
 

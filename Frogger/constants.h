@@ -35,3 +35,7 @@
 #define SCALE_FACTOR_Z 100
 #define BORDER_SCALE_FACTOR_X 4
 #define OTHER_SCALE_FACTOR_X 10
+
+//Lights
+
+#define MAX_LIGHTS 8
