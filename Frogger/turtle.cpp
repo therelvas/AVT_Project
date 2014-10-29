@@ -65,7 +65,7 @@ void Turtle::render(VSShaderLib shader) {
 	vsml->loadIdentity(VSMathLib::MODEL);
 	
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->scale(1.0f, 0.5f, 1.0f);
+	vsml->scale(1.0f, 0.4f, 1.0f);
 	vsml->translate(position[0], position[1], position[2]);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
@@ -106,5 +106,44 @@ void Turtle::move(float x, float y, float z, float speed) {
 
 	position[0] += 0.0f * speed;
 	position[1] += 0.0f * speed;
-	position[2] += 0.1f * speed;
+	position[2] -= 0.1f * speed;
 }
+
+float** Turtle::getBoundingBox(){
+	float** boundingBox = 0;
+	boundingBox = new float*[2];
+	boundingBox[0] = new float[3];
+	boundingBox[1] = new float[3];
+
+	boundingBox[0][0] = position[0] + 1.5;
+	boundingBox[0][1] = 0;
+	boundingBox[0][2] = position[2] - 2.4;
+
+	boundingBox[1][0] = position[0] - 1.5;
+	boundingBox[1][1] = 0;
+	boundingBox[1][2] = position[2] + 2.4;
+
+	return boundingBox;
+}
+
+void Turtle::collide(DynamicObject* frog){
+
+
+	if (frog->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
+		&&
+		frog->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
+		frog->collided = true;
+		return;
+	}
+	if (frog->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
+		frog->getBoundingBox()[1][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[1][2] >= getBoundingBox()[0][2]){
+		frog->collided = true;
+		return;
+	}
+}
+
+void Turtle::loseLife(){}
+int Turtle::getLifes(){
+	return 0;
+}
+void Turtle::resetLifes(){}

@@ -16,17 +16,23 @@ class Car : public DynamicObject {
 private:
 
 	Cube* cube[2];
-	VSResSurfRevLib *vsres[6];
+	VSResSurfRevLib *vsres[4];
 
 public:
 
 	Car(float x, float y, float z);
 	~Car();
 
-	virtual void setupObjects();
-	virtual void render(VSShaderLib shader);
+	void setupObjects();
+	void render(VSShaderLib shader);
 
-	virtual void move(float x, float y, float z, float speed);
+	void move(float x, float y, float z, float speed);
+	float** getBoundingBox();
+	void collide(DynamicObject* frog);
+
+	void loseLife();
+	int getLifes();
+	void resetLifes();
 };
 
 #endif

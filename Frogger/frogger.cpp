@@ -124,7 +124,12 @@ void changeSize(int w, int h) {
 void timer(int value) {
 
 	std::ostringstream oss;
-	oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")";
+
+	if (frog->getLifes() == 0)
+		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " GAME OVER " << " Points: " << frog->getPoints();
+	else
+		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " Lifes: " << frog->getLifes() << " Points: " << frog->getPoints();
+
 	std::string s = oss.str();
 	glutSetWindow(WindowHandle);
 	glutSetWindowTitle(s.c_str());
@@ -153,23 +158,28 @@ void updateEnemies(int value) {
 //
 
 void processKeys(unsigned char key, int xx, int yy) {
+	if (key == 'r' && frog->getLifes() == 0){
+		frog->resetLifes();
+		return;
+	}
 
+	if (frog->getLifes() > 0){
 	switch (key) {
 
 	case 27:
 		glutLeaveMainLoop();
 		break;
 	case 'a':
-		frog->move(-0.2f, 0.0f, 0.0f, 1.0f);
+			frog->moveFrog(-0.5f, 0.0f, 0.0f, 1.5f);
 		break;
 	case 'q':
-		frog->move(0.2f, 0.0f, 0.0f, 1.0f);
+			frog->moveFrog(0.5f, 0.0f, 0.0f, 1.5f);
 		break;
 	case 'o':
-		frog->move(0.0f, 0.0f, -0.2f, 1.0f);
+			frog->moveFrog(0.0f, 0.0f, -0.5f, 2.0f);
 		break;
 	case 'p':
-		frog->move(0.0f, 0.0f, 0.2f, 1.0f);
+			frog->moveFrog(0.0f, 0.0f, 0.5f, 2.0f);
 		break;
 	case 's':
 		level = 1.0f;
@@ -195,6 +205,7 @@ void processKeys(unsigned char key, int xx, int yy) {
 		light->switchLight(Light::LightTypes::SPOT);
 		break;
 	}
+}
 }
 
 // ------------------------------------------------------------
@@ -300,7 +311,7 @@ GLuint setupShaders() {
 	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::NORMAL_ATTRIB, "vertexNormal");
 	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::TEXTURE_COORD_ATTRIB, "vertexTexCoord");
 	glLinkProgram(shader.getProgramIndex());
-	
+
 	printf("InfoLog for Hello World Shader\n%s\n\n", shader.getAllInfoLogs().c_str());
 
 	return(shader.isProgramValid());
@@ -317,7 +328,6 @@ void setupObjects() {
 	light = new Light();
 	obstacles = new Obstacles();
 	frog = new Frog(0.0f, 0.0f, 50.0f);
-	scenario = new Scenario(0.0f, -1.5f, 0.0f);
 
 	//Setup lights
 	light->addLight(Light::DIRECTIONAL, dirLight, 0, 0, 0);

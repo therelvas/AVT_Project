@@ -5,6 +5,8 @@ Frog::Frog(float x, float y, float z) : DynamicObject(x, y, z) {
 	for (int i = 0; i < 6; i++){
 		vsres[i] = new VSResSurfRevLib();
 	}
+	lifes = 5;
+	Frog::gamePoints = 0;
 
 	setupObjects();
 }
@@ -97,4 +99,54 @@ void Frog::render(VSShaderLib shader) {
 	vsml->translate(position[0], position[1], position[2] - 0.5f);
 	vsres[5]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
+}
+
+float** Frog::getBoundingBox(){
+	float** boundingBox = 0;
+	boundingBox = new float*[2];
+	boundingBox[0] = new float[3];
+	boundingBox[1] = new float[3];
+	boundingBox[0][0] = position[0] + 1.2f;
+	boundingBox[0][1] = position[1];
+	boundingBox[0][2] = position[2] - 1.0f;
+
+	boundingBox[1][0] = position[0] - 1.2;
+	boundingBox[1][1] = position[1];
+	boundingBox[1][2] = position[2] + 1.0f;
+
+	return boundingBox;
+}
+
+void Frog::loseLife(){
+	lifes--;
+}
+
+void Frog::resetLifes(){
+	lifes = 5;
+	gamePoints = 0;
+}
+
+void Frog::collide(DynamicObject* frog){
+	if (Frog::collided){
+		Frog::collided = false;
+		return;
+	}
+	else{
+		if (position[0] > 18 && position[0] < 28){
+			loseLife();
+			frog->resetPosition();
+		}
+		if (position[0] > 30){
+			Frog::gamePoints += 10;
+			frog->resetPosition();
+		}
+	}
+}
+
+int Frog::getLifes(){
+	return lifes;
+}
+
+int Frog::getPoints(){
+	return Frog::gamePoints;
 }
