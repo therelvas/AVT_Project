@@ -2,7 +2,7 @@
 
 Turtle::Turtle(float x, float y, float z) : DynamicObject(x, y, z) {
 	
-	for (int i = 0; i < 7; i++){
+	for (int i = 0; i < 4; i++){
 		vsres[i] = new VSResSurfRevLib();
 	}
 
@@ -44,30 +44,12 @@ void Turtle::setupObjects() {
 	vsres[2]->setColor(VSResourceLib::SPECULAR, body_spec);
 	vsres[2]->setColor(VSResourceLib::SHININESS, body_shininess);
 
-	vsres[3]->createSphere(0.3f, 30);
+	//Tail
+	vsres[3]->createCone(1.0f, 0.3f, 30);
 	vsres[3]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[3]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[3]->setColor(VSResourceLib::SPECULAR, body_spec);
 	vsres[3]->setColor(VSResourceLib::SHININESS, body_shininess);
-
-	vsres[4]->createSphere(0.3f, 30);
-	vsres[4]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	vsres[4]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[4]->setColor(VSResourceLib::SPECULAR, body_spec);
-	vsres[4]->setColor(VSResourceLib::SHININESS, body_shininess);
-
-	vsres[5]->createSphere(0.3f, 30);
-	vsres[5]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	vsres[5]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[5]->setColor(VSResourceLib::SPECULAR, body_spec);
-	vsres[5]->setColor(VSResourceLib::SHININESS, body_shininess);
-
-	//Tail
-	vsres[6]->createCone(1.0f, 0.3f, 30);
-	vsres[6]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	vsres[6]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[6]->setColor(VSResourceLib::SPECULAR, body_spec);
-	vsres[6]->setColor(VSResourceLib::SHININESS, body_shininess);
 }
 
 void Turtle::render(VSShaderLib shader) {
@@ -95,24 +77,24 @@ void Turtle::render(VSShaderLib shader) {
 
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0] + 0.9f, position[1] - 0.3f, position[2] + 0.7f);
-	vsres[3]->render(shader);
+	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0] - 0.9f, position[1] - 0.3f, position[2] + 0.7f);
-	vsres[4]->render(shader);
+	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0] + 0.9f, position[1] - 0.3f, position[2] - 0.7f);
-	vsres[5]->render(shader);
+	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//Tail
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0], position[1] - 0.3f, position[2] + 0.7f);
 	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
-	vsres[6]->render(shader);
+	vsres[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 

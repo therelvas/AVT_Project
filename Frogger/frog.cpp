@@ -2,7 +2,7 @@
 
 Frog::Frog(float x, float y, float z) : DynamicObject(x, y, z) {
 
-	for (int i = 0; i < 6; i++){
+	for (int i = 0; i < 4; i++) {
 		vsres[i] = new VSResSurfRevLib();
 	}
 	
@@ -24,81 +24,67 @@ void Frog::setupObjects() {
 	float eyes_diff[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	//Head
-	vsres[1]->createSphere(0.5f, 40);
-	vsres[1]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	vsres[1]->setColor(VSResourceLib::SPECULAR, body_spec);
-	vsres[1]->setColor(VSResourceLib::SHININESS, body_shininess);
-
-	//Eyes
-	vsres[2]->createSphere(0.2f, 40);
-	vsres[2]->setColor(VSResourceLib::DIFFUSE, eyes_diff);
-	vsres[2]->setColor(VSResourceLib::SPECULAR, eyes_diff);
-
-	vsres[3]->createSphere(0.2f, 40);
-	vsres[3]->setColor(VSResourceLib::DIFFUSE, eyes_diff);
-	vsres[3]->setColor(VSResourceLib::SPECULAR, eyes_diff);
-
-	//Body
-	vsres[0]->createCylinder(1.0f, 0.5f, 40);
+	vsres[0]->createSphere(0.5f, 40);
 	vsres[0]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[0]->setColor(VSResourceLib::SPECULAR, body_spec);
 	vsres[0]->setColor(VSResourceLib::SHININESS, body_shininess);
 
-	vsres[4]->createSphere(0.5f, 40);
-	vsres[4]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[4]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	vsres[4]->setColor(VSResourceLib::SPECULAR, body_spec);
-	vsres[4]->setColor(VSResourceLib::SHININESS, body_shininess);
+	//Eyes
+	vsres[1]->createSphere(0.2f, 40);
+	vsres[1]->setColor(VSResourceLib::DIFFUSE, eyes_diff);
+	vsres[1]->setColor(VSResourceLib::SPECULAR, eyes_diff);
 
-	vsres[5]->createSphere(0.5f, 40);
-	vsres[5]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[5]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	vsres[5]->setColor(VSResourceLib::SPECULAR, body_spec);
-	vsres[5]->setColor(VSResourceLib::SHININESS, body_shininess);
+	//Body
+	vsres[2]->createCylinder(1.0f, 0.5f, 40);
+	vsres[2]->setColor(VSResourceLib::AMBIENT, body_amb);
+	vsres[2]->setColor(VSResourceLib::DIFFUSE, body_diff);
+	vsres[2]->setColor(VSResourceLib::SPECULAR, body_spec);
+	vsres[2]->setColor(VSResourceLib::SHININESS, body_shininess);
+
+	vsres[3]->createSphere(0.5f, 40);
+	vsres[3]->setColor(VSResourceLib::AMBIENT, body_amb);
+	vsres[3]->setColor(VSResourceLib::DIFFUSE, body_diff);
+	vsres[3]->setColor(VSResourceLib::SPECULAR, body_spec);
+	vsres[3]->setColor(VSResourceLib::SHININESS, body_shininess);
 }
 
 void Frog::render(VSShaderLib shader) {
 	
-	//Head
 	vsml->loadIdentity(VSMathLib::MODEL);
+
+	//Head
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0] + 0.5f, position[1] + 0.5f, position[2]);
-	vsres[1]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	//Eyes
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.8f, position[1] + 0.8f, position[2] + 0.2f);
-	vsres[2]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.8f, position[1] + 0.8f, position[2] - 0.2f);
-	vsres[3]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-
-	//Body
-	vsml->loadIdentity(VSMathLib::MODEL);
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0], position[1], position[2]);
-	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
+	//Eyes
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0], position[1], position[2] + 0.5f);
-	vsres[4]->render(shader);
+	vsml->translate(position[0] + 0.8f, position[1] + 0.8f, position[2] + 0.2f);
+	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
-	vsml->loadIdentity(VSMathLib::MODEL);
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(position[0] + 0.8f, position[1] + 0.8f, position[2] - 0.2f);
+	vsres[1]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
+
+	//Body
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(position[0], position[1], position[2]);
+	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	vsres[2]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
+
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(position[0], position[1], position[2] + 0.5f);
+	vsres[3]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
+
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0], position[1], position[2] - 0.5f);
-	vsres[5]->render(shader);
+	vsres[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 

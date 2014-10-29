@@ -2,9 +2,8 @@
 
 Wood::Wood(float x, float y, float z) : DynamicObject(x, y, z) {
 	
-	for (int i = 0; i < 3; i++){
-		vsres[i] = new VSResSurfRevLib();
-	}
+	vsres = new VSResSurfRevLib();
+
 	setupObjects();
 }
 
@@ -17,11 +16,11 @@ void Wood::setupObjects() {
 	float brown_spec[4] = { 0.774597f, 0.458561f, 0.200621f, 1.0f };
 	float body_shininess[] = { 76.8f };
 
-	vsres[0]->createCylinder(10.0f, 1.0f, 30);
-	vsres[0]->setColor(VSResourceLib::DIFFUSE, brown_diff);
-	vsres[0]->setColor(VSResourceLib::AMBIENT, body_amb);
-	vsres[0]->setColor(VSResourceLib::SPECULAR, brown_spec);
-	vsres[0]->setColor(VSResourceLib::SHININESS, body_shininess);
+	vsres->createCylinder(10.0f, 1.0f, 30);
+	vsres->setColor(VSResourceLib::DIFFUSE, brown_diff);
+	vsres->setColor(VSResourceLib::AMBIENT, body_amb);
+	vsres->setColor(VSResourceLib::SPECULAR, brown_spec);
+	vsres->setColor(VSResourceLib::SHININESS, body_shininess);
 }
 
 void Wood::render(VSShaderLib shader) {
@@ -31,7 +30,7 @@ void Wood::render(VSShaderLib shader) {
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0] + 0.15f, position[1], position[2]);
 	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
-	vsres[0]->render(shader);
+	vsres->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 

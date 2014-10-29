@@ -16,7 +16,7 @@ class Scenario : public StaticObject {
 
 private:
 
-	Cube *cube[5];
+	Cube *cube[4];
 
 public:
 

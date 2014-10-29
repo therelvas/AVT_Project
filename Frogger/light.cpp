@@ -4,6 +4,10 @@ Light::Light() {
 
 	index = 0;
 	vsml = VSMathLib::getInstance();
+
+	for (int i = 0; i < MAX_LIGHTS; i++) {
+		myLightSources[i].isEnabled = false;
+	}
 }
 
 Light::~Light() {}

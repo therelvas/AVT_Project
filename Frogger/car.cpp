@@ -2,11 +2,8 @@
 
 Car::Car(float x, float y, float z) : DynamicObject(x, y, z) {
 
-	for (int i = 0; i < 4; i++) {
-		vsres[i] = new VSResSurfRevLib();
-	}
-	cube[0] = new Cube();
-	cube[1] = new Cube();
+	vsres = new VSResSurfRevLib();
+	cube = new Cube();
 
 	setupObjects();
 }
@@ -23,40 +20,17 @@ void Car::setupObjects() {
 	float tires_diff[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	//Body
-	cube[0]->setColor(VSResourceLib::AMBIENT, body_amb);
-	cube[0]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	cube[0]->setColor(VSResourceLib::SPECULAR, body_spec);
-	cube[0]->setColor(VSResourceLib::SHININESS, body_shininess);
+	cube->setColor(VSResourceLib::AMBIENT, body_amb);
+	cube->setColor(VSResourceLib::DIFFUSE, body_diff);
+	cube->setColor(VSResourceLib::SPECULAR, body_spec);
+	cube->setColor(VSResourceLib::SHININESS, body_shininess);
 	
-	cube[1]->setColor(VSResourceLib::AMBIENT, body_amb);
-	cube[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
-	cube[1]->setColor(VSResourceLib::SPECULAR, body_spec);
-	cube[1]->setColor(VSResourceLib::SHININESS, body_shininess);
-
 	//Tires
-	vsres[0]->createTorus(0.2f, 0.5f, 30, 30);
-	vsres[0]->setColor(VSResourceLib::AMBIENT, tires_diff);
-	vsres[0]->setColor(VSResourceLib::DIFFUSE, tires_diff);
-	vsres[0]->setColor(VSResourceLib::SPECULAR, tires_diff);
-	vsres[0]->setColor(VSResourceLib::SHININESS, tires_diff);
-
-	vsres[1]->createTorus(0.2f, 0.5f, 30, 30);
-	vsres[1]->setColor(VSResourceLib::AMBIENT, tires_diff);
-	vsres[1]->setColor(VSResourceLib::DIFFUSE, tires_diff);
-	vsres[1]->setColor(VSResourceLib::SPECULAR, tires_diff);
-	vsres[1]->setColor(VSResourceLib::SHININESS, tires_diff);
-
-	vsres[2]->createTorus(0.2f, 0.5f, 30, 30);
-	vsres[2]->setColor(VSResourceLib::AMBIENT, tires_diff);
-	vsres[2]->setColor(VSResourceLib::DIFFUSE, tires_diff);
-	vsres[2]->setColor(VSResourceLib::SPECULAR, tires_diff);
-	vsres[2]->setColor(VSResourceLib::SHININESS, tires_diff);
-
-	vsres[3]->createTorus(0.2f, 0.5f, 30, 30);
-	vsres[3]->setColor(VSResourceLib::AMBIENT, tires_diff);
-	vsres[3]->setColor(VSResourceLib::DIFFUSE, tires_diff);
-	vsres[3]->setColor(VSResourceLib::SPECULAR, tires_diff);
-	vsres[3]->setColor(VSResourceLib::SHININESS, tires_diff);
+	vsres->createTorus(0.2f, 0.5f, 30, 30);
+	vsres->setColor(VSResourceLib::AMBIENT, tires_diff);
+	vsres->setColor(VSResourceLib::DIFFUSE, tires_diff);
+	vsres->setColor(VSResourceLib::SPECULAR, tires_diff);
+	vsres->setColor(VSResourceLib::SHININESS, tires_diff);
 }
 
 void Car::render(VSShaderLib shader) {
@@ -67,38 +41,38 @@ void Car::render(VSShaderLib shader) {
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0], position[1], position[2]);
 	vsml->scale(2.0f, 1.0f, 5.0f);
-	cube[0]->render(shader);
+	cube->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0], position[1] + 1.0f, position[2] + 1.0f);
 	vsml->scale(2.0f, 1.0f, 3.0f);
-	cube[1]->render(shader);
+	cube->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//Tires
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0] + 0.05f, position[1], position[2] + 1.0f);
 	vsml->rotate(90, 0, 0, 1);
-	vsres[0]->render(shader);
+	vsres->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0] + 0.05f, position[1], position[2] + 4.0f);
 	vsml->rotate(90, 0, 0, 1);
-	vsres[1]->render(shader);
+	vsres->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0] + 1.95f, position[1], position[2] + 4.0f);
 	vsml->rotate(90, 0, 0, 1);
-	vsres[2]->render(shader);
+	vsres->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(position[0] + 1.95f, position[1], position[2] + 1.0f);
 	vsml->rotate(90, 0, 0, 1);
-	vsres[3]->render(shader);
+	vsres->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 

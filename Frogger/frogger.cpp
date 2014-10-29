@@ -87,7 +87,7 @@ void renderScene(void) {
 	//Update frog spotlight position
 	light->updateSpotPosDir(7, currentSpotLight, currentSpotDir);
 
-	//render lighta
+	//render light
 	light->draw(shader);
 
 	//render objects
@@ -204,7 +204,6 @@ void processKeys(unsigned char key, int xx, int yy) {
 			break;
 		case 'c':
 			light->switchLight(Light::LightTypes::POINT);
-			light->switchLight(Light::LightTypes::SPOT);
 			break;
 		}
 	}

@@ -45,7 +45,7 @@ void Scenario::setupObjects() {
 	cube[1]->setColor(VSResourceLib::SPECULAR, road_spec);
 	cube[1]->setColor(VSResourceLib::SHININESS, road_shin);
 
-	//First river margin
+	//River margins
 	cube[2]->setColor(VSResourceLib::AMBIENT, river_margin_amb);
 	cube[2]->setColor(VSResourceLib::DIFFUSE, river_margin_diff);
 	cube[2]->setColor(VSResourceLib::SPECULAR, river_margin_spec);
@@ -56,12 +56,6 @@ void Scenario::setupObjects() {
 	cube[3]->setColor(VSResourceLib::DIFFUSE, water_diff);
 	cube[3]->setColor(VSResourceLib::SPECULAR, water_spec);
 	cube[3]->setColor(VSResourceLib::SHININESS, water_shin);
-
-	//Second river margin
-	cube[4]->setColor(VSResourceLib::AMBIENT, river_margin_amb);
-	cube[4]->setColor(VSResourceLib::DIFFUSE, river_margin_diff);
-	cube[4]->setColor(VSResourceLib::SPECULAR, river_margin_spec);
-	cube[4]->setColor(VSResourceLib::SHININESS, river_margin_shin);
 }
 
 void Scenario::render(VSShaderLib shader) {
@@ -87,18 +81,18 @@ void Scenario::render(VSShaderLib shader) {
 	vsml->scale(BORDER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
 	cube[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
+
+	//Second river margin
+	vsml->pushMatrix(VSMathLib::MODEL);
+	vsml->translate(BORDER3_X, position[1], position[2]);
+	vsml->scale(BORDER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
+	cube[2]->render(shader);
+	vsml->popMatrix(VSMathLib::MODEL);
 	
 	//River
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(WATER_X, position[1], position[2]);
 	vsml->scale(OTHER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
 	cube[3]->render(shader);
-	vsml->popMatrix(VSMathLib::MODEL);
-	
-	//Second river margin
-	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(BORDER3_X, position[1], position[2]);
-	vsml->scale(BORDER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
-	cube[4]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }

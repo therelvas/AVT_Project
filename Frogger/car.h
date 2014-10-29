@@ -15,8 +15,8 @@ class Car : public DynamicObject {
 
 private:
 
-	Cube* cube[2];
-	VSResSurfRevLib *vsres[4];
+	Cube *cube;
+	VSResSurfRevLib *vsres;
 
 public:
 

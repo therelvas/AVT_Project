@@ -13,7 +13,7 @@ class Turtle : public DynamicObject {
 
 private:
 
-	VSResSurfRevLib *vsres[7];
+	VSResSurfRevLib *vsres[4];
 
 public:
 

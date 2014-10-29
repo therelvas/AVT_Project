@@ -14,7 +14,7 @@ class Wood : public DynamicObject {
 
 private:
 
-	VSResSurfRevLib *vsres[3];
+	VSResSurfRevLib *vsres;
 
 public:
 

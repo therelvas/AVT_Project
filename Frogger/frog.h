@@ -14,7 +14,7 @@ class Frog : public DynamicObject {
 private:
 
 	int gamePoints;
-	VSResSurfRevLib *vsres[2];
+	VSResSurfRevLib *vsres[4];
 
 public:
 

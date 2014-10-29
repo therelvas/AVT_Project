@@ -71,11 +71,9 @@ void main() {
 			else {
 			
 				if (max(dot(n, l), 0.0) > 0.0) {
-				
 					vec3 h = normalize(l + e);	
 					specular += mat.specular * pow(max(dot(h, n), 0.0), mat.shininess);
 				}
-				continue;
 			}
 		}	
 
@@ -86,7 +84,6 @@ void main() {
 			diffuse += max(dot(n, l), 0.0) * mat.diffuse;	
 
 			if(max(dot(n, l), 0.0) > 0.0) {
-
 				vec3 h = normalize(l + e);
 				specular += mat.specular * pow(max(dot(h, n), 0.0), mat.shininess);
 			}
