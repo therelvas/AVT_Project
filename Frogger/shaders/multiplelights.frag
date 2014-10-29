@@ -70,7 +70,9 @@ void main() {
 			
 			//Point light
 			else {
-			
+
+				diffuse += 0.1 * max(dot(n, l), 0.0) * mat.diffuse;
+
 				if (max(dot(n, l), 0.0) > 0.0) {
 					vec3 h = normalize(l + e);	
 					specular += mat.specular * pow(max(dot(h, n), 0.0), mat.shininess);

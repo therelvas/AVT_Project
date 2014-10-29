@@ -65,16 +65,16 @@ void Obstacles::updatePosition() {
 
 	for (int i = 0; i < size; i++) {
 		move = rand() % 150;
+		enemies[i]->collide(frog);
+
 		if (enemies[i]->isInitialPos() && move == 1) {
-			enemies[i]->move(0.0f, 0.0f, 0.0f, level); //No parameters given because they control themselves
-			enemies[1]->collide(frog);
+			enemies[i]->move(0.0f, 0.0f, 0.0f, level); //No parameters given because they control themselves	
 		}
 		else if (!enemies[i]->isInitialPos()) {
 			enemies[i]->move(0.0f, 0.0f, 0.0f, level);
-			enemies[i]->collide(frog);
 		}
-	}
-	frog->collide(frog);
+	} 
+	frog->collide(frog); 
 }
 
 //Render enemies
@@ -95,10 +95,7 @@ void Obstacles::destroyObstacles() {
 
 	for (int i = 0; i < size; i++) {
 		actual = enemies[i]->getPosition()[2];
-		if (actual > SCALE_FACTOR_Z) {
-			enemies[i]->resetPosition();
-		}
-		else if (actual < 0.0f) {
+		if (actual > SCALE_FACTOR_Z || actual < 0.0f) {
 			enemies[i]->resetPosition();
 		}
 	}

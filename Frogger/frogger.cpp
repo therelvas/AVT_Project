@@ -57,12 +57,12 @@ Camera *camera;
 int view = 1;
 
 //Light position
-float pointLight1[4] = { 0.0f, 20.0f, 0.0f, 1.0f };
-float pointLight2[4] = { 16.0f, 20.0f, 20.0f, 1.0f };
-float pointLight3[4] = { 0.0f, 20.0f, 40.0f, 1.0f };
-float pointLight4[4] = { 16.0f, 20.0f, 60.0f, 1.0f };
-float pointLight5[4] = { 0.0f, 20.0f, 80.0f, 1.0f };
-float pointLight6[4] = { 16.0f, 20.0f, 100.0f, 1.0f };
+float pointLight1[4] = { -1.0f, 10.0f, 0.0f, 1.0f };
+float pointLight2[4] = { 16.0f, 10.0f, 20.0f, 1.0f };
+float pointLight3[4] = { -1.0f, 10.0f, 40.0f, 1.0f };
+float pointLight4[4] = { 16.0f, 10.0f, 60.0f, 1.0f };
+float pointLight5[4] = { -1.0f, 10.0f, 80.0f, 1.0f };
+float pointLight6[4] = { 16.0f, 10.0f, 100.0f, 1.0f };
 
 float dirLight[4] = { 0.0f, 10.0f, 0.0f, 0.0f };
 
