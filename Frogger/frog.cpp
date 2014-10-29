@@ -1,4 +1,4 @@
-#include "Frog.h"
+#include "frog.h"
 
 Frog::Frog(float x, float y, float z) : DynamicObject(x, y, z) {
 

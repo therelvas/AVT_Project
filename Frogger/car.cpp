@@ -1,4 +1,4 @@
-#include "Car.h"
+#include "car.h"
 
 Car::Car(float x, float y, float z) : DynamicObject(x, y, z) {
 

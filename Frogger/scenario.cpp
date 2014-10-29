@@ -1,4 +1,4 @@
-#include "Scenario.h"
+#include "scenario.h"
 
 Scenario::Scenario(float x, float y, float z) : StaticObject(x, y, z) {
 	

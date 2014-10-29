@@ -1,4 +1,4 @@
-#include "Wood.h"
+#include "wood.h"
 
 Wood::Wood(float x, float y, float z) : DynamicObject(x, y, z) {
 	
