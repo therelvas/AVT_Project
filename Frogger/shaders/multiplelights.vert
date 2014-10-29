@@ -6,7 +6,7 @@ uniform	mat3 m_normal;
 
 in vec4 vertexPosition;
 in vec4 vertexNormal;    //por causa do gerador de geometria
-in vec2 vertexTexCoord;
+in vec2 texCoord;
 
 out Data {
 	vec3 normal;
@@ -18,6 +18,6 @@ void main () {
 
 	DataOut.normal = normalize(m_normal * vertexNormal.xyz);
 	DataOut.position = m_viewModel * vertexPosition;
-
+	DataOut.texCoord = texCoord;
 	gl_Position = m_pvm * vertexPosition;	
 }

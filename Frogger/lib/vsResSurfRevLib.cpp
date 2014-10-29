@@ -368,10 +368,27 @@ VSResSurfRevLib::render(VSShaderLib shader) {
 	//set material
 	setMaterial(shader, mMyMesh.mat);
 
+	// bind texture
+	for (unsigned int j = 0; j < VSResourceLib::MAX_TEXTURES; ++j) {
+		if (mMyMesh.texUnits[j] != 0) {
+			glActiveTexture(GL_TEXTURE0 + j);
+			glBindTexture(mMyMesh.texTypes[j],
+				mMyMesh.texUnits[j]);
+		}
+	}
+
 	// Render mesh
 	glBindVertexArray(mMyMesh.vao);
 	glDrawElements(mMyMesh.type, mMyMesh.numIndexes, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+
+
+	for (unsigned int j = 0; j < VSResourceLib::MAX_TEXTURES; ++j) {
+		if (mMyMesh.texUnits[j] != 0) {
+			glActiveTexture(GL_TEXTURE0 + j);
+			glBindTexture(mMyMesh.texTypes[j], 0);
+		}
+	}
 }
 
 void 

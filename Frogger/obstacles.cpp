@@ -37,7 +37,7 @@ void Obstacles::generateEnemies() {
 
 	while (size < MAX_ENEMIES) {
 
-		int type = rand() % 60;
+		int type = rand() % 25;
 		int pos = rand() % 3;
 		enemies.push_back(new Wood(startingPosWood[pos], -1.0f, 0.0f));
 
@@ -46,11 +46,11 @@ void Obstacles::generateEnemies() {
 			enemies.push_back(new Car(startingPosCarX[pos], 0.0f, 0.0f));
 		}
 		//Turtle
-		else if (type >= 10 && type <= 30) {
+		else if (type >= 10 && type <= 15) {
 			enemies.push_back(new Turtle(startingPosTurtle[0], 0.0f, 100.0f));
 		}
 		//Wood
-		else if (type > 30) {
+		else if (type > 15) {
 			enemies.push_back(new Wood(startingPosWood[pos], -1.0f, 0.0f));
 		}
 		size = enemies.size();

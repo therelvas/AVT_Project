@@ -91,6 +91,72 @@ void Cube::setMaterial(VSShaderLib shader) {
 	glUniform4fv(loc, 1, mat.emissive);
 }
 
+unsigned int Cube::loadRGBATexture(std::string filename,
+											bool mipmap, bool compress,
+											GLenum aFilter, GLenum aRepMode) {
+
+	ILboolean success;
+	unsigned int imageID;
+	GLuint textureID = 0;
+
+	// Load Texture Map
+	ilGenImages(1, &imageID);
+
+	ilBindImage(imageID); /* Binding of DevIL image name */
+	ilEnable(IL_ORIGIN_SET);
+	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+	success = ilLoadImage((ILstring)filename.c_str());
+
+	/* Convert image to RGBA */
+	ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+	// Set filters
+	GLenum minFilter = aFilter;
+	if (aFilter == GL_LINEAR && mipmap) {
+		minFilter = GL_LINEAR_MIPMAP_LINEAR;
+	}
+	else if (aFilter == GL_NEAREST && mipmap){
+		minFilter = GL_NEAREST_MIPMAP_LINEAR;
+	}
+	GLenum type;
+	if (compress)
+		type = GL_RGBA;
+	else
+		type = GL_COMPRESSED_RGBA;
+
+
+	/* Create and load textures to OpenGL */
+	glGenTextures(1, &textureID); /* Texture name generation */
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, aFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, aRepMode);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, aRepMode);
+	glTexImage2D(GL_TEXTURE_2D, 0, type,
+		ilGetInteger(IL_IMAGE_WIDTH),
+		ilGetInteger(IL_IMAGE_HEIGHT),
+		0, GL_RGBA, GL_UNSIGNED_BYTE,
+		ilGetData());
+
+	// Mipmapping?
+	if (mipmap)
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	/* Because we have already copied image data into texture data
+	we can release memory used by image. */
+	ilDeleteImages(1, &imageID);
+
+	return textureID;
+}
+
+void Cube::addTexture(unsigned int unit, std::string filename) {
+
+	int textID = loadRGBATexture(filename, true);
+	texUnits[unit] = textID;
+	texTypes[unit] = GL_TEXTURE_2D;
+	mat.texCount = 1;
+}
 
 void Cube::render(VSShaderLib shader) {
 
@@ -100,8 +166,24 @@ void Cube::render(VSShaderLib shader) {
 	//Set material
 	setMaterial(shader);
 
+	// bind texture
+	for (unsigned int j = 0; j < VSResourceLib::MAX_TEXTURES; ++j) {
+		if (texUnits[j] != 0) {
+			glActiveTexture(GL_TEXTURE0 + j);
+			glBindTexture(texTypes[j], texUnits[j]);
+		}
+	}
+
 	// render VAO
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, faceCount * 3, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+
+
+	for (unsigned int j = 0; j < VSResourceLib::MAX_TEXTURES; ++j) {
+		if (texUnits[j] != 0) {
+			glActiveTexture(GL_TEXTURE0 + j);
+			glBindTexture(texTypes[j], 0);
+		}
+	}
 }

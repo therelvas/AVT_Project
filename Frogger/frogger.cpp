@@ -311,6 +311,10 @@ GLuint setupShaders() {
 	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::VERTEX_COORD_ATTRIB, "vertexPosition");
 	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::NORMAL_ATTRIB, "vertexNormal");
 	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::TEXTURE_COORD_ATTRIB, "vertexTexCoord");
+
+	// add sampler uniform
+	shader.setUniform("texUnit", 0);
+
 	glLinkProgram(shader.getProgramIndex());
 
 	printf("Shader Infolog\n%s\n\n", shader.getAllInfoLogs().c_str());

@@ -8,6 +8,8 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResourceLib.h"
 
+static const int MAX_TEXTURES = 8;
+
 class Cube {
 
 private:
@@ -17,6 +19,9 @@ private:
 
 	int verticeCount = 24;
 	int faceCount = 12;
+
+	GLuint texUnits[MAX_TEXTURES];
+	GLuint texTypes[MAX_TEXTURES];
 
 	struct Material{
 
@@ -36,6 +41,10 @@ public:
 	void setupObjects();
 	void setColor(VSResourceLib::MaterialSemantics mSemantics, float* values);
 	void setMaterial(VSShaderLib shader);
+	unsigned int loadRGBATexture(std::string filename, bool mipmap = true,
+		bool compress = false,
+		GLenum aFilter = GL_LINEAR, GLenum aRepMode = GL_REPEAT);
+	void addTexture(unsigned int unit, std::string filename);
 	void render(VSShaderLib shader);
 };
 

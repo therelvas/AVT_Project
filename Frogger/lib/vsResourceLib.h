@@ -44,7 +44,7 @@
 
 #include <GL/glew.h>
 
-//#define _VSL_TEXTURE_WITH_DEVIL
+#define _VSL_TEXTURE_WITH_DEVIL
 
 
 #ifdef _VSL_TEXTURE_WITH_DEVIL

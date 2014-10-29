@@ -25,6 +25,7 @@ void Frog::setupObjects() {
 
 	//Head
 	vsres[0]->createSphere(0.5f, 40);
+	//vsres[0]->addTexture(0, "sidewalk.jpg");
 	vsres[0]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[0]->setColor(VSResourceLib::SPECULAR, body_spec);
@@ -32,17 +33,20 @@ void Frog::setupObjects() {
 
 	//Eyes
 	vsres[1]->createSphere(0.2f, 40);
+	//vsres[1]->addTexture(0, "sidewalk.jpg");
 	vsres[1]->setColor(VSResourceLib::DIFFUSE, eyes_diff);
 	vsres[1]->setColor(VSResourceLib::SPECULAR, eyes_diff);
 
 	//Body
 	vsres[2]->createCylinder(1.0f, 0.5f, 40);
+	//vsres[2]->addTexture(0, "sidewalk.jpg");
 	vsres[2]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[2]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[2]->setColor(VSResourceLib::SPECULAR, body_spec);
 	vsres[2]->setColor(VSResourceLib::SHININESS, body_shininess);
 
 	vsres[3]->createSphere(0.5f, 40);
+	//vsres[3]->addTexture(0, "sidewalk.jpg");
 	vsres[3]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[3]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[3]->setColor(VSResourceLib::SPECULAR, body_spec);

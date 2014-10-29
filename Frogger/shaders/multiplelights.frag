@@ -28,6 +28,7 @@ in Data {
 	vec4 position;
 } DataIn;
 
+uniform sampler2D texUnit;
 out vec4 colorOut;
 
 void main() {
@@ -89,6 +90,9 @@ void main() {
 			}
 		}
 	}
-
-	colorOut = max(diffuse + specular, mat.ambient);
+	vec4 test = vec4(0.0, 0.0, 0.0, 1.0);
+	vec4 texel = texture(texUnit, DataIn.texCoord);
+	if(texel==test)
+		 colorOut = max(diffuse + specular, mat.ambient);
+	else colorOut = max(diffuse + specular, mat.ambient)*texel;
 }

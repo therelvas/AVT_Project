@@ -4,7 +4,7 @@
 
 //Frog
 
-#define FROG_LIVES 3
+#define FROG_LIVES 5
 
 //Car
 
