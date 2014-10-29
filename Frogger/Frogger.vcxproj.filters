@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{81c3abb3-ba2c-4410-b9cd-bcee9c357cdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{5a97c546-ab7b-4e0d-b386-7527293b2205}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\vsResSurfRevLib.h">
@@ -141,35 +144,35 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="balldimpled.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\balldimpled.png">
+      <Filter>Assets</Filter>
     </Image>
-    <Image Include="grass.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\grass.png">
+      <Filter>Assets</Filter>
     </Image>
-    <Image Include="river.jpg">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\river.jpg">
+      <Filter>Assets</Filter>
     </Image>
-    <Image Include="river2.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\river2.png">
+      <Filter>Assets</Filter>
     </Image>
-    <Image Include="road.jpg">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\road.jpg">
+      <Filter>Assets</Filter>
     </Image>
-    <Image Include="road2.jpg">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\road2.jpg">
+      <Filter>Assets</Filter>
     </Image>
-    <Image Include="road3.jpg">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\road3.jpg">
+      <Filter>Assets</Filter>
     </Image>
-    <Image Include="sand.jpg">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\sand.jpg">
+      <Filter>Assets</Filter>
     </Image>
-    <Image Include="sidewalk.jpg">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\sidewalk.jpg">
+      <Filter>Assets</Filter>
     </Image>
-    <Image Include="wood.jpg">
-      <Filter>Resource Files</Filter>
+    <Image Include="assets\wood.jpg">
+      <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
 </Project>

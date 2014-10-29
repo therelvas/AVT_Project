@@ -25,7 +25,7 @@ void Turtle::setupObjects() {
 
 	//Shell
 	vsres[0]->createSphere(1.0f, 30);
-	vsres[0]->addTexture(0, "balldimpled.png");
+	vsres[0]->addTexture(0, "assets/balldimpled.png");
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, brown_diff);
 	vsres[0]->setColor(VSResourceLib::AMBIENT, brown_amb);
 	vsres[0]->setColor(VSResourceLib::SPECULAR, brown_spec);
@@ -33,7 +33,6 @@ void Turtle::setupObjects() {
 
 	//Head
 	vsres[1]->createSphere(0.4f, 30);
-	//vsres[1]->addTexture(0, "sidewalk.jpg");
 	vsres[1]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[1]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[1]->setColor(VSResourceLib::SPECULAR, body_spec);
@@ -41,7 +40,6 @@ void Turtle::setupObjects() {
 
 	//Paws
 	vsres[2]->createSphere(0.3f, 30);
-	//vsres[2]->addTexture(0, "sidewalk.jpg");
 	vsres[2]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[2]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[2]->setColor(VSResourceLib::SPECULAR, body_spec);
@@ -49,7 +47,6 @@ void Turtle::setupObjects() {
 
 	//Tail
 	vsres[3]->createCone(1.0f, 0.3f, 30);
-	//vsres[3]->addTexture(0, "sidewalk.jpg");
 	vsres[3]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[3]->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres[3]->setColor(VSResourceLib::SPECULAR, body_spec);

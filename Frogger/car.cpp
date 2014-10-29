@@ -20,7 +20,6 @@ void Car::setupObjects() {
 	float tires_diff[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	//Body
-	//cube->addTexture(0, "sidewalk.jpg");
 	cube->setColor(VSResourceLib::AMBIENT, body_amb);
 	cube->setColor(VSResourceLib::DIFFUSE, body_diff);
 	cube->setColor(VSResourceLib::SPECULAR, body_spec);
@@ -28,7 +27,6 @@ void Car::setupObjects() {
 	
 	//Tires
 	vsres->createTorus(0.2f, 0.5f, 30, 30);
-	//vsres->addTexture(0, "sidewalk.jpg");
 	vsres->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres->setColor(VSResourceLib::SPECULAR, tires_diff);

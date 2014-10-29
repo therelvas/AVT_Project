@@ -39,35 +39,32 @@ void Scenario::setupObjects() {
 	float road_shin[] = { 80.0f };
 
 	//Road margin
-	//cube[0]->addTexture(0, "sidewalk.jpg");
 	cube[0]->setColor(VSResourceLib::AMBIENT, r_margin_amb);
 	cube[0]->setColor(VSResourceLib::DIFFUSE, r_margin_diff);
 	cube[0]->setColor(VSResourceLib::SPECULAR, r_margin_spec);
 	cube[0]->setColor(VSResourceLib::SHININESS, r_margin_shin);
 
 	//Road
-	cube[1]->addTexture(0, "road3.jpg");
+	cube[1]->addTexture(0, "assets/road3.jpg");
 	cube[1]->setColor(VSResourceLib::AMBIENT, road_amb);
 	cube[1]->setColor(VSResourceLib::DIFFUSE, road_diff);
 	cube[1]->setColor(VSResourceLib::SPECULAR, road_spec);
 	cube[1]->setColor(VSResourceLib::SHININESS, road_shin);
 
 	//River margin
-	//cube[2]->addTexture(0, "grass.png");
 	cube[2]->setColor(VSResourceLib::AMBIENT, river_margin2_amb);
 	cube[2]->setColor(VSResourceLib::DIFFUSE, river_margin2_diff);
 	cube[2]->setColor(VSResourceLib::SPECULAR, river_margin2_spec);
 	cube[2]->setColor(VSResourceLib::SHININESS, river_margin2_shin);
 
 	//Second River margin
-	//cube[3]->addTexture(0, "sand.jpg");
 	cube[3]->setColor(VSResourceLib::AMBIENT, river_margin_amb);
 	cube[3]->setColor(VSResourceLib::DIFFUSE, river_margin_diff);
 	cube[3]->setColor(VSResourceLib::SPECULAR, river_margin_spec);
 	cube[3]->setColor(VSResourceLib::SHININESS, river_margin_shin);
 
 	//River
-	cube[4]->addTexture(0, "river2.png");
+	cube[4]->addTexture(0, "assets/river2.png");
 	cube[4]->setColor(VSResourceLib::AMBIENT, water_amb);
 	cube[4]->setColor(VSResourceLib::DIFFUSE, water_diff);
 	cube[4]->setColor(VSResourceLib::SPECULAR, water_spec);

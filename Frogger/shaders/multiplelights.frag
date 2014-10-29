@@ -93,12 +93,5 @@ void main() {
 		}
 	}
 
-	vec4 test = vec4(0.0, 0.0, 0.0, 1.0);
-	vec4 texel = texture(texUnit, DataIn.texCoord);
-
-	//Texture testing
-	if(texel==test)
 		colorOut = max(diffuse + specular, mat.ambient);
-	else 
-		colorOut = max(diffuse + specular, mat.ambient)*texel;
 }
