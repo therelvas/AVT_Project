@@ -25,7 +25,6 @@
     <ClInclude Include="lib\vsResSurfRevLib.h" />
     <ClInclude Include="lib\vsShaderLib.h" />
     <ClInclude Include="light.h" />
-    <ClInclude Include="map.h" />
     <ClInclude Include="obstacles.h" />
     <ClInclude Include="scenario.h" />
     <ClInclude Include="staticObject.h" />
@@ -45,7 +44,6 @@
     <ClCompile Include="lib\vsResSurfRevLib.cpp" />
     <ClCompile Include="lib\vsShaderLib.cpp" />
     <ClCompile Include="light.cpp" />
-    <ClCompile Include="map.cpp" />
     <ClCompile Include="frogger.cpp" />
     <ClCompile Include="obstacles.cpp" />
     <ClCompile Include="scenario.cpp" />

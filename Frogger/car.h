@@ -8,7 +8,7 @@
 #include "lib/vsResSurfRevLib.h"
 #include "lib/vsResourceLib.h"
 
-#include "Cube.h"
+#include "cube.h"
 #include "dynamicObject.h"
 
 class Car : public DynamicObject {
@@ -27,12 +27,9 @@ public:
 	void render(VSShaderLib shader);
 
 	void move(float x, float y, float z, float speed);
-	float** getBoundingBox();
-	void collide(DynamicObject* frog);
 
-	void loseLife();
-	int getLifes();
-	void resetLifes();
+	float** getBoundingBox();
+	void collide(DynamicObject* dynamicObject);
 };
 
 #endif

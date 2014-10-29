@@ -18,6 +18,7 @@ protected:
 	VSMathLib *vsml;
 
 public:
+
 	GameObject(float x, float y, float z);
 	~GameObject();
 

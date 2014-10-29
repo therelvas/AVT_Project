@@ -1,7 +1,9 @@
 #include "obstacles.h"
 
 Obstacles::Obstacles(Frog* frog) {
+
 	Obstacles::frog = frog;
+
 	level = 1;
 	setStartingPositions();
 	generateEnemies();
@@ -55,7 +57,7 @@ void Obstacles::generateEnemies() {
 	}
 }
 
-//Moves every enemy to the right, should be called every display
+//Moves every enemy, should be called every display
 void Obstacles::updatePosition() {
 
 	int size = enemies.size();

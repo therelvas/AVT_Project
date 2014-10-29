@@ -10,10 +10,13 @@
 #include "gameObject.h"
 
 class DynamicObject : public GameObject {
+
 protected:
-	int lifes;
+
+	int lives = 0;
 
 public:
+
 	bool collided = false;
 
 	DynamicObject(float x, float y, float z);
@@ -23,14 +26,13 @@ public:
 	virtual void render(VSShaderLib shader);
 
 	virtual void move(float x, float y, float z, float speed);
-	virtual void moveFrog(float x, float y, float z, float speed);
 	
-	virtual void collide(DynamicObject* frog);
 	virtual float** getBoundingBox();
+	virtual void collide(DynamicObject* dynamicObject);
 	
+	virtual int getLives();
 	virtual void loseLife();
-	virtual int getLifes();
-	virtual void resetLifes();
+	virtual void resetLives();
 };
 
 #endif 

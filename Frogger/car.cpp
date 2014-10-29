@@ -34,25 +34,25 @@ void Car::setupObjects() {
 	cube[1]->setColor(VSResourceLib::SHININESS, body_shininess);
 
 	//Tires
-	vsres[0]->createTorus(0.2, 0.5f, 30, 30);
+	vsres[0]->createTorus(0.2f, 0.5f, 30, 30);
 	vsres[0]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[0]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[0]->setColor(VSResourceLib::SPECULAR, tires_diff);
 	vsres[0]->setColor(VSResourceLib::SHININESS, tires_diff);
 
-	vsres[1]->createTorus(0.2, 0.5f, 30, 30);
+	vsres[1]->createTorus(0.2f, 0.5f, 30, 30);
 	vsres[1]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[1]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[1]->setColor(VSResourceLib::SPECULAR, tires_diff);
 	vsres[1]->setColor(VSResourceLib::SHININESS, tires_diff);
 
-	vsres[2]->createTorus(0.2, 0.5f, 30, 30);
+	vsres[2]->createTorus(0.2f, 0.5f, 30, 30);
 	vsres[2]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[2]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[2]->setColor(VSResourceLib::SPECULAR, tires_diff);
 	vsres[2]->setColor(VSResourceLib::SHININESS, tires_diff);
 
-	vsres[3]->createTorus(0.2, 0.5f, 30, 30);
+	vsres[3]->createTorus(0.2f, 0.5f, 30, 30);
 	vsres[3]->setColor(VSResourceLib::AMBIENT, tires_diff);
 	vsres[3]->setColor(VSResourceLib::DIFFUSE, tires_diff);
 	vsres[3]->setColor(VSResourceLib::SPECULAR, tires_diff);
@@ -110,7 +110,9 @@ void Car::move(float x, float y, float z, float speed) {
 }
 
 float** Car::getBoundingBox(){
+
 	float** boundingBox = 0;
+	
 	boundingBox = new float*[2];
 	boundingBox[0] = new float[3];
 	boundingBox[1] = new float[3];
@@ -127,22 +129,17 @@ float** Car::getBoundingBox(){
 	return boundingBox;
 }
 
-void Car::collide(DynamicObject* frog){
-	if (frog->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
-		&&
-		frog->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
-		frog->loseLife();
-		frog->resetPosition();
-	}
-	else if (frog->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
-		frog->getBoundingBox()[1][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[1][2] >= getBoundingBox()[0][2]){
-		frog->loseLife();
-		frog->resetPosition();
-	}
-}
+void Car::collide(DynamicObject* dynamicObject){
 
-void Car::loseLife(){}
-int Car::getLifes(){
-	return 0;
+	if (dynamicObject->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
+		&&
+		dynamicObject->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
+		dynamicObject->loseLife();
+		dynamicObject->resetPosition();
+	}
+	else if (dynamicObject->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
+		dynamicObject->getBoundingBox()[1][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[1][2] >= getBoundingBox()[0][2]){
+		dynamicObject->loseLife();
+		dynamicObject->resetPosition();
+	}
 }
-void Car::resetLifes(){}

@@ -14,6 +14,7 @@ private:
 
 	GLuint vao;
 	VSMathLib *vsml;
+
 	int verticeCount = 24;
 	int faceCount = 12;
 

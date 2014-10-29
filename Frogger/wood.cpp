@@ -42,8 +42,10 @@ void Wood::move(float x, float y, float z, float speed) {
 	position[2] += 0.2f * speed;
 }
 
-float** Wood::getBoundingBox(){
+float** Wood::getBoundingBox() {
+
 	float** boundingBox = 0;
+
 	boundingBox = new float*[2];
 	boundingBox[0] = new float[3];
 	boundingBox[1] = new float[3];
@@ -59,24 +61,18 @@ float** Wood::getBoundingBox(){
 	return boundingBox;
 }
 
-void Wood::collide(DynamicObject* frog){
+void Wood::collide(DynamicObject* dynamicObject){
 
 
-	if (frog->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
+	if (dynamicObject->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
 		&&
-		frog->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
-		frog->collided = true;
+		dynamicObject->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
+		dynamicObject->collided = true;
 		return;
 	}
-	if (frog->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && frog->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
-		frog->getBoundingBox()[1][2] <= getBoundingBox()[1][2] && frog->getBoundingBox()[1][2] >= getBoundingBox()[0][2]){
-		frog->collided = true;
+	if (dynamicObject->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
+		dynamicObject->getBoundingBox()[1][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[1][2] >= getBoundingBox()[0][2]){
+		dynamicObject->collided = true;
 		return;
 	}
 }
-
-void Wood::loseLife(){}
-int Wood::getLifes(){
-	return 0;
-}
-void Wood::resetLifes(){}

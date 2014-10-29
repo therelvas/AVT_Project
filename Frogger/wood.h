@@ -8,12 +8,12 @@
 #include "lib/vsResSurfRevLib.h"
 #include "lib/vsResourceLib.h"
 
-
 #include "dynamicObject.h"
 
 class Wood : public DynamicObject {
 
 private:
+
 	VSResSurfRevLib *vsres[3];
 
 public:
@@ -27,10 +27,7 @@ public:
 	void move(float x, float y, float z, float speed);
 	
 	float** getBoundingBox();
-	void collide(DynamicObject* frog);
-	void loseLife();
-	int getLifes();
-	void resetLifes();
+	void collide(DynamicObject* dynamicObject);
 };
 
 #endif

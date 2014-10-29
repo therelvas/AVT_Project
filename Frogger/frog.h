@@ -6,11 +6,13 @@
 
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
+
 #include "dynamicObject.h"
 
 class Frog : public DynamicObject {
 
 private:
+
 	int gamePoints;
 	VSResSurfRevLib *vsres[2];
 
@@ -21,13 +23,14 @@ public:
 
 	void setupObjects();
 	void render(VSShaderLib shader);
-	float** getBoundingBox();
-	void loseLife();
-	void resetLifes();
-	void collide(DynamicObject* frog);
-	int getLifes();
-	int getPoints();
 
+	void move(float x, float y, float z, float speed);
+
+	float** getBoundingBox();
+	void collide(DynamicObject* dynamicObject);
+
+	int getPoints();
+	void resetLifes();
 };
 
 #endif

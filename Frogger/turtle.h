@@ -24,11 +24,9 @@ public:
 	void render(VSShaderLib shader);
 
 	void move(float x, float y, float z, float speed);
+
 	float** getBoundingBox();
-	void collide(DynamicObject* frog);
-	void loseLife();
-	int getLifes();
-	void resetLifes();
+	void collide(DynamicObject* dynamicObject);
 };
 
 #endif

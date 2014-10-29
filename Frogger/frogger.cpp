@@ -125,10 +125,10 @@ void timer(int value) {
 
 	std::ostringstream oss;
 
-	if (frog->getLifes() == 0)
+	if (frog->getLives() == 0)
 		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " GAME OVER " << " Points: " << frog->getPoints();
 	else
-		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " Lifes: " << frog->getLifes() << " Points: " << frog->getPoints();
+		oss << CAPTION << ": " << FrameCount << " FPS @ (" << WinX << "x" << WinY << ")" << " Lives: " << frog->getLives() << " Points: " << frog->getPoints();
 
 	std::string s = oss.str();
 	glutSetWindow(WindowHandle);
@@ -158,54 +158,56 @@ void updateEnemies(int value) {
 //
 
 void processKeys(unsigned char key, int xx, int yy) {
-	if (key == 'r' && frog->getLifes() == 0){
+	
+	if (key == 'r' && frog->getLives() == 0){
 		frog->resetLifes();
 		return;
 	}
 
-	if (frog->getLifes() > 0){
-	switch (key) {
+	if (frog->getLives() > 0) {
 
-	case 27:
-		glutLeaveMainLoop();
-		break;
-	case 'a':
-			frog->moveFrog(-0.5f, 0.0f, 0.0f, 1.5f);
-		break;
-	case 'q':
-			frog->moveFrog(0.5f, 0.0f, 0.0f, 1.5f);
-		break;
-	case 'o':
-			frog->moveFrog(0.0f, 0.0f, -0.5f, 2.0f);
-		break;
-	case 'p':
-			frog->moveFrog(0.0f, 0.0f, 0.5f, 2.0f);
-		break;
-	case 's':
-		level = 1.0f;
-		break;
-	case '1':
-		camera->setView(1);
-		view = 1;
-		break;
-	case '2':
-		camera->setView(2);
-		view = 2;
-		break;
-	case '3':
-		camera->setView(3);
-		view = 3;
-		break;
-	case 'n':
-		light->switchLight(Light::LightTypes::DIRECTIONAL);
-		light->switchLight(Light::LightTypes::SPOT);
-		break;
-	case 'c':
-		light->switchLight(Light::LightTypes::POINT);
-		light->switchLight(Light::LightTypes::SPOT);
-		break;
+		switch (key) {
+
+		case 27:
+			glutLeaveMainLoop();
+			break;
+		case 'a':
+			frog->move(-0.5f, 0.0f, 0.0f, 1.5f);
+			break;
+		case 'q':
+			frog->move(0.5f, 0.0f, 0.0f, 1.5f);
+			break;
+		case 'o':
+			frog->move(0.0f, 0.0f, -0.5f, 2.0f);
+			break;
+		case 'p':
+			frog->move(0.0f, 0.0f, 0.5f, 2.0f);
+			break;
+		case 's':
+			level = 1.0f;
+			break;
+		case '1':
+			camera->setView(1);
+			view = 1;
+			break;
+		case '2':
+			camera->setView(2);
+			view = 2;
+			break;
+		case '3':
+			camera->setView(3);
+			view = 3;
+			break;
+		case 'n':
+			light->switchLight(Light::LightTypes::DIRECTIONAL);
+			light->switchLight(Light::LightTypes::SPOT);
+			break;
+		case 'c':
+			light->switchLight(Light::LightTypes::POINT);
+			light->switchLight(Light::LightTypes::SPOT);
+			break;
+		}
 	}
-}
 }
 
 // ------------------------------------------------------------
@@ -312,7 +314,7 @@ GLuint setupShaders() {
 	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::TEXTURE_COORD_ATTRIB, "vertexTexCoord");
 	glLinkProgram(shader.getProgramIndex());
 
-	printf("InfoLog for Hello World Shader\n%s\n\n", shader.getAllInfoLogs().c_str());
+	printf("Shader Infolog\n%s\n\n", shader.getAllInfoLogs().c_str());
 
 	return(shader.isProgramValid());
 }
@@ -326,8 +328,10 @@ GLuint setupShaders() {
 void setupObjects() {
 
 	light = new Light();
-	obstacles = new Obstacles();
 	frog = new Frog(0.0f, 0.0f, 50.0f);
+
+	obstacles = new Obstacles(frog);
+	scenario = new Scenario(0.0f, -1.5f, 0.0f);
 
 	//Setup lights
 	light->addLight(Light::DIRECTIONAL, dirLight, 0, 0, 0);

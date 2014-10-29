@@ -19,15 +19,18 @@ class Obstacles {
 
 private:
 
-	int readyRand;
 	Frog* frog;
+
 	float level;
+	int readyRand;
+
 	float startingPosCarX[3], startingPosCarZ[3];
 	float startingPosWood[3], startingPosTurtle[1];
 
 	std::vector<DynamicObject*> enemies;
 
-	void setStartingPositions();	
+	void setStartingPositions();
+	void generateEnemies();
 
 public:
 
@@ -36,7 +39,6 @@ public:
 
 	void setLevel(float level);	
 	
-	void generateEnemies();
 	void updatePosition();
 	void destroyObstacles();
 	void render(VSShaderLib shader);	
