@@ -140,4 +140,36 @@
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="balldimpled.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="river.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="river2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="road.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="road2.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="road3.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sand.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sidewalk.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wood.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

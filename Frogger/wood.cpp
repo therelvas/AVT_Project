@@ -17,7 +17,7 @@ void Wood::setupObjects() {
 	float body_shininess[] = { 76.8f };
 
 	vsres->createCylinder(10.0f, 1.0f, 30);
-	vsres->addTexture(0, "sidewalk.jpg");
+	vsres->addTexture(0, "wood.jpg");
 	vsres->setColor(VSResourceLib::DIFFUSE, brown_diff);
 	vsres->setColor(VSResourceLib::AMBIENT, body_amb);
 	vsres->setColor(VSResourceLib::SPECULAR, brown_spec);

@@ -16,7 +16,7 @@ class Scenario : public StaticObject {
 
 private:
 
-	Cube *cube[4];
+	Cube *cube[5];
 	VSResSurfRevLib *vsres[2];
 
 public:

@@ -313,7 +313,8 @@ GLuint setupShaders() {
 	glBindAttribLocation(shader.getProgramIndex(), VSShaderLib::TEXTURE_COORD_ATTRIB, "vertexTexCoord");
 
 	// add sampler uniform
-	shader.setUniform("texUnit", 0);
+	GLint loc = glGetAttribLocation(shader.getProgramIndex(), "texUnit");
+	glUniform1i(loc, 0);
 
 	glLinkProgram(shader.getProgramIndex());
 

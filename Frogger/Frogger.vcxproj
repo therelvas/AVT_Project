@@ -55,6 +55,18 @@
     <None Include="shaders\multiplelights.frag" />
     <None Include="shaders\multiplelights.vert" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="balldimpled.png" />
+    <Image Include="grass.png" />
+    <Image Include="river.jpg" />
+    <Image Include="river2.png" />
+    <Image Include="road.jpg" />
+    <Image Include="road2.jpg" />
+    <Image Include="road3.jpg" />
+    <Image Include="sand.jpg" />
+    <Image Include="sidewalk.jpg" />
+    <Image Include="wood.jpg" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC24F681-3B60-4EF6-BA13-F1821A11124A}</ProjectGuid>
     <RootNamespace>Frogger</RootNamespace>

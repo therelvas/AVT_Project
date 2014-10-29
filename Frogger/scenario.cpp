@@ -2,7 +2,7 @@
 
 Scenario::Scenario(float x, float y, float z) : StaticObject(x, y, z) {
 	
-	for (int i = 0; i < 5; i++){
+	for (int i = 0; i < 6; i++){
 		cube[i] = new Cube();
 	}
 	
@@ -23,6 +23,11 @@ void Scenario::setupObjects() {
 	float river_margin_spec[] = { 0.633f, 0.727811f, 0.633f, 0.55f };
 	float river_margin_shin[] = { 80.0f };
 
+	float river_margin2_amb[] = { 0.0215f, 0.1745f, 0.0215f, 0.55f };
+	float river_margin2_diff[] = { 0.07568f, 0.61424f, 0.07568f, 0.55f };
+	float river_margin2_spec[] = { 0.633f, 0.727811f, 0.633f, 0.55f };
+	float river_margin2_shin[] = { 80.0f };
+
 	float r_margin_amb[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float r_margin_diff[] = { 0.55f, 0.55f, 0.55f, 1.0f };
 	float r_margin_spec[] = { 0.70f, 0.70f, 0.70f, 1.0f };
@@ -34,32 +39,39 @@ void Scenario::setupObjects() {
 	float road_shin[] = { 80.0f };
 
 	//Road margin
-	cube[0]->addTexture(0, "sidewalk.jpg");
+	//cube[0]->addTexture(0, "sidewalk.jpg");
 	cube[0]->setColor(VSResourceLib::AMBIENT, r_margin_amb);
 	cube[0]->setColor(VSResourceLib::DIFFUSE, r_margin_diff);
 	cube[0]->setColor(VSResourceLib::SPECULAR, r_margin_spec);
 	cube[0]->setColor(VSResourceLib::SHININESS, r_margin_shin);
 
 	//Road
-	cube[1]->addTexture(0, "road.jpg");
+	cube[1]->addTexture(0, "road3.jpg");
 	cube[1]->setColor(VSResourceLib::AMBIENT, road_amb);
 	cube[1]->setColor(VSResourceLib::DIFFUSE, road_diff);
 	cube[1]->setColor(VSResourceLib::SPECULAR, road_spec);
 	cube[1]->setColor(VSResourceLib::SHININESS, road_shin);
 
-	//River margins
-	cube[2]->addTexture(0, "sidewalk.jpg");
-	cube[2]->setColor(VSResourceLib::AMBIENT, river_margin_amb);
-	cube[2]->setColor(VSResourceLib::DIFFUSE, river_margin_diff);
-	cube[2]->setColor(VSResourceLib::SPECULAR, river_margin_spec);
-	cube[2]->setColor(VSResourceLib::SHININESS, river_margin_shin);
+	//River margin
+	//cube[2]->addTexture(0, "grass.png");
+	cube[2]->setColor(VSResourceLib::AMBIENT, river_margin2_amb);
+	cube[2]->setColor(VSResourceLib::DIFFUSE, river_margin2_diff);
+	cube[2]->setColor(VSResourceLib::SPECULAR, river_margin2_spec);
+	cube[2]->setColor(VSResourceLib::SHININESS, river_margin2_shin);
+
+	//Second River margin
+	//cube[3]->addTexture(0, "sand.jpg");
+	cube[3]->setColor(VSResourceLib::AMBIENT, river_margin_amb);
+	cube[3]->setColor(VSResourceLib::DIFFUSE, river_margin_diff);
+	cube[3]->setColor(VSResourceLib::SPECULAR, river_margin_spec);
+	cube[3]->setColor(VSResourceLib::SHININESS, river_margin_shin);
 
 	//River
-	cube[3]->addTexture(0, "river.jpg");
-	cube[3]->setColor(VSResourceLib::AMBIENT, water_amb);
-	cube[3]->setColor(VSResourceLib::DIFFUSE, water_diff);
-	cube[3]->setColor(VSResourceLib::SPECULAR, water_spec);
-	cube[3]->setColor(VSResourceLib::SHININESS, water_shin);
+	cube[4]->addTexture(0, "river2.png");
+	cube[4]->setColor(VSResourceLib::AMBIENT, water_amb);
+	cube[4]->setColor(VSResourceLib::DIFFUSE, water_diff);
+	cube[4]->setColor(VSResourceLib::SPECULAR, water_spec);
+	cube[4]->setColor(VSResourceLib::SHININESS, water_shin);
 }
 
 void Scenario::render(VSShaderLib shader) {
@@ -90,13 +102,13 @@ void Scenario::render(VSShaderLib shader) {
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(BORDER3_X, position[1], position[2]);
 	vsml->scale(BORDER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
-	cube[2]->render(shader);
+	cube[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 	
 	//River
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->translate(WATER_X, position[1], position[2]);
 	vsml->scale(OTHER_SCALE_FACTOR_X, 1, SCALE_FACTOR_Z);
-	cube[3]->render(shader);
+	cube[4]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 }
