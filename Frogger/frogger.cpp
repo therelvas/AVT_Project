@@ -22,6 +22,7 @@
 #include "wood.h"
 #include "obstacles.h"
 #include "light.h"
+#include "fog.h"
 
 #define CAPTION "Frogger"
 
@@ -49,6 +50,7 @@ float level = 1.0f;
 //Objects
 Frog *frog;
 Light *light;
+Fog *fog;
 Scenario *scenario;
 Obstacles *obstacles;
 
@@ -89,6 +91,9 @@ void renderScene(void) {
 
 	//render light
 	light->draw(shader);
+
+	//reder fog
+	fog->draw(shader);
 
 	//render objects
 	frog->render(shader);
@@ -204,6 +209,13 @@ void processKeys(unsigned char key, int xx, int yy) {
 			break;
 		case 'c':
 			light->switchLight(Light::LightTypes::POINT);
+			break;
+		case 'f':{
+			if (fog->fogParams.isEnabled)
+				fog->fogParams.isEnabled = false;
+			else
+				fog->fogParams.isEnabled = true;
+		}
 			break;
 		}
 	}
@@ -332,6 +344,7 @@ GLuint setupShaders() {
 void setupObjects() {
 
 	light = new Light();
+	fog = new Fog();
 	frog = new Frog(0.0f, 0.0f, 50.0f);
 
 	obstacles = new Obstacles(frog);

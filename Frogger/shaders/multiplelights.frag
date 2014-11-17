@@ -26,10 +26,40 @@ in Data {
 	vec3 normal;
 	vec2 texCoord;
 	vec4 position;
+	vec4 eye;
 } DataIn;
 
 uniform sampler2D texUnit;
 out vec4 colorOut;
+
+struct FogParameters 
+{ 
+	bool isEnabled;
+	float vFogColorR;
+	float vFogColorG;
+	float vFogColorB;
+	float fStart;
+	float fEnd;
+	float fDensity;
+    
+	int iEquation;
+};
+uniform FogParameters fogParams; 
+
+float getFogFactor(FogParameters params, float fFogCoord) 
+{ 
+   float fResult = 0.0; 
+   if(params.iEquation == 0) 
+      fResult = (params.fEnd-fFogCoord)/(params.fEnd-params.fStart); 
+   else if(params.iEquation == 1) 
+      fResult = exp(-params.fDensity*fFogCoord); 
+   else if(params.iEquation == 2) 
+      fResult = exp(-pow(params.fDensity*fFogCoord, 2.0)); 
+
+   fResult = 1.0-clamp(fResult, 0.0, 1.0); 
+    
+   return fResult; 
+}
 
 void main() {
 	
@@ -95,9 +125,19 @@ void main() {
 
 	vec4 test = vec4(0.0, 0.0, 0.0, 1.0);
 	vec4 texel = texture(texUnit, DataIn.texCoord);
+	vec4 color;
 
 	if(texel==test)
-		colorOut = max(diffuse + specular, mat.ambient);
+		color = max(diffuse + specular, mat.ambient);
 	else 
-		colorOut = max(diffuse + specular, mat.ambient)*texel;
+		color = max(diffuse + specular, mat.ambient)*texel;
+
+
+	// Add fog
+	if(fogParams.isEnabled){
+		vec4 fogColor = vec4(fogParams.vFogColorR, fogParams.vFogColorG, fogParams.vFogColorB, 1.0);
+		float fFogCoord = abs(DataIn.eye.z/DataIn.eye.w);
+		colorOut = mix(color, fogColor, getFogFactor(fogParams, fFogCoord));
+	}
+	else colorOut = color;
 }
