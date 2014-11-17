@@ -18,9 +18,9 @@ void Turtle::setupObjects() {
 	float body_spec[] = { 0.35f, 0.65f, 0.45f, 1.0f };
 	float body_shininess[] = { 0.25f };
 
-	float brown_amb[] = { 0.2125f, 0.1275f, 0.054f };
-	float brown_diff[] = { 0.714f, 0.4284f, 0.18144f };
-	float brown_spec[] = { 0.393548f, 0.271906f, 0.166721f };
+	float brown_amb[] = { 0.2125f, 0.1275f, 0.054f, 1.0f };
+	float brown_diff[] = { 0.714f, 0.4284f, 0.18144f, 1.0f };
+	float brown_spec[] = { 0.393548f, 0.271906f, 0.166721f, 1.0f };
 	float brown_shininess[] = { 0.2f };
 
 	//Shell
@@ -60,40 +60,40 @@ void Turtle::render(VSShaderLib shader) {
 	//Shell
 	vsml->pushMatrix(VSMathLib::MODEL);
 	vsml->scale(1.0f, 0.4f, 1.0f);
-	vsml->translate(position[0], position[1], position[2]);
+	vsml->translate(position[0], position[1] - 0.5f, position[2]);
 	vsres[0]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//Head
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0], position[1] - 0.2f, position[2] - 1.0f);
+	vsml->translate(position[0], position[1] - 0.5f, position[2] - 1.0f);
 	vsres[1]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//Paws
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] - 0.9f, position[1] - 0.3f, position[2] - 0.7f);
+	vsml->translate(position[0] - 0.9f, position[1] - 0.6f, position[2] - 0.7f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.9f, position[1] - 0.3f, position[2] + 0.7f);
+	vsml->translate(position[0] + 0.9f, position[1] - 0.6f, position[2] + 0.7f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] - 0.9f, position[1] - 0.3f, position[2] + 0.7f);
+	vsml->translate(position[0] - 0.9f, position[1] - 0.6f, position[2] + 0.7f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.9f, position[1] - 0.3f, position[2] - 0.7f);
+	vsml->translate(position[0] + 0.9f, position[1] - 0.6f, position[2] - 0.7f);
 	vsres[2]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//Tail
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0], position[1] - 0.3f, position[2] + 0.7f);
+	vsml->translate(position[0], position[1] - 0.6f, position[2] + 0.7f);
 	vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
 	vsres[3]->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
@@ -131,12 +131,12 @@ void Turtle::collide(DynamicObject* dynamicObject){
 	if (dynamicObject->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
 		&&
 		dynamicObject->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
-		dynamicObject->collided = true;
-		return;
+		dynamicObject->loseLife();
+		dynamicObject->resetPosition();
 	}
-	if (dynamicObject->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
+	else if (dynamicObject->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
 		dynamicObject->getBoundingBox()[1][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[1][2] >= getBoundingBox()[0][2]){
-		dynamicObject->collided = true;
-		return;
+		dynamicObject->loseLife();
+		dynamicObject->resetPosition();
 	}
 }

@@ -28,13 +28,13 @@
 
 //Scenario
 
-#define BORDER2_X 14
-#define BORDER3_X 28
-#define STREET_X 4
-#define WATER_X 18
+#define RIVER_MARGIN1_X 14
+#define RIVER_MARGIN2_X 28
+#define ROAD_X 4
+#define RIVER_X 18
+#define SCALE_FACTOR_X 10
 #define SCALE_FACTOR_Z 100
 #define BORDER_SCALE_FACTOR_X 4
-#define OTHER_SCALE_FACTOR_X 10
 
 //Lights
 

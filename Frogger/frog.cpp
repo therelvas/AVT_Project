@@ -2,7 +2,7 @@
 
 Frog::Frog(float x, float y, float z) : DynamicObject(x, y, z) {
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 8; i++) {
 		vsres[i] = new VSResSurfRevLib();
 	}
 	
@@ -47,6 +47,27 @@ void Frog::setupObjects() {
 	vsres[3]->setColor(VSResourceLib::DIFFUSE, body_diff);
 	vsres[3]->setColor(VSResourceLib::SPECULAR, body_spec);
 	vsres[3]->setColor(VSResourceLib::SHININESS, body_shininess);
+
+	//Reflection
+	
+	//Head
+	vsres[4]->createSphere(0.5f, 40);
+	vsres[4]->setColor(VSResourceLib::AMBIENT, body_amb);
+	vsres[4]->setColor(VSResourceLib::SHININESS, body_shininess);
+
+	//Eyes
+	vsres[5]->createSphere(0.2f, 40);
+	vsres[5]->setColor(VSResourceLib::DIFFUSE, eyes_diff);
+	vsres[5]->setColor(VSResourceLib::SHININESS, body_shininess);
+
+	//Body
+	vsres[6]->createCylinder(1.0f, 0.5f, 40);
+	vsres[6]->setColor(VSResourceLib::AMBIENT, body_amb);
+	vsres[6]->setColor(VSResourceLib::SHININESS, body_shininess);
+	
+	vsres[7]->createSphere(0.5f, 40);
+	vsres[7]->setColor(VSResourceLib::AMBIENT, body_amb);
+	vsres[7]->setColor(VSResourceLib::SHININESS, body_shininess);
 }
 
 void Frog::render(VSShaderLib shader) {
@@ -88,9 +109,46 @@ void Frog::render(VSShaderLib shader) {
 	vsml->popMatrix(VSMathLib::MODEL);
 }
 
+void Frog::renderReflection(VSShaderLib shader) {
+
+		//Head
+		vsml->pushMatrix(VSMathLib::MODEL);
+		vsml->translate(position[0] + 0.5f, -(position[1] + 1.5f), position[2]);
+		vsres[4]->render(shader);
+		vsml->popMatrix(VSMathLib::MODEL);
+
+		//Eyes
+		vsml->pushMatrix(VSMathLib::MODEL);
+		vsml->translate(position[0] + 0.8f, -(position[1] + 1.8f), position[2] + 0.2f);
+		vsres[5]->render(shader);
+		vsml->popMatrix(VSMathLib::MODEL);
+
+		vsml->pushMatrix(VSMathLib::MODEL);
+		vsml->translate(position[0] + 0.8f, -(position[1] + 1.8f), position[2] - 0.2f);
+		vsres[5]->render(shader);
+		vsml->popMatrix(VSMathLib::MODEL);
+
+		//Body
+		vsml->pushMatrix(VSMathLib::MODEL);
+		vsml->translate(position[0], -(position[1] + 1.0f), position[2]);
+		vsml->rotate(90.0f, 1.0f, 0.0f, 0.0f);
+		vsres[6]->render(shader);
+		vsml->popMatrix(VSMathLib::MODEL);
+
+		vsml->pushMatrix(VSMathLib::MODEL);
+		vsml->translate(position[0], -(position[1] + 1.0f), position[2] + 0.5f);
+		vsres[7]->render(shader);
+		vsml->popMatrix(VSMathLib::MODEL);
+
+		vsml->pushMatrix(VSMathLib::MODEL);
+		vsml->translate(position[0], -(position[1] + 1.0f), position[2] - 0.5f);
+		vsres[7]->render(shader);
+		vsml->popMatrix(VSMathLib::MODEL);
+}
+
 void Frog::move(float x, float y, float z, float speed) {
 	
-	if (!(position[0] + x*speed <= 32 && position[0] + x*speed >= 0))
+	if (!(position[0] + x*speed <= 31 && position[0] + x*speed >= 0))
 		return;
 	if (!(position[2] + z*speed <= 100 && position[2] + z*speed >= 0))
 		return;
@@ -119,7 +177,7 @@ float** Frog::getBoundingBox(){
 	return boundingBox;
 }
 
-void Frog::resetLifes() {
+void Frog::resetLives() {
 
 	lives = 5;
 	gamePoints = 0;
@@ -133,10 +191,6 @@ void Frog::collide(DynamicObject* dynamicObject) {
 	}
 	else {
 
-		if (position[0] > 18 && position[0] < 28){
-			loseLife();
-			dynamicObject->resetPosition();
-		}
 		if (position[0] > 30){
 			gamePoints += 10;
 			dynamicObject->resetPosition();

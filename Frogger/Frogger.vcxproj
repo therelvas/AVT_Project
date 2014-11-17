@@ -25,8 +25,11 @@
     <ClInclude Include="lib\vsResSurfRevLib.h" />
     <ClInclude Include="lib\vsShaderLib.h" />
     <ClInclude Include="light.h" />
+    <ClInclude Include="riverMargin.h" />
     <ClInclude Include="obstacles.h" />
-    <ClInclude Include="scenario.h" />
+    <ClInclude Include="river.h" />
+    <ClInclude Include="road.h" />
+    <ClInclude Include="roadMargin.h" />
     <ClInclude Include="staticObject.h" />
     <ClInclude Include="turtle.h" />
     <ClInclude Include="wood.h" />
@@ -45,8 +48,11 @@
     <ClCompile Include="lib\vsShaderLib.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="frogger.cpp" />
+    <ClCompile Include="riverMargin.cpp" />
+    <ClCompile Include="roadMargin.cpp" />
     <ClCompile Include="obstacles.cpp" />
-    <ClCompile Include="scenario.cpp" />
+    <ClCompile Include="river.cpp" />
+    <ClCompile Include="road.cpp" />
     <ClCompile Include="staticObject.cpp" />
     <ClCompile Include="turtle.cpp" />
     <ClCompile Include="wood.cpp" />

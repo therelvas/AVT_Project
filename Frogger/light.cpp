@@ -100,40 +100,13 @@ void Light::draw(VSShaderLib shader) {
 	}
 }
 
-void Light::switchLight(LightTypes lightType) {
+void Light::switchLight(int index) {
 
-	for (int i = 0; i < MAX_LIGHTS; i++) {
-
-		switch (lightType)
-		{
-		case DIRECTIONAL:	
-			if (!myLightSources[i].isLocal) {
-
-				if (myLightSources[i].isEnabled)
-					myLightSources[i].isEnabled = false;
-				else
-					myLightSources[i].isEnabled = true;
-			}
-			break;
-		case POINT:
-			if (myLightSources[i].isLocal && !myLightSources[i].isSpot) {
-
-				if (myLightSources[i].isEnabled)
-					myLightSources[i].isEnabled = false;
-				else
-					myLightSources[i].isEnabled = true;
-			}
-			break;
-		case SPOT:
-			if (myLightSources[i].isSpot) {
-
-				if (myLightSources[i].isEnabled)
-					myLightSources[i].isEnabled = false;
-				else
-					myLightSources[i].isEnabled = true;
-			}
-			break;
-		}			
+	if (myLightSources[index].isEnabled) {
+		myLightSources[index].isEnabled = false;
+	}
+	else {
+		myLightSources[index].isEnabled = true;
 	}
 }
 
