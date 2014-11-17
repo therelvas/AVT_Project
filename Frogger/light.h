@@ -46,7 +46,7 @@ public:
 	};
 
 	void addLight(LightTypes lightType, float *pos, float *spotDir, float spotCutOff, int index);
-	void switchLight(LightTypes lightType);
+	void switchLight(int index);
 	void draw(VSShaderLib shader);
 
 	void updateSpotPosDir(int index, float *pos, float *spotDir);

@@ -14,7 +14,7 @@ class Frog : public DynamicObject {
 private:
 
 	int gamePoints;
-	VSResSurfRevLib *vsres[4];
+	VSResSurfRevLib *vsres[8];
 
 public:
 
@@ -23,6 +23,7 @@ public:
 
 	void setupObjects();
 	void render(VSShaderLib shader);
+	void renderReflection(VSShaderLib shader);
 
 	void move(float x, float y, float z, float speed);
 
@@ -30,7 +31,7 @@ public:
 	void collide(DynamicObject* dynamicObject);
 
 	int getPoints();
-	void resetLifes();
+	void resetLives();
 };
 
 #endif

@@ -67,12 +67,12 @@ void Wood::collide(DynamicObject* dynamicObject){
 	if (dynamicObject->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
 		&&
 		dynamicObject->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
-		dynamicObject->collided = true;
-		return;
+		dynamicObject->loseLife();
+		dynamicObject->resetPosition();
 	}
-	if (dynamicObject->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
+	else if (dynamicObject->getBoundingBox()[1][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[1][0] <= getBoundingBox()[0][0] &&
 		dynamicObject->getBoundingBox()[1][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[1][2] >= getBoundingBox()[0][2]){
-		dynamicObject->collided = true;
-		return;
+		dynamicObject->loseLife();
+		dynamicObject->resetPosition();
 	}
 }

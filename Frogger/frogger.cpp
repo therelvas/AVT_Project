@@ -14,15 +14,17 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResSurfRevLib.h"
 
-#include "scenario.h"
+//Scenario
+#include "riverMargin.h"
+#include "roadMargin.h"
+#include "river.h"
+#include "road.h"
+
 #include "frog.h"
-#include "car.h"
 #include "camera.h"
-#include "turtle.h"
-#include "wood.h"
-#include "obstacles.h"
 #include "light.h"
 #include "fog.h"
+#include "obstacles.h"
 
 #define CAPTION "Frogger"
 
@@ -50,26 +52,37 @@ float level = 1.0f;
 //Objects
 Frog *frog;
 Light *light;
+
+RoadMargin *roadMargin;
+RiverMargin *riverMargin1;
+RiverMargin *riverMargin2;
+
+Road *road;
+River *river;
+
 Fog *fog;
-Scenario *scenario;
 Obstacles *obstacles;
 
 //Camera
 Camera *camera;
 int view = 1;
 
-//Light position
-float pointLight1[4] = { -1.0f, 10.0f, 0.0f, 1.0f };
-float pointLight2[4] = { 16.0f, 10.0f, 20.0f, 1.0f };
-float pointLight3[4] = { -1.0f, 10.0f, 40.0f, 1.0f };
-float pointLight4[4] = { 16.0f, 10.0f, 60.0f, 1.0f };
-float pointLight5[4] = { -1.0f, 10.0f, 80.0f, 1.0f };
-float pointLight6[4] = { 16.0f, 10.0f, 100.0f, 1.0f };
+//Spot ligths settings
+float spotLight1[4] = { 5.0f, 6.0f, 4.0f, 1.0f };
+float spotLight2[4] = { 13.0f, 6.0f, 16.0f, 1.0f };
+float spotLight3[4] = { 5.0f, 6.0f, 36.0f, 1.0f };
+float spotLight4[4] = { 13.0f, 6.0f, 56.0f, 1.0f };
+float spotLight5[4] = { 5.0f, 6.0f, 76.0f, 1.0f };
+float spotLight6[4] = { 13.0f, 6.0f, 96.0f, 1.0f };
 
+float spotDir[4] = { 0.0f, -1.0f, 0.0f, 0.0f };
+
+//Directional light
 float dirLight[4] = { 0.0f, 10.0f, 0.0f, 0.0f };
 
-float spotLight[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-float spotDir[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+//Frog spotlight
+float frogSpotLight[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+float frogSpotDir[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
 // ------------------------------------------------------------
 //
@@ -80,7 +93,7 @@ void renderScene(void) {
 
 	camera->draw(camX, camY, camZ, frog->getPosition()[0], frog->getPosition()[1], frog->getPosition()[2]);
 
-	// use our shader
+	//Use our shader
 	glUseProgram(shader.getProgramIndex());
 
 	float currentSpotLight[4] = { frog->getPosition()[0], 6.0f, frog->getPosition()[2], 1.0f };
@@ -89,16 +102,43 @@ void renderScene(void) {
 	//Update frog spotlight position
 	light->updateSpotPosDir(7, currentSpotLight, currentSpotDir);
 
-	//render light
+	//Render light
 	light->draw(shader);
 
 	//reder fog
 	fog->draw(shader);
 
-	//render objects
-	frog->render(shader);
-	scenario->render(shader);
+	//Render obstacles
 	obstacles->render(shader);
+
+	//Render scenario objects
+	roadMargin->render(shader);
+	road->render(shader);
+
+	riverMargin1->render(shader);
+	riverMargin2->render(shader);
+
+	frog->render(shader);
+
+	//Planar reflection and stencil buffer
+	glEnable(GL_STENCIL_TEST);
+
+	// Draw river
+	glStencilFunc(GL_ALWAYS, 1, 0xFF); // Set any stencil to 1
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	glStencilMask(0xFF); // Write to stencil buffer
+	glDepthMask(GL_FALSE); // Don't write to depth buffer
+	glClear(GL_STENCIL_BUFFER_BIT); // Clear stencil buffer (0 by default)
+	river->render(shader);
+
+	// Draw frog reflection
+	glDepthMask(GL_TRUE); // Write to depth buffer
+	glStencilFunc(GL_EQUAL, 1, 0xFF); // Pass test if stencil value is 1
+	glStencilMask(0x00); // Don't write anything to stencil buffer
+	glDepthMask(GL_TRUE); // Write to depth buffer
+	frog->renderReflection(shader);
+
+	glDisable(GL_STENCIL_TEST);
 }
 
 // ------------------------------------------------------------
@@ -165,7 +205,7 @@ void updateEnemies(int value) {
 void processKeys(unsigned char key, int xx, int yy) {
 	
 	if (key == 'r' && frog->getLives() == 0){
-		frog->resetLifes();
+		frog->resetLives();
 		return;
 	}
 
@@ -204,11 +244,16 @@ void processKeys(unsigned char key, int xx, int yy) {
 			view = 3;
 			break;
 		case 'n':
-			light->switchLight(Light::LightTypes::DIRECTIONAL);
-			light->switchLight(Light::LightTypes::SPOT);
+			light->switchLight(0);
+			light->switchLight(7);
 			break;
 		case 'c':
-			light->switchLight(Light::LightTypes::POINT);
+			light->switchLight(1);
+			light->switchLight(2);
+			light->switchLight(3);
+			light->switchLight(4);
+			light->switchLight(5);
+			light->switchLight(6);
 			break;
 		case 'f':{
 			if (fog->fogParams.isEnabled)
@@ -347,20 +392,26 @@ void setupObjects() {
 	fog = new Fog();
 	frog = new Frog(0.0f, 0.0f, 50.0f);
 
+	roadMargin = new RoadMargin(0.0f, -1.5f, 0.0f);
+	riverMargin1 = new RiverMargin(RIVER_MARGIN1_X, -1.5f, 0.0f);
+	riverMargin2 = new RiverMargin(RIVER_MARGIN2_X, -1.5f, 0.0f);
+
+	road = new Road(ROAD_X, -1.5f, 0.0f);
+	river = new River(RIVER_X, -1.5f, 0.0f);
+
 	obstacles = new Obstacles(frog);
-	scenario = new Scenario(0.0f, -1.5f, 0.0f);
 
 	//Setup lights
 	light->addLight(Light::DIRECTIONAL, dirLight, 0, 0, 0);
 
-	light->addLight(Light::POINT, pointLight1, 0, 0, 1);
-	light->addLight(Light::POINT, pointLight2, 0, 0, 2);
-	light->addLight(Light::POINT, pointLight3, 0, 0, 3);
-	light->addLight(Light::POINT, pointLight4, 0, 0, 4);
-	light->addLight(Light::POINT, pointLight5, 0, 0, 5);
-	light->addLight(Light::POINT, pointLight6, 0, 0, 6);
+	light->addLight(Light::SPOT, spotLight1, spotDir, 0.90f, 1);
+	light->addLight(Light::SPOT, spotLight2, spotDir, 0.90f, 2);
+	light->addLight(Light::SPOT, spotLight3, spotDir, 0.90f, 3);
+	light->addLight(Light::SPOT, spotLight4, spotDir, 0.90f, 4);
+	light->addLight(Light::SPOT, spotLight5, spotDir, 0.90f, 5);
+	light->addLight(Light::SPOT, spotLight6, spotDir, 0.90f, 6);
 
-	light->addLight(Light::SPOT, spotLight, spotDir, 0.9f, 7);
+	light->addLight(Light::SPOT, frogSpotLight, frogSpotDir, 0.90f, 7);
 }
 
 
@@ -392,6 +443,8 @@ void setupOpenGL()
 	std::cerr << "CONTEXT: OpenGL v" << glGetString(GL_VERSION) << std::endl;
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDepthFunc(GL_LEQUAL);
 	glDepthMask(GL_TRUE);
 	glDepthRange(0.0, 1.0);

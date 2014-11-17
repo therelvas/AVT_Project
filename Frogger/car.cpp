@@ -12,9 +12,9 @@ Car::~Car(){}
 
 void Car::setupObjects() {
 
-	float body_amb[] = { 0.1745f, 0.01175f, 0.01175f, 0.55f };
-	float body_diff[] = { 0.61424f, 0.04136f, 0.04136f, 0.55f };
-	float body_spec[] = { 0.727811f, 0.626959f, 0.626959f, 0.55f };
+	float body_amb[] = { 0.1745f, 0.01175f, 0.01175f, 1.0f };
+	float body_diff[] = { 0.61424f, 0.04136f, 0.04136f, 1.0f };
+	float body_spec[] = { 0.727811f, 0.626959f, 0.626959f, 1.0f };
 	float body_shininess[] = { 76.8f };
 
 	float tires_diff[] = { 0.0f, 0.0f, 0.0f, 1.0f };
