@@ -388,7 +388,7 @@ void setupObjects() {
 	riverMargin1 = new RiverMargin(RIVER_MARGIN1_X, -1.5f, 0.0f);
 	riverMargin2 = new RiverMargin(RIVER_MARGIN2_X, -1.5f, 0.0f);
 
-	tree = new Tree(32.0f, 0.0f, 50.0f);
+	tree = new Tree(32.0f, 0.0f, 45.0f);
 	road = new Road(ROAD_X, -1.5f, 0.0f);
 	river = new River(RIVER_X, -1.5f, 0.0f);
 
