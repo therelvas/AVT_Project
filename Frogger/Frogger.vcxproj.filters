@@ -87,6 +87,9 @@
     <ClInclude Include="riverMargin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="fog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -155,6 +158,9 @@
     <ClCompile Include="riverMargin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="fog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -196,6 +202,9 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="assets\wood.jpg">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="assets\tree.tga">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
