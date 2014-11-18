@@ -2,13 +2,13 @@
 
 Tree::Tree(float x, float y, float z) : StaticObject(x, y, z) {
 	
-	billboard = new Cube();
+	billboard = new Surface();
 	setupObjects();
 }
 
 void Tree::setupObjects(){
 
-	vectorOrientation[0] = -1.0f;
+	vectorOrientation[0] = 1.0f;
 	vectorOrientation[1] = 0.0f;
 	vectorOrientation[2] = 0.0f;
 
@@ -30,9 +30,9 @@ void Tree::render(VSShaderLib shader){
 
 	vsml->translate(position[0], position[1], position[2]);
 	vsml->scale(1.0f, 15.0f, 10.0f);
-
+	
 	if ((angle < 0.99990) && (angle > -0.9999))
-		vsml->rotate(acos(angle) * 180.0f / 3.14f, auxVector[0], auxVector[1], auxVector[2]);
+		vsml->rotate(acos(-angle) * 180.0f / 3.14f, auxVector[0], auxVector[1], auxVector[2]);
 
 	billboard->render(shader);
 	

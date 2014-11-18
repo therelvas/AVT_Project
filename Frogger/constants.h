@@ -1,3 +1,7 @@
+//Textures
+
+#define MAX_TEXTURES 8
+
 //Camera
 
 #define ORTHO 30

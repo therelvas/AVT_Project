@@ -31,6 +31,8 @@
     <ClInclude Include="road.h" />
     <ClInclude Include="roadMargin.h" />
     <ClInclude Include="staticObject.h" />
+    <ClInclude Include="surface.h" />
+    <ClInclude Include="surfaceData.h" />
     <ClInclude Include="tree.h" />
     <ClInclude Include="turtle.h" />
     <ClInclude Include="wood.h" />
@@ -55,6 +57,7 @@
     <ClCompile Include="river.cpp" />
     <ClCompile Include="road.cpp" />
     <ClCompile Include="staticObject.cpp" />
+    <ClCompile Include="surface.cpp" />
     <ClCompile Include="tree.cpp" />
     <ClCompile Include="turtle.cpp" />
     <ClCompile Include="wood.cpp" />

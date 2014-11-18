@@ -167,7 +167,7 @@ void Cube::render(VSShaderLib shader) {
 	setMaterial(shader);
 
 	// bind texture
-	for (unsigned int j = 0; j < VSResourceLib::MAX_TEXTURES; ++j) {
+	for (unsigned int j = 0; j < MAX_TEXTURES; ++j) {
 		if (texUnits[j] != 0) {
 			glActiveTexture(GL_TEXTURE0 + j);
 			glBindTexture(texTypes[j], texUnits[j]);
@@ -180,7 +180,7 @@ void Cube::render(VSShaderLib shader) {
 	glBindVertexArray(0);
 
 
-	for (unsigned int j = 0; j < VSResourceLib::MAX_TEXTURES; ++j) {
+	for (unsigned int j = 0; j < MAX_TEXTURES; ++j) {
 		if (texUnits[j] != 0) {
 			glActiveTexture(GL_TEXTURE0 + j);
 			glBindTexture(texTypes[j], 0);

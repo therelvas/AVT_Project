@@ -9,13 +9,13 @@
 
 #include "staticObject.h"
 #include "constants.h"
-#include "cube.h"
+#include "surface.h"
 
 class Tree : public StaticObject{
 
 private:
 
-	Cube *billboard;
+	Surface *billboard;
 	
 	float angle;
 	float vector[3];

@@ -8,7 +8,7 @@
 #include "lib/vsMathLib.h"
 #include "lib/vsResourceLib.h"
 
-static const int MAX_TEXTURES = 8;
+#include "constants.h"
 
 class Cube {
 
