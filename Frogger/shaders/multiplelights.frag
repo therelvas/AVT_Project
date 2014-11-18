@@ -133,7 +133,7 @@ void main() {
 		color = max(diffuse + specular, mat.ambient)*texel;
 
 	// Add fog
-	if(fogParams.isEnabled){
+	if(fogParams.isEnabled&&color.w>0){
 		vec4 fogColor = vec4(fogParams.vFogColorR, fogParams.vFogColorG, fogParams.vFogColorB, 1.0);
 		float fFogCoord = abs(DataIn.eye.z/DataIn.eye.w);
 		colorOut = mix(color, fogColor, getFogFactor(fogParams, fFogCoord));
