@@ -19,6 +19,7 @@
 #include "roadMargin.h"
 #include "river.h"
 #include "road.h"
+#include "tree.h"
 
 #include "frog.h"
 #include "camera.h"
@@ -57,6 +58,7 @@ RiverMargin *riverMargin1;
 RiverMargin *riverMargin2;
 
 Road *road;
+Tree *tree;
 River *river;
 
 Obstacles *obstacles;
@@ -114,6 +116,9 @@ void renderScene(void) {
 	riverMargin2->render(shader);
 
 	frog->render(shader);
+
+	tree->updateRotation(frog->getPosition());
+	tree->render(shader);
 
 	//Planar reflection and stencil buffer
 	glEnable(GL_STENCIL_TEST);
@@ -383,6 +388,7 @@ void setupObjects() {
 	riverMargin1 = new RiverMargin(RIVER_MARGIN1_X, -1.5f, 0.0f);
 	riverMargin2 = new RiverMargin(RIVER_MARGIN2_X, -1.5f, 0.0f);
 
+	tree = new Tree(32.0f, 0.0f, 50.0f);
 	road = new Road(ROAD_X, -1.5f, 0.0f);
 	river = new River(RIVER_X, -1.5f, 0.0f);
 
