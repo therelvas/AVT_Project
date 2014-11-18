@@ -198,5 +198,8 @@
     <Image Include="assets\wood.jpg">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="assets\tree.tga">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
 </Project>

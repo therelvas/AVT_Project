@@ -73,6 +73,7 @@
     <Image Include="assets\road3.jpg" />
     <Image Include="assets\sand.jpg" />
     <Image Include="assets\sidewalk.jpg" />
+    <Image Include="assets\tree.tga" />
     <Image Include="assets\wood.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
