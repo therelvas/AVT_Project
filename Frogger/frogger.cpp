@@ -24,7 +24,6 @@
 #include "camera.h"
 #include "light.h"
 #include "fog.h"
-#include "obstacles.h"
 
 #define CAPTION "Frogger"
 

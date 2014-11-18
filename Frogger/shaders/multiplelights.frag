@@ -132,7 +132,6 @@ void main() {
 	else 
 		color = max(diffuse + specular, mat.ambient)*texel;
 
-
 	// Add fog
 	if(fogParams.isEnabled){
 		vec4 fogColor = vec4(fogParams.vFogColorR, fogParams.vFogColorG, fogParams.vFogColorB, 1.0);
