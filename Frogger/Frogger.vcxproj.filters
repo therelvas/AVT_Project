@@ -90,12 +90,6 @@
     <ClInclude Include="tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="surfaceData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="surface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\vsResSurfRevLib.cpp">
@@ -162,9 +156,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="surface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

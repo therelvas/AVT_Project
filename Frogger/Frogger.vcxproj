@@ -16,6 +16,7 @@
     <ClInclude Include="constants.h" />
     <ClInclude Include="cube.h" />
     <ClInclude Include="dynamicObject.h" />
+    <ClInclude Include="fog.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="frog.h" />
     <ClInclude Include="cubeData.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="car.cpp" />
     <ClCompile Include="cube.cpp" />
     <ClCompile Include="dynamicObject.cpp" />
+    <ClCompile Include="fog.cpp" />
     <ClCompile Include="frog.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="lib\vsLogLib.cpp" />

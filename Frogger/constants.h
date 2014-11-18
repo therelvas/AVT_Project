@@ -43,3 +43,8 @@
 //Lights
 
 #define MAX_LIGHTS 8
+
+//Fog
+#define FOG_EQUATION_LINEAR 0 
+#define FOG_EQUATION_EXP 1 
+#define FOG_EQUATION_EXP2 2 

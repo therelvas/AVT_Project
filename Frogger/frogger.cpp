@@ -24,7 +24,7 @@
 #include "frog.h"
 #include "camera.h"
 #include "light.h"
-#include "obstacles.h"
+#include "fog.h"
 
 #define CAPTION "Frogger"
 
@@ -61,6 +61,7 @@ Road *road;
 Tree *tree;
 River *river;
 
+Fog *fog;
 Obstacles *obstacles;
 
 //Camera
@@ -104,6 +105,9 @@ void renderScene(void) {
 
 	//Render light
 	light->draw(shader);
+
+	//reder fog
+	fog->draw(shader);
 
 	//Render obstacles
 	obstacles->render(shader);
@@ -255,6 +259,13 @@ void processKeys(unsigned char key, int xx, int yy) {
 			light->switchLight(5);
 			light->switchLight(6);
 			break;
+		case 'f':{
+			if (fog->fogParams.isEnabled)
+				fog->fogParams.isEnabled = false;
+			else
+				fog->fogParams.isEnabled = true;
+		}
+			break;
 		}
 	}
 }
@@ -382,6 +393,7 @@ GLuint setupShaders() {
 void setupObjects() {
 
 	light = new Light();
+	fog = new Fog();
 	frog = new Frog(0.0f, 0.0f, 50.0f);
 
 	roadMargin = new RoadMargin(0.0f, -1.5f, 0.0f);
