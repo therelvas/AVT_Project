@@ -26,6 +26,8 @@
 #include "light.h"
 #include "fog.h"
 
+#include "obstacles.h"
+
 #define CAPTION "Frogger"
 
 int WindowHandle = 0;
