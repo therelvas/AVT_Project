@@ -26,6 +26,7 @@
     <ClInclude Include="lib\vsResSurfRevLib.h" />
     <ClInclude Include="lib\vsShaderLib.h" />
     <ClInclude Include="light.h" />
+    <ClInclude Include="particles.h" />
     <ClInclude Include="riverMargin.h" />
     <ClInclude Include="obstacles.h" />
     <ClInclude Include="river.h" />
@@ -53,6 +54,7 @@
     <ClCompile Include="lib\vsShaderLib.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="frogger.cpp" />
+    <ClCompile Include="particles.cpp" />
     <ClCompile Include="riverMargin.cpp" />
     <ClCompile Include="roadMargin.cpp" />
     <ClCompile Include="obstacles.cpp" />
@@ -71,6 +73,7 @@
   <ItemGroup>
     <Image Include="assets\balldimpled.png" />
     <Image Include="assets\grass.png" />
+    <Image Include="assets\particula.bmp" />
     <Image Include="assets\river.jpg" />
     <Image Include="assets\river2.png" />
     <Image Include="assets\road.jpg" />
