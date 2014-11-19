@@ -29,11 +29,9 @@ void Tree::render(VSShaderLib shader){
 	vsml->pushMatrix(VSMathLib::MODEL);
 
 	vsml->translate(position[0], position[1], position[2]);
-
+	vsml->scale(1.0f, 15.0f, 10.0f);
 	if ((angle < 0.99990) && (angle > -0.9999))
 		vsml->rotate(acos(-angle) * 180.0f / 3.14f, auxVector[0], auxVector[1], auxVector[2]);
-
-	vsml->scale(1.0f, 15.0f, 10.0f);
 	billboard->render(shader);
 	
 	vsml->popMatrix(VSMathLib::MODEL);
