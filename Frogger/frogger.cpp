@@ -60,7 +60,7 @@ RiverMargin *riverMargin1;
 RiverMargin *riverMargin2;
 
 Road *road;
-Tree *tree;
+Tree *tree[5];
 River *river;
 
 Fog *fog;
@@ -123,8 +123,20 @@ void renderScene(void) {
 
 	frog->render(shader);
 
-	tree->updateRotation(frog->getPosition());
-	tree->render(shader);
+	tree[1]->updateRotation(frog->getPosition());
+	tree[1]->render(shader);
+
+	tree[2]->updateRotation(frog->getPosition());
+	tree[2]->render(shader);
+
+	tree[0]->updateRotation(frog->getPosition());
+	tree[0]->render(shader);
+
+	tree[3]->updateRotation(frog->getPosition());
+	tree[3]->render(shader);
+
+	tree[4]->updateRotation(frog->getPosition());
+	tree[4]->render(shader);
 
 	//Planar reflection and stencil buffer
 	glEnable(GL_STENCIL_TEST);
@@ -404,7 +416,11 @@ void setupObjects() {
 	river = new River(RIVER_X, SCENARIO_Y, SCENARIO_Z);
 	riverMargin2 = new RiverMargin(RIVER_MARGIN_X2, SCENARIO_Y, SCENARIO_Z);
 
-	tree = new Tree(35.0f, -1.0f, SCENARIO_Z);
+	tree[0] = new Tree(35.0f, -1.0f, SCENARIO_Z -20);
+	tree[1] = new Tree(35.0f, -1.0f, SCENARIO_Z);
+	tree[2] = new Tree(35.0f, -1.0f, SCENARIO_Z+20);
+	tree[3] = new Tree(35.0f, -1.0f, SCENARIO_Z + 35);
+	tree[4] = new Tree(35.0f, -1.0f, SCENARIO_Z - 35);
 
 	obstacles = new Obstacles(frog);
 
