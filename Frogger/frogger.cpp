@@ -402,7 +402,7 @@ void setupObjects() {
 	riverMargin1 = new RiverMargin(RIVER_MARGIN1_X, -1.5f, 0.0f);
 	riverMargin2 = new RiverMargin(RIVER_MARGIN2_X, -1.5f, 0.0f);
 
-	tree = new Tree(34.0f, -0.5f, 45.0f);
+	tree = new Tree(36.0f, -0.5f, 50.0f);
 	road = new Road(ROAD_X, -1.5f, 0.0f);
 	river = new River(RIVER_X, -1.5f, 0.0f);
 
@@ -517,4 +517,3 @@ int main(int argc, char *argv[]) {
 	glutMainLoop();
 	exit(EXIT_SUCCESS);
 }
-
