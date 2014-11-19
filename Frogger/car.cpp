@@ -104,7 +104,6 @@ float** Car::getBoundingBox(){
 
 void Car::collide(DynamicObject* dynamicObject){
 
-	printf("FROG X_POS: %f and CAR X_POS: %f\n", dynamicObject->getBoundingBox()[0][0], getBoundingBox()[0][0]);
 	if (dynamicObject->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
 		&&
 		dynamicObject->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){

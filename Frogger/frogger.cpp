@@ -416,11 +416,11 @@ void setupObjects() {
 	river = new River(RIVER_X, SCENARIO_Y, SCENARIO_Z);
 	riverMargin2 = new RiverMargin(RIVER_MARGIN_X2, SCENARIO_Y, SCENARIO_Z);
 
-	tree[0] = new Tree(35.0f, -1.0f, SCENARIO_Z -20);
-	tree[1] = new Tree(35.0f, -1.0f, SCENARIO_Z);
-	tree[2] = new Tree(35.0f, -1.0f, SCENARIO_Z+20);
-	tree[3] = new Tree(35.0f, -1.0f, SCENARIO_Z + 35);
-	tree[4] = new Tree(35.0f, -1.0f, SCENARIO_Z - 35);
+	tree[0] = new Tree(35.0f, 4.0f, SCENARIO_Z -20);
+	tree[1] = new Tree(35.0f, 4.0f, SCENARIO_Z);
+	tree[2] = new Tree(35.0f, 4.0f, SCENARIO_Z+20);
+	tree[3] = new Tree(35.0f, 4.0f, SCENARIO_Z + 35);
+	tree[4] = new Tree(35.0f, 4.0f, SCENARIO_Z - 35);
 
 	obstacles = new Obstacles(frog);
 
