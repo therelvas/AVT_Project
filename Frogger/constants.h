@@ -12,9 +12,9 @@
 
 //Car
 
-#define STARTING_POS_CAR_X1 5.0f
-#define STARTING_POS_CAR_X2 8.0f
-#define STARTING_POS_CAR_X3	11.0f
+#define STARTING_POS_CAR_X1 6.0f
+#define STARTING_POS_CAR_X2 9.0f
+#define STARTING_POS_CAR_X3	12.0f
 
 //Turtle
 
@@ -32,13 +32,19 @@
 
 //Scenario
 
-#define RIVER_MARGIN1_X 14
-#define RIVER_MARGIN2_X 28
-#define ROAD_X 4
-#define RIVER_X 18
-#define SCALE_FACTOR_X 10
-#define SCALE_FACTOR_Z 100
-#define BORDER_SCALE_FACTOR_X 4
+#define SCENARIO_Y -1.0f
+#define SCENARIO_Z 50.0f
+
+#define ROAD_MARGIN_X 2.0f
+#define ROAD_X 9.0f
+
+#define RIVER_MARGIN_X1 16.0f
+#define RIVER_X 23.0f
+#define RIVER_MARGIN_X2 30.0f
+
+#define SCALE_FACTOR_X 10.0f
+#define SCALE_FACTOR_Z 100.0f
+#define BORDER_SCALE_FACTOR_X 4.0f
 
 //Lights
 

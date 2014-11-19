@@ -148,7 +148,7 @@ void Frog::renderReflection(VSShaderLib shader) {
 
 void Frog::move(float x, float y, float z, float speed) {
 	
-	if (!(position[0] + x*speed <= 31 && position[0] + x*speed >= 0))
+	if (!(position[0] + x*speed <= 32 && position[0] + x*speed >= 0))
 		return;
 	if (!(position[2] + z*speed <= 100 && position[2] + z*speed >= 0))
 		return;

@@ -39,8 +39,7 @@ void Obstacles::generateEnemies() {
 
 		int type = rand() % 25;
 		int pos = rand() % 3;
-		enemies.push_back(new Wood(startingPosWood[pos], -1.0f, 0.0f));
-
+	
 		//Car
 		if (type < 10) {
 			enemies.push_back(new Car(startingPosCarX[pos], 0.0f, 0.0f));

@@ -50,11 +50,11 @@ float** Wood::getBoundingBox() {
 	boundingBox[0] = new float[3];
 	boundingBox[1] = new float[3];
 
-	boundingBox[0][0] = position[0] + +1;
+	boundingBox[0][0] = position[0] + 1.0f;
 	boundingBox[0][1] = 0;
 	boundingBox[0][2] = position[2] - 5.0f;
 
-	boundingBox[1][0] = position[0] - 1;
+	boundingBox[1][0] = position[0] - 1.0f;
 	boundingBox[1][1] = 0;
 	boundingBox[1][2] = position[2] + 5.0f;
 

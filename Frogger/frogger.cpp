@@ -396,15 +396,15 @@ void setupObjects() {
 
 	light = new Light();
 	fog = new Fog();
-	frog = new Frog(0.0f, 0.0f, 50.0f);
+	frog = new Frog(0.0f, 0.0f, SCENARIO_Z);
 
-	roadMargin = new RoadMargin(0.0f, -1.5f, 0.0f);
-	riverMargin1 = new RiverMargin(RIVER_MARGIN1_X, -1.5f, 0.0f);
-	riverMargin2 = new RiverMargin(RIVER_MARGIN2_X, -1.5f, 0.0f);
+	roadMargin = new RoadMargin(ROAD_MARGIN_X, SCENARIO_Y, SCENARIO_Z);
+	road = new Road(ROAD_X, SCENARIO_Y, SCENARIO_Z);
+	riverMargin1 = new RiverMargin(RIVER_MARGIN_X1, SCENARIO_Y, SCENARIO_Z);
+	river = new River(RIVER_X, SCENARIO_Y, SCENARIO_Z);
+	riverMargin2 = new RiverMargin(RIVER_MARGIN_X2, SCENARIO_Y, SCENARIO_Z);
 
-	tree = new Tree(36.0f, -0.5f, 50.0f);
-	road = new Road(ROAD_X, -1.5f, 0.0f);
-	river = new River(RIVER_X, -1.5f, 0.0f);
+	tree = new Tree(35.0f, -1.0f, SCENARIO_Z);
 
 	obstacles = new Obstacles(frog);
 

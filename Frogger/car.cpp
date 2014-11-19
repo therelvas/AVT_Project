@@ -39,38 +39,38 @@ void Car::render(VSShaderLib shader) {
 
 	//Body
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0], position[1], position[2]);
+	vsml->translate(position[0], position[1] + 0.5f, position[2]);
 	vsml->scale(2.0f, 1.0f, 5.0f);
 	cube->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0], position[1] + 1.0f, position[2] + 1.0f);
+	vsml->translate(position[0], position[1] + 1.5f, position[2]);
 	vsml->scale(2.0f, 1.0f, 3.0f);
 	cube->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	//Tires
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.05f, position[1], position[2] + 1.0f);
+	vsml->translate(position[0] + 1.0f, position[1], position[2] - 1.25f);
 	vsml->rotate(90, 0, 0, 1);
 	vsres->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 0.05f, position[1], position[2] + 4.0f);
+	vsml->translate(position[0] - 1.0f, position[1], position[2] - 1.25f);
 	vsml->rotate(90, 0, 0, 1);
 	vsres->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 1.95f, position[1], position[2] + 4.0f);
+	vsml->translate(position[0] + 1.0f, position[1], position[2] + 1.25f);
 	vsml->rotate(90, 0, 0, 1);
 	vsres->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
 
 	vsml->pushMatrix(VSMathLib::MODEL);
-	vsml->translate(position[0] + 1.95f, position[1], position[2] + 1.0f);
+	vsml->translate(position[0] - 1.0f , position[1], position[2] + 1.25f);
 	vsml->rotate(90, 0, 0, 1);
 	vsres->render(shader);
 	vsml->popMatrix(VSMathLib::MODEL);
@@ -91,12 +91,11 @@ float** Car::getBoundingBox(){
 	boundingBox[0] = new float[3];
 	boundingBox[1] = new float[3];
 
-	boundingBox[0][0] = position[0] + 1.0f;
+	boundingBox[0][0] = position[0] + 1.5f;
 	boundingBox[0][1] = 0;
 	boundingBox[0][2] = position[2] - 2.5f;
 
-
-	boundingBox[1][0] = position[0] - 1;
+	boundingBox[1][0] = position[0] - 1.5f;
 	boundingBox[1][1] = 0;
 	boundingBox[1][2] = position[2] + 2.5f;
 
@@ -105,6 +104,7 @@ float** Car::getBoundingBox(){
 
 void Car::collide(DynamicObject* dynamicObject){
 
+	printf("FROG X_POS: %f and CAR X_POS: %f\n", dynamicObject->getBoundingBox()[0][0], getBoundingBox()[0][0]);
 	if (dynamicObject->getBoundingBox()[0][0] >= getBoundingBox()[1][0] && dynamicObject->getBoundingBox()[0][0] <= getBoundingBox()[0][0]
 		&&
 		dynamicObject->getBoundingBox()[0][2] <= getBoundingBox()[1][2] && dynamicObject->getBoundingBox()[0][2] >= getBoundingBox()[0][2]){
