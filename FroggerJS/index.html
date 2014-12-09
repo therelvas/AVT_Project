@@ -17,6 +17,7 @@
 <script type="text/javascript" src="riverMargin.js"></script>
 <script type="text/javascript" src="river.js"></script>
 <script type="text/javascript" src="light.js"></script>
+<script type="text/javascript" src="fog.js"></script>
 <script type="text/javascript" src="utils.js"></script>
 
 
@@ -32,6 +33,9 @@
     //Lights
     var light;
 
+	//Fog
+	var fog;
+	
     //Scenario
     var road;
     var roadMargin;
@@ -140,6 +144,8 @@
     	river = new River(23.0, -1.0, 50.0);
     	riverMargin2 = new RiverMargin(30.0, -1.0, 50.0);
 
+		fog = new Fog();
+		
     	light = new Light();
     	light.addLight("directional", [0.0, 10.0, 0.0, 0.0], 0.0, 0.0, 0);
 
@@ -169,6 +175,8 @@
     	riverMargin2.render(shaderProgram);
 
     	light.draw(shaderProgram);
+		
+		fog.draw(shaderProgram);
     }
 
     function tick() {
