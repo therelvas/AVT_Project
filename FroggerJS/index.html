@@ -1,0 +1,204 @@
+<html>
+
+<head>
+<title>Frogger WebGL</title>
+
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+<script type="text/javascript" src="gl-matrix-min.js"></script>
+<script type="text/javascript" src="webgl-utils.js"></script>
+<script type="text/javascript" src="fragmentShader.glsl.js"></script>
+<script type="text/javascript" src="vertexShader.glsl.js"></script>
+<script type="text/javascript" src="cube.js"></script>
+<script type="text/javascript" src="sphere.js"></script>
+<script type="text/javascript" src="camera.js"></script>
+<script type="text/javascript" src="roadMargin.js"></script>
+<script type="text/javascript" src="road.js"></script>
+<script type="text/javascript" src="riverMargin.js"></script>
+<script type="text/javascript" src="river.js"></script>
+<script type="text/javascript" src="light.js"></script>
+<script type="text/javascript" src="utils.js"></script>
+
+
+<script type="text/javascript">
+
+	//GL and Shader
+    var gl;
+    var shaderProgram;
+
+    //Camera
+    var camera;
+
+    //Lights
+    var light;
+
+    //Scenario
+    var road;
+    var roadMargin;
+    var riverMargin1;
+    var riverMargin2;
+    var river;
+
+    function initGL(canvas) {
+        try {
+            gl = canvas.getContext("experimental-webgl");
+
+            gl.viewportWidth = canvas.width;
+            gl.viewportHeight = canvas.height;
+        } catch (e) {}
+        if (!gl) {
+            alert("Could not initialise WebGL");
+        }
+    }
+
+    function initShaders() {
+
+        var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    	var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+
+    	gl.shaderSource(fragmentShader, fragmentShaderSrc);
+    	gl.compileShader(fragmentShader);
+
+    	if(!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+    		alert(gl.getShaderInfoLog(fragmentShader));
+        	return null;
+    	}
+
+    	gl.shaderSource(vertexShader, vertexShaderSrc);
+    	gl.compileShader(vertexShader);
+
+    	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+    		alert(gl.getShaderInfoLog(vertexShader));
+        	return null;
+    	}
+
+    	shaderProgram = gl.createProgram();
+    	gl.attachShader(shaderProgram, vertexShader);
+    	gl.attachShader(shaderProgram, fragmentShader);
+    	gl.linkProgram(shaderProgram);
+
+    	if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+    		alert("Could not initialise shaders");
+    	}
+
+    	gl.useProgram(shaderProgram);
+
+    	shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "vertexPosition");
+    	gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+    	shaderProgram.vertexNormalAttribute = gl.getAttribLocation(shaderProgram, "vertexNormal");
+    	gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
+    	shaderProgram.texCoordinatesAttribute = gl.getAttribLocation(shaderProgram, "texCoordinates");
+    	gl.enableVertexAttribArray(shaderProgram.texCoordinatesAttribute);
+
+    	//Matrices
+    	shaderProgram.pvmMatrixUniform = gl.getUniformLocation(shaderProgram, "m_pvm");
+    	shaderProgram.vmMatrixUniform = gl.getUniformLocation(shaderProgram, "m_viewModel");
+    	shaderProgram.normalMatrixUniform = gl.getUniformLocation(shaderProgram, "m_normal");
+    }
+
+    var mMatrix = mat4.create(); //Model Matrix
+    var vMatrix = mat4.create(); //View Matrix
+    var pMatrix = mat4.create(); //Projection Matrix
+
+    var mMatrixStack = [];
+
+
+    function pushMatrix() {
+        var copy = mat4.create();
+        mat4.set(mMatrix, copy);
+        mMatrixStack.push(copy);
+    }
+
+    function popMatrix() {
+        if (mMatrixStack.length == 0) {
+            throw "Invalid popMatrix";
+        }
+        mMatrix = mMatrixStack.pop();
+    }
+
+    function sendMatricesToGL() {
+
+    	var vmMatrix = mat4.create();
+    	mat4.multiply(vMatrix, mMatrix, vmMatrix);
+
+    	var pvmMatrix = mat4.create();
+    	mat4.multiply(pMatrix, vmMatrix, pvmMatrix);
+
+        gl.uniformMatrix4fv(shaderProgram.pvmMatrixUniform, false, pvmMatrix);
+        gl.uniformMatrix4fv(shaderProgram.vmMatrixUniform, false, vmMatrix);
+        
+        var normalMatrix = mat3.create();
+        normalMatrix = computeNormalMatrix3x3(vmMatrix);
+        gl.uniformMatrix3fv(shaderProgram.normalMatrixUniform, false, normalMatrix);
+    }
+	
+    function setupObjects() {
+       
+    	roadMargin = new RoadMargin(2.0, -1.0, 50.0);
+    	road = new Road(9.0, -1.0, 50.0);
+    	riverMargin1 = new RiverMargin(16.0, -1.0, 50.0);
+    	river = new River(23.0, -1.0, 50.0);
+    	riverMargin2 = new RiverMargin(30.0, -1.0, 50.0);
+
+    	light = new Light();
+    	light.addLight("directional", [0.0, 10.0, 0.0, 0.0], 0.0, 0.0, 0);
+
+    	light.addLight("spot", [5.0, 6.0, 4.0, 1.0],   [0.0, -1.0, 0.0, 0.0], 0.90, 1);
+		light.addLight("spot", [13.0, 6.0, 16.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 2);
+		light.addLight("spot", [5.0, 6.0, 36.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 3);
+		light.addLight("spot", [13.0, 6.0, 56.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 4);
+		light.addLight("spot", [5.0, 6.0, 76.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 5);
+		light.addLight("spot", [13.0, 6.0, 96.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 6);
+
+		light.addLight("spot", [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 0.0], 0.90, 7);
+    }
+
+    function drawScene() {
+
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+        
+        camera = new Camera(gl.viewportWidth, gl.viewportHeight, 1);
+        camera.draw(1,2,3,4,5,6);
+
+    	roadMargin.render(shaderProgram);
+    	road.render(shaderProgram);
+
+    	riverMargin1.render(shaderProgram);
+    	river.render(shaderProgram);
+    	riverMargin2.render(shaderProgram);
+
+    	light.draw(shaderProgram);
+    }
+
+    function tick() {
+        requestAnimFrame(tick);
+        drawScene();
+    }
+
+
+    function webGLStart() {
+        
+    	var canvas = document.createElement('canvas');
+		canvas.id = "frogger-webgl";
+		canvas.width = 0.98*window.innerWidth;
+		canvas.height = 0.97*window.innerHeight;
+		document.body.appendChild(canvas);
+
+        initGL(canvas);
+        initShaders()
+        setupObjects();
+
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.enable(gl.DEPTH_TEST);
+
+        tick();
+    }
+
+</script>
+
+</head>
+
+<body onload="webGLStart();">  
+
+</html>
