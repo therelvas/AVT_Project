@@ -30,6 +30,7 @@
     //Camera
     var view = 1;
     var camera;
+    var camX, camY, camZ;
 
     //Lights
     var light;
@@ -43,6 +44,17 @@
     var riverMargin1;
     var riverMargin2;
     var river;
+
+    //Keyboard/Mouse
+    var mouseDown = false;
+
+    var startX = 0;
+    var startY = 0;
+
+    var alpha = 39.0;
+    var beta = 51.0;
+    var r = 10.0;
+
 
     function initGL(canvas) {
         try {
@@ -141,7 +153,6 @@
 
     function handleKeyDown(event) {
 
-        currentlyPressedKeys[event.keyCode] = true;
         var key = String.fromCharCode(event.keyCode);
 
         switch(key) {
@@ -189,7 +200,18 @@
         currentlyPressedKeys[event.keyCode] = false;
     }
 
-    function processKeys() {
+    function handleMouseDown(event) {
+        mouseDown = true;
+
+
+
+    }
+
+    function handleMouseUp(event) {
+        mouseDown = false;
+    }
+
+    function handleMouseMove(event) {
 
     }
 
@@ -257,6 +279,10 @@
 
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.enable(gl.DEPTH_TEST);
+
+        canvas.onmousedown = handleMouseDown;
+        document.onmouseup = handleMouseUp;
+        document.onmousemove = handleMouseMove;
 
         document.onkeydown = handleKeyDown;
         document.onkeyup = handleKeyUp
