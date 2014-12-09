@@ -178,10 +178,13 @@
                 break;
             case "R":
                 break;
-            case "F":
-                console.log("F");
-                fog.switchFog();
-                break;
+            case "F":{
+                if (fog->fogParams.isEnabled)
+			fog->fogParams.isEnabled = false;
+		else
+			fog->fogParams.isEnabled = true;
+            }
+		break;	
         }
     }
 
