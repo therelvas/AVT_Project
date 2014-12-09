@@ -127,10 +127,10 @@ var fragmentShaderSrc =
 		"vec4 color = max(diffuse + specular, mat.ambient);" +
 		
 		// Add fog
-		//"if(fogParams.isEnabled&&color.w>0){" +
+		"if(fogParams.isEnabled&&color.w>0){" +
 			"vec4 fogColor = vec4(fogParams.vFogColorR, fogParams.vFogColorG, fogParams.vFogColorB, 1.0);" +
 			"float fFogCoord = abs(eye.z/eye.w);" +
 			"gl_FragColor = mix(color, fogColor, getFogFactor(fogParams, fFogCoord));" +
-		//"}" +
-		//"else colorOut = color;" +
+		"}" +
+		"else gl_FragColor = color;" +
 	"}";
