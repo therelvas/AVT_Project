@@ -27,6 +27,7 @@
     var shaderProgram;
 
     //Camera
+    var view = 1;
     var camera;
 
     //Lights
@@ -131,8 +132,64 @@
         normalMatrix = computeNormalMatrix3x3(vmMatrix);
         gl.uniformMatrix3fv(shaderProgram.normalMatrixUniform, false, normalMatrix);
     }
-	
+
+    var currentlyPressedKeys = {};
+
+    function handleKeyDown(event) {
+
+        currentlyPressedKeys[event.keyCode] = true;
+        var key = String.fromCharCode(event.keyCode);
+
+        switch(key) {
+            case "A":
+                break;
+            case "Q":
+                break;
+            case "O":
+                break;
+            case "P":
+                break;
+            case "S":
+                break;
+            case "1":
+                camera.setView(1);
+                break;
+            case "2":
+                camera.setView(2);
+                break
+            case "3":
+                camera.setView(3);
+                break
+            case "N":
+                light.switchLight(0);
+                light.switchLight(7);
+                break;
+            case "C":
+                light.switchLight(1);
+                light.switchLight(2);
+                light.switchLight(3);
+                light.switchLight(4);
+                light.switchLight(5);
+                light.switchLight(6);
+                break;
+            case "R":
+                break;
+            case "F":
+                break;
+        }
+    }
+
+    function handleKeyUp(event) {
+        currentlyPressedKeys[event.keyCode] = false;
+    }
+
+    function processKeys() {
+
+    }
+
     function setupObjects() {
+
+        camera = new Camera(gl.viewportWidth, gl.viewportHeight, view);
        
     	roadMargin = new RoadMargin(2.0, -1.0, 50.0);
     	road = new Road(9.0, -1.0, 50.0);
@@ -158,7 +215,6 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         
-        camera = new Camera(gl.viewportWidth, gl.viewportHeight, 1);
         camera.draw(1,2,3,4,5,6);
 
     	roadMargin.render(shaderProgram);
@@ -191,6 +247,9 @@
 
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.enable(gl.DEPTH_TEST);
+
+        document.onkeydown = handleKeyDown;
+        document.onkeyup = handleKeyUp
 
         tick();
     }
