@@ -132,5 +132,5 @@ var fragmentShaderSrc =
 			"float fFogCoord = abs(eye.z/eye.w);" +
 			"gl_FragColor = mix(color, fogColor, getFogFactor(fogParams, fFogCoord));" +
 		//"}" +
-		//"else colorOut = color;" +
+		//"else gl_FragColor = color;" +
 	"}";
