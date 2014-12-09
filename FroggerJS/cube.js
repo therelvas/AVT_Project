@@ -175,7 +175,7 @@ Cube.prototype.setColor = function(materialType, colorVec) {
       }
 }
 
-Cube.prototype.render = function(shaderProgram) {
+Cube.prototype.render = function() {
 
       this.setMaterial(shaderProgram);
 

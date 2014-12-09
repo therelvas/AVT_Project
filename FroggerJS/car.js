@@ -4,18 +4,25 @@ function Car(x, y, z) {
 	this.y = y;
 	this.z = z;
 
+	this.iX = x;
+	this.iY = y;
+	this.iZ = z;
+
 	this.cube = new Cube();
 	this.sphere = new Sphere(0.5);
 	this.setupObjects();
 }
 
 Car.prototype.setupObjects = function() {
+
+	//Body
 	this.cube.setColor("ambient", [0.1745, 0.01175, 0.01175, 1.0]);
 	this.cube.setColor("diffuse", [0.61424, 0.04136, 0.04136, 1.0]);
 	this.cube.setColor("specular", [0.332741, 0.328634, 0.346435, 1.0]);
 	this.cube.setColor("emissive", [0.727811, 0.626959, 0.626959, 1.0]);
 	this.cube.setColor("shininess", 76.8);
 
+	//Tires
 	this.sphere.setColor("ambient", [0.0, 0.0, 0.0, 1.0]);
 	this.sphere.setColor("diffuse", [0.0, 0.0, 0.0, 1.0]);
 	this.sphere.setColor("specular", [0.0, 0.0, 0.0, 1.0]);
@@ -74,14 +81,15 @@ Car.prototype.render = function(shaderProgram) {
 	this.sphere.render(shaderProgram);
 
 	popMatrix();
-
 }
 
 Car.prototype.move = function(speed){
+
 	this.z += 0.2 * speed;
 }
 
 Car.prototype.getBoundingBox = function(){
+
 	var boundingBox = [[],[]];
 
 	boundingBox[0][0] = this.x +1.5;
@@ -95,6 +103,24 @@ Car.prototype.getBoundingBox = function(){
 	return boundingBox;
 
 }
+
+Car.prototype.isInitialPos = function() {
+
+	if(this.x == this.iX && this.y == this.iY && this.z == this.iZ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+Car.prototype.resetPosition = function() {
+
+	this.x = this.iX;
+	this.y = this.iY;
+	this.z = this.iZ;
+}
+
+
 
 /*Car.prototype.collide(Frog frog){
 	var frogBoundingBox = frog.getBoundingBox();

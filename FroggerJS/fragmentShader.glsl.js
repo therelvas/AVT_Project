@@ -62,7 +62,7 @@ var fragmentShaderSrc =
 	
     "void main(void) {" +
 
-    	// normalize both input vectors
+    	//Normalize both input vectors
 		"vec3 n = normalize(normal);" +
 		"vec3 e = normalize(vec3(-position));" +
 	
@@ -126,7 +126,7 @@ var fragmentShaderSrc =
 
 		"vec4 color = max(diffuse + specular, mat.ambient);" +
 		
-		// Add fog
+		//Add fog
 		"if(fogParams.isEnabled&&color.w>0.0){" +
 			"vec4 fogColor = vec4(fogParams.vFogColorR, fogParams.vFogColorG, fogParams.vFogColorB, 1.0);" +
 			"float fFogCoord = abs(eye.z/eye.w);" +

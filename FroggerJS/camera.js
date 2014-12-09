@@ -58,6 +58,6 @@ Camera.prototype.draw = function(oX, oY, oZ, camX, camY, camZ) {
 		mat4.identity(vMatrix);
 		mat4.identity(mMatrix);
 		
-		mat4.lookAt([oX - 10.0, oY + 6.0, oZ], [oX - camX, oY- camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
+		mat4.lookAt([oX - 10.0, oY + 6.0, oZ], [oX - camX, oY - camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
 	}
 }

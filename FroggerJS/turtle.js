@@ -1,9 +1,10 @@
-function Turtle(x, y, z){
+function Turtle(x, y, z) {
+
 	this.x = x;
 	this.y = y;
 	this.z = z;
 
-	this.shell = new Sphere(1);
+	this.shell = new Sphere(1.0);
 	this.head = new Sphere(0.4);
 	this.paws = new Sphere(0.3);
 
@@ -11,6 +12,7 @@ function Turtle(x, y, z){
 }
 
 Turtle.prototype.setupObjects = function() {
+
 	this.shell.setColor("ambient", [0.25, 0.148, 0.06475, 1.0]);
 	this.shell.setColor("diffuse", [0.4, 0.2368, 0.1036, 1.0]);
 	this.shell.setColor("specular", [0.332741, 0.328634, 0.346435, 1.0]);
@@ -30,7 +32,7 @@ Turtle.prototype.setupObjects = function() {
 	this.paws.setColor("shininess", 0.25);
 }
 
-Turtle.prototype.render = function(shaderProgram) {
+Turtle.prototype.render = function() {
 
 	mat4.identity(mMatrix);
 	
@@ -73,6 +75,7 @@ Turtle.prototype.render = function(shaderProgram) {
 }
 
 Turtle.prototype.move = function(speed) {
+
 	this.z -= 0.1 * speed;
 }
 
@@ -89,6 +92,22 @@ Turtle.prototype.getBoundingBox = function(){
 	boundingBox[1][2] = this.z + 2;
 
 	return boundingBox;
+}
+
+Turtle.prototype.isInitialPos = function() {
+
+	if(this.x == this.iX && this.y == this.iY && this.z == this.iZ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+Turtle.prototype.resetPosition = function() {
+
+	this.x = this.iX;
+	this.y = this.iY;
+	this.z = this.iZ;
 }
 
 /*Turtle.prototype.collide = function(Frog frog){

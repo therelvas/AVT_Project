@@ -13,14 +13,15 @@
 <script type="text/javascript" src="sphere.js"></script>
 <script type="text/javascript" src="camera.js"></script>
 <script type="text/javascript" src="car.js"></script>
+<script type="text/javascript" src="turtle.js"></script>
 <script type="text/javascript" src="roadMargin.js"></script>
 <script type="text/javascript" src="road.js"></script>
 <script type="text/javascript" src="riverMargin.js"></script>
 <script type="text/javascript" src="river.js"></script>
 <script type="text/javascript" src="light.js"></script>
 <script type="text/javascript" src="fog.js"></script>
+<script type="text/javascript" src="obstacles.js"></script>
 <script type="text/javascript" src="utils.js"></script>
-
 
 <script type="text/javascript">
 
@@ -48,7 +49,9 @@
     var riverMargin1;
     var riverMargin2;
     var river;
-    var car;
+
+    //Enemies
+    var obstacles;
 
     //Keyboard/Mouse
     var mouseDown = false;
@@ -235,10 +238,6 @@
             if(r < 0.1)
                 r = 0.1;
         }
-
-        console.log(alpha);
-        console.log(beta);
- 
         tracking = 0;
     }
 
@@ -306,9 +305,9 @@
     	riverMargin1 = new RiverMargin(16.0, -1.0, 50.0);
     	river = new River(23.0, -1.0, 50.0);
     	riverMargin2 = new RiverMargin(30.0, -1.0, 50.0);
-        car =  new Car(6.0, 0.0, 0,0);
-
+        
 		fog = new Fog();
+        obstacles = new Obstacles();
 		
     	light = new Light();
     	light.addLight("directional", [0.0, 10.0, 0.0, 0.0], 0.0, 0.0, 0);
@@ -328,6 +327,8 @@
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
+        obstacles.destroyObstacles();
+
         camera.draw(0.0, 3.0, 50.0, camX, camY, camZ);
 
     	roadMargin.render(shaderProgram);
@@ -336,14 +337,11 @@
     	riverMargin1.render(shaderProgram);
     	river.render(shaderProgram);
     	riverMargin2.render(shaderProgram);
-
-        car.render(shaderProgram);
-
     	light.draw(shaderProgram);
-
-        car.move(1);
-		
 		fog.draw(shaderProgram);
+
+        obstacles.updatePosition();
+        obstacles.render();
     }
 
     function tick() {
