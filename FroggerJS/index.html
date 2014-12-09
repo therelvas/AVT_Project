@@ -178,14 +178,9 @@
                 break;
             case "R":
                 break;
-            case "F":{
-                if (fog->fogParams.isEnabled)
-			fog->fogParams.isEnabled = false;
-		else
-			fog->fogParams.isEnabled = true;
-            }
-		break;	
-        }
+            case "F":
+                fog.switchFog();
+		break;
     }
 
     function handleKeyUp(event) {
