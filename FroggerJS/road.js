@@ -17,7 +17,7 @@ Road.prototype.setupObjects = function() {
 	this.cube.setColor("shininess", 80.0);
 }
 
-Road.prototype.render = function(shaderProgram) {
+Road.prototype.render = function() {
 	
 	mat4.identity(mMatrix);
 	

@@ -67,70 +67,17 @@
     var beta = 25.0;
     var r = 10.0;
 
-
-    function initGL(canvas) {
-        try {
-            gl = canvas.getContext("experimental-webgl");
-
-            gl.viewportWidth = canvas.width;
-            gl.viewportHeight = canvas.height;
-        } catch (e) {}
-        if (!gl) {
-            alert("Could not initialise WebGL");
-        }
-    }
-
-    function initShaders() {
-
-        var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-    	var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-
-    	gl.shaderSource(fragmentShader, fragmentShaderSrc);
-    	gl.compileShader(fragmentShader);
-
-    	if(!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-    		alert(gl.getShaderInfoLog(fragmentShader));
-        	return null;
-    	}
-
-    	gl.shaderSource(vertexShader, vertexShaderSrc);
-    	gl.compileShader(vertexShader);
-
-    	if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-    		alert(gl.getShaderInfoLog(vertexShader));
-        	return null;
-    	}
-
-    	shaderProgram = gl.createProgram();
-    	gl.attachShader(shaderProgram, vertexShader);
-    	gl.attachShader(shaderProgram, fragmentShader);
-    	gl.linkProgram(shaderProgram);
-
-    	if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-    		alert("Could not initialise shaders");
-    	}
-
-    	gl.useProgram(shaderProgram);
-
-    	shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "vertexPosition");
-    	gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
-    	shaderProgram.vertexNormalAttribute = gl.getAttribLocation(shaderProgram, "vertexNormal");
-    	gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
-    	shaderProgram.texCoordinatesAttribute = gl.getAttribLocation(shaderProgram, "texCoordinates");
-    	gl.enableVertexAttribArray(shaderProgram.texCoordinatesAttribute);
-
-    	//Matrices
-    	shaderProgram.pvmMatrixUniform = gl.getUniformLocation(shaderProgram, "m_pvm");
-    	shaderProgram.vmMatrixUniform = gl.getUniformLocation(shaderProgram, "m_viewModel");
-    	shaderProgram.normalMatrixUniform = gl.getUniformLocation(shaderProgram, "m_normal");
-    }
-
+    //Matrices
     var mMatrix = mat4.create(); //Model Matrix
     var vMatrix = mat4.create(); //View Matrix
     var pMatrix = mat4.create(); //Projection Matrix
 
     var mMatrixStack = [];
 
+    // ------------------------------------------------------------
+    //
+    // Matrices stuff
+    //
 
     function pushMatrix() {
         var copy = mat4.create();
@@ -138,12 +85,14 @@
         mMatrixStack.push(copy);
     }
 
+
     function popMatrix() {
         if (mMatrixStack.length == 0) {
             throw "Invalid popMatrix";
         }
         mMatrix = mMatrixStack.pop();
     }
+
 
     function sendMatricesToGL() {
 
@@ -161,7 +110,54 @@
         gl.uniformMatrix3fv(shaderProgram.normalMatrixUniform, false, normalMatrix);
     }
 
-    var currentlyPressedKeys = {};
+    // ------------------------------------------------------------
+    //
+    // Render stufff
+    //
+
+    function renderScene() {
+        
+        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+
+        //Destroy obstacles
+        obstacles.destroyObstacles();
+
+        camera.draw(0.0, 3.0, 50.0, camX, camY, camZ);
+
+        light.draw();
+        fog.draw();
+
+        obstacles.updatePosition();
+        obstacles.render();
+
+        roadMargin.render();
+        road.render();
+
+        riverMargin1.render();
+        riverMargin2.render();
+                
+        river.render();
+
+        frog.render(this.shaderProgram);
+    }
+
+    // ------------------------------------------------------------
+    //
+    // Callback display function
+    //
+
+    function display() {
+
+        requestAnimFrame(display);
+
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        renderScene();
+    }
+
+    // ------------------------------------------------------------
+    //
+    // Keyboard events
+    //
 
     function handleKeyDown(event) {
 
@@ -211,9 +207,10 @@
         }
     }
 
-    function handleKeyUp(event) {
-        currentlyPressedKeys[event.keyCode] = false;
-    }
+    // ------------------------------------------------------------
+    //
+    // Mouse events
+    //
 
     function handleMouseDown(event) {
         
@@ -285,77 +282,112 @@
         }
     }
 
-    function handleMouseScroll(event) {
+    // --------------------------------------------------------
+    //
+    // Shader Stuff
+    //
 
-        var direction;
+    function setupShaders() {
 
-        if(event.wheelDelta > 0)
-            direction = 1;
-        else
-            direction = -1;
+        var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+        var vertexShader = gl.createShader(gl.VERTEX_SHADER);
 
-        r += direction * 0.1;
-        if(r < 0.1)
-            r = 0.1;
+        gl.shaderSource(fragmentShader, fragmentShaderSrc);
+        gl.compileShader(fragmentShader);
 
-        camX = rAux * Math.sin(alpha * 3.14 / 180.0) * Math.cos(beta * 3.14 / 180.0);
-        camZ = rAux * Math.cos(alpha * 3.14 / 180.0) * Math.cos(beta * 3.14 / 180.0);
-        camY = rAux *                                  Math.sin(beta * 3.14 / 180.0);
+        if(!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+            alert(gl.getShaderInfoLog(fragmentShader));
+            return null;
+        }
+
+        gl.shaderSource(vertexShader, vertexShaderSrc);
+        gl.compileShader(vertexShader);
+
+        if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+            alert(gl.getShaderInfoLog(vertexShader));
+            return null;
+        }
+
+        shaderProgram = gl.createProgram();
+        gl.attachShader(shaderProgram, vertexShader);
+        gl.attachShader(shaderProgram, fragmentShader);
+        gl.linkProgram(shaderProgram);
+
+        if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+            alert("Could not initialise shaders");
+        }
+
+        gl.useProgram(shaderProgram);
+
+        shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "vertexPosition");
+        gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+        shaderProgram.vertexNormalAttribute = gl.getAttribLocation(shaderProgram, "vertexNormal");
+        gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
+        shaderProgram.texCoordinatesAttribute = gl.getAttribLocation(shaderProgram, "texCoordinates");
+        gl.enableVertexAttribArray(shaderProgram.texCoordinatesAttribute);
+
+        //Matrices
+        shaderProgram.pvmMatrixUniform = gl.getUniformLocation(shaderProgram, "m_pvm");
+        shaderProgram.vmMatrixUniform = gl.getUniformLocation(shaderProgram, "m_viewModel");
+        shaderProgram.normalMatrixUniform = gl.getUniformLocation(shaderProgram, "m_normal");
     }
+
+    // ------------------------------------------------------------
+    //
+    // Object creation
+    //
 
     function setupObjects() {
 
         camera = new Camera(gl.viewportWidth, gl.viewportHeight, view);
        
-    	roadMargin = new RoadMargin(2.0, -1.0, 50.0);
-    	road = new Road(9.0, -1.0, 50.0);
-    	riverMargin1 = new RiverMargin(16.0, -1.0, 50.0);
-    	river = new River(23.0, -1.0, 50.0);
-    	riverMargin2 = new RiverMargin(30.0, -1.0, 50.0);
-        
-		fog = new Fog();
+        roadMargin = new RoadMargin(2.0, -1.0, 50.0);
+        road = new Road(9.0, -1.0, 50.0);
+        riverMargin1 = new RiverMargin(16.0, -1.0, 50.0);
+        river = new River(23.0, -1.0, 50.0);
+        riverMargin2 = new RiverMargin(30.0, -1.0, 50.0);
+
         obstacles = new Obstacles();
-        frog = new Frog(0.0,0.0, 50.0);
-		
-    	light = new Light();
-    	light.addLight("directional", [0.0, 10.0, 0.0, 0.0], 0.0, 0.0, 0);
 
-    	light.addLight("spot", [5.0, 6.0, 4.0, 1.0],   [0.0, -1.0, 0.0, 0.0], 0.90, 1);
-		light.addLight("spot", [13.0, 6.0, 16.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 2);
-		light.addLight("spot", [5.0, 6.0, 36.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 3);
-		light.addLight("spot", [13.0, 6.0, 56.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 4);
-		light.addLight("spot", [5.0, 6.0, 76.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 5);
-		light.addLight("spot", [13.0, 6.0, 96.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 6);
+        fog = new Fog();
+        
+        light = new Light();
+        light.addLight("directional", [0.0, 10.0, 0.0, 0.0], 0.0, 0.0, 0);
 
-		light.addLight("spot", [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 0.0], 0.90, 7);
+        light.addLight("spot", [5.0, 6.0, 4.0, 1.0],   [0.0, -1.0, 0.0, 0.0], 0.90, 1);
+        light.addLight("spot", [13.0, 6.0, 16.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 2);
+        light.addLight("spot", [5.0, 6.0, 36.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 3);
+        light.addLight("spot", [13.0, 6.0, 56.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 4);
+        light.addLight("spot", [5.0, 6.0, 76.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 5);
+        light.addLight("spot", [13.0, 6.0, 96.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 6);
+
+        light.addLight("spot", [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 0.0], 0.90, 7);
     }
 
-    function drawScene() {
+    // ------------------------------------------------------------
+    //
+    // General setup
+    //
 
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    function initGL(canvas) {
+        try {
+            gl = canvas.getContext("experimental-webgl");
 
-        obstacles.destroyObstacles();
-
-        camera.draw(0.0, 3.0, 50.0, camX, camY, camZ);
-
-    	roadMargin.render(shaderProgram);
-    	road.render(shaderProgram);
-
-    	riverMargin1.render(shaderProgram);
-    	river.render(shaderProgram);
-    	riverMargin2.render(shaderProgram);
-    	light.draw(shaderProgram);
-		fog.draw(shaderProgram);
-        frog.render(shaderProgram);
-
-        obstacles.updatePosition();
-        obstacles.render();
+            gl.viewportWidth = canvas.width;
+            gl.viewportHeight = canvas.height;
+        } catch (e) {}
+        if (!gl) {
+            alert("Could not initialise WebGL");
+        }
     }
 
-    function tick() {
-        requestAnimFrame(tick);
-        drawScene();
+
+    function setupWebGL() {
+
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.enable(gl.DEPTH_TEST);
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
     }
 
 
@@ -367,22 +399,18 @@
 		canvas.height = 0.97*window.innerHeight;
 		document.body.appendChild(canvas);
 
-        initGL(canvas);
-        initShaders()
-        setupObjects();
-
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
-        gl.enable(gl.DEPTH_TEST);
-
-        tick();
-
         canvas.onmousedown = handleMouseDown;
-        document.onmouseup = handleMouseUp;
+        document.onmouseup = handleMouseUp
         document.onmousemove = handleMouseMove;
-        document.onmousewheel = handleMouseScroll;
-
+       
         document.onkeydown = handleKeyDown;
-        document.onkeyup = handleKeyUp
+        
+        initGL(canvas);
+        setupShaders();
+        setupObjects();
+        setupWebGL();
+
+        display();
     }
 
 </script>

@@ -374,19 +374,6 @@ void processMouseMotion(int xx, int yy)
 	camY = rAux *   						       sin(betaAux * 3.14f / 180.0f);
 }
 
-
-void mouseWheel(int wheel, int direction, int x, int y) {
-
-	r += direction * 0.1f;
-	if (r < 0.1f)
-		r = 0.1f;
-
-	camX = r * sin(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
-	camZ = r * cos(alpha * 3.14f / 180.0f) * cos(beta * 3.14f / 180.0f);
-	camY = r *   						     sin(beta * 3.14f / 180.0f);
-}
-
-
 // --------------------------------------------------------
 //
 // Shader Stuff
@@ -475,8 +462,6 @@ void setupCallbacks()
 	glutKeyboardFunc(processKeys);
 	glutMouseFunc(processMouseButtons);
 	glutMotionFunc(processMouseMotion);
-
-	glutMouseWheelFunc(mouseWheel);
 
 	glutTimerFunc(0, timer, 0);
 	glutTimerFunc(0, updateEnemies, 0);

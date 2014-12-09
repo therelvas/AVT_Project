@@ -30,7 +30,7 @@ Car.prototype.setupObjects = function() {
 	this.sphere.setColor("shininess", 0);
 }
 
-Car.prototype.render = function(shaderProgram) {
+Car.prototype.render = function() {
 	
 	mat4.identity(mMatrix);
 	

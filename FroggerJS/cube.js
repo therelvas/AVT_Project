@@ -1,7 +1,7 @@
 function Cube() {
       
-      this.materialAmbient = [1.0,1.0,1.0,1.0];
-      this.materialDiffuse = [1.0,1.0,1.0,1.0];
+      this.materialAmbient  = [1.0,1.0,1.0,1.0];
+      this.materialDiffuse  = [1.0,1.0,1.0,1.0];
       this.materialSpecular = [1.0,1.0,1.0,1.0];
       this.materialEmissive = [1.0,1.0,1.0,1.0];
       this.materialShininess = 1.0;
@@ -146,7 +146,7 @@ Cube.prototype.setupObjects = function() {
       this.cubeVertexIndexBuffer.numItems = 36;
 }
 
-Cube.prototype.setMaterial = function(shaderProgram) {
+Cube.prototype.setMaterial = function() {
 
       var loc = gl.getUniformLocation(shaderProgram, "mat.ambient");
       gl.uniform4fv(loc, this.materialAmbient);
