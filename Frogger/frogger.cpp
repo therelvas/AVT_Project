@@ -25,6 +25,7 @@
 #include "camera.h"
 #include "light.h"
 #include "fog.h"
+#include "particles.h"
 
 #include "obstacles.h"
 
@@ -54,6 +55,7 @@ float level = 1.0f;
 //Objects
 Frog *frog;
 Light *light;
+Particles *particles;
 
 RoadMargin *roadMargin;
 RiverMargin *riverMargin1;
@@ -65,6 +67,8 @@ River *river;
 
 Fog *fog;
 Obstacles *obstacles;
+
+bool particlesEnabled = false;
 
 //Camera
 Camera *camera;
@@ -108,6 +112,12 @@ void renderScene(void) {
 	//Render light
 	light->draw(shader);
 
+	//Render Particles
+	if (frog->getPosition()[0] >= 30 || particlesEnabled) {
+		particles->render(shader);
+		particlesEnabled = true;
+	}
+
 	//reder fog
 	fog->draw(shader);
 
@@ -123,14 +133,14 @@ void renderScene(void) {
 
 	frog->render(shader);
 
-	tree[1]->updateRotation(frog->getPosition());
-	tree[1]->render(shader);
+	tree[0]->updateRotation(frog->getPosition());
+	tree[0]->render(shader);
+
+	//tree[1]->updateRotation(frog->getPosition());
+	//tree[1]->render(shader);
 
 	tree[2]->updateRotation(frog->getPosition());
 	tree[2]->render(shader);
-
-	tree[0]->updateRotation(frog->getPosition());
-	tree[0]->render(shader);
 
 	tree[3]->updateRotation(frog->getPosition());
 	tree[3]->render(shader);
@@ -211,6 +221,13 @@ void updateEnemies(int value) {
 	obstacles->updatePosition();
 	obstacles->destroyObstacles();
 
+	if (frog->getPosition()[0] >= 2.0f && frog->getPosition()[0] <= 3.0f){
+		particles->resetParticles();
+		particlesEnabled = false;
+	}
+	else if (frog->getPosition()[0] >= 30 || particlesEnabled)
+		particles->updateParticles();
+
 	glutPostRedisplay();
 	glutTimerFunc(1000/ 60, updateEnemies, 0);
 }
@@ -222,7 +239,7 @@ void updateEnemies(int value) {
 
 void processKeys(unsigned char key, int xx, int yy) {
 	
-	if (key == 'r' && frog->getLives() == 0){
+	if (key == 'n' && frog->getLives() == 0){
 		frog->resetLives();
 		return;
 	}
@@ -272,6 +289,9 @@ void processKeys(unsigned char key, int xx, int yy) {
 			light->switchLight(4);
 			light->switchLight(5);
 			light->switchLight(6);
+			break;
+		case 'r':
+			frog->resetPosition();
 			break;
 		case 'f':{
 			if (fog->fogParams.isEnabled)
@@ -415,6 +435,8 @@ void setupObjects() {
 	riverMargin1 = new RiverMargin(RIVER_MARGIN_X1, SCENARIO_Y, SCENARIO_Z);
 	river = new River(RIVER_X, SCENARIO_Y, SCENARIO_Z);
 	riverMargin2 = new RiverMargin(RIVER_MARGIN_X2, SCENARIO_Y, SCENARIO_Z);
+
+	particles = new Particles(35.0f, 5.0f, SCENARIO_Z);
 
 	tree[0] = new Tree(35.0f, 4.0f, SCENARIO_Z -20);
 	tree[1] = new Tree(35.0f, 4.0f, SCENARIO_Z);

@@ -116,11 +116,11 @@ float** Turtle::getBoundingBox(){
 
 	boundingBox[0][0] = position[0] + 1.5f;
 	boundingBox[0][1] = 0;
-	boundingBox[0][2] = position[2] - 2.4f;
+	boundingBox[0][2] = position[2] - 2.0f;
 
 	boundingBox[1][0] = position[0] - 1.5f;
 	boundingBox[1][1] = 0;
-	boundingBox[1][2] = position[2] + 2.4f;
+	boundingBox[1][2] = position[2] + 2.0f;
 
 	return boundingBox;
 }

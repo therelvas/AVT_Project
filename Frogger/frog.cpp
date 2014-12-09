@@ -191,7 +191,7 @@ void Frog::collide(DynamicObject* dynamicObject) {
 	}
 	else {
 
-		if (position[0] > 30){
+		if (position[0] >= 31){
 			gamePoints += 10;
 			dynamicObject->resetPosition();
 		}

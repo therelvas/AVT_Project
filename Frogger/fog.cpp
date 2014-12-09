@@ -12,7 +12,7 @@ Fog::Fog() {
 	fogParams.vFogColorB = 0.7f;
 	fogParams.fStart = 10.0f;
 	fogParams.fEnd = 75.0f;
-	fogParams.iEquation = FOG_EQUATION_EXP; // 0 = linear, 1 = exp, 2 = exp2
+	fogParams.iEquation = FOG_EQUATION_EXP2; // 0 = linear, 1 = exp, 2 = exp2
 }
 
 Fog::~Fog() {}

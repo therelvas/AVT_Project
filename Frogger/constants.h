@@ -54,3 +54,8 @@
 #define FOG_EQUATION_LINEAR 0 
 #define FOG_EQUATION_EXP 1 
 #define FOG_EQUATION_EXP2 2 
+
+//Particles
+#define frand()			((float)rand()/RAND_MAX)
+#define M_PI			3.14159265f
+#define MAX_PARTICULAS  400
