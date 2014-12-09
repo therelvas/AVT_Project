@@ -46,7 +46,7 @@ float camX, camY, camZ;
 int startX, startY, tracking = 0;
 
 // Camera Spherical Coordinates
-float alpha = 39.0f, beta = 51.0f;
+float alpha = -90.0f, beta = 25.0f;
 float r = 10.0f;
 
 //level of speed of the game

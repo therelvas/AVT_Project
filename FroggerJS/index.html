@@ -30,7 +30,10 @@
     //Camera
     var view = 1;
     var camera;
-    var camX, camY, camZ;
+
+    var camX = 0.0;
+    var camY = 0.0;
+    var camZ = 0.0;
 
     //Lights
     var light;
@@ -47,12 +50,13 @@
 
     //Keyboard/Mouse
     var mouseDown = false;
+    var tracking = false;
 
     var startX = 0;
     var startY = 0;
 
-    var alpha = 39.0;
-    var beta = 51.0;
+    var alpha = -90.0;
+    var beta = 25.0;
     var r = 10.0;
 
 
@@ -200,15 +204,95 @@
     }
 
     function handleMouseDown(event) {
+        
         mouseDown = true;
+
+        startX = event.clientX;
+        startY = event.clientY;
+
+        switch(event.which) {
+            case 1:
+                tracking = 1;
+                break;
+            case 3:
+                tracking = 2;
+                break;
+        }
     }
 
     function handleMouseUp(event) {
+        
         mouseDown = false;
+
+        if (tracking == 1) {
+            alpha -= (event.clientX - startX);
+            beta += (event.clientY - startY);
+        }
+        else if (tracking == 2) {
+            r += (event.clientY - startY) * 0.01;
+            if(r < 0.1)
+                r = 0.1;
+        }
+
+        console.log(alpha);
+        console.log(beta);
+ 
+        tracking = 0;
     }
 
     function handleMouseMove(event) {
 
+        var deltaX, deltaY;
+        var alphaAux, betaAux;
+        var rAux;
+
+        deltaX = -(event.clientX) + startX;
+        deltaY = event.clientY - startY;
+
+        if (tracking == 1) {
+
+            alphaAux = alpha + deltaX;
+            betaAux = beta + deltaY;
+
+            if(beta > 85.0)
+                betaAux = 85.0;
+            else if(betaAux < -85.0)
+                betaAux = -85.0;
+            rAux = r;
+        }
+        else if (tracking == 2) {
+
+            alphaAux = alpha;
+            betaAux = beta;
+            rAux = r + (deltaY * 0.01);
+            if(rAux < 0.1)
+                rAux = 0.1;            
+        }
+
+        if(tracking != 0) {
+          
+            camX = rAux * Math.sin(alphaAux * 3.14 / 180.0) * Math.cos(betaAux * 3.14 / 180.0);
+            camZ = rAux * Math.cos(alphaAux * 3.14 / 180.0) * Math.cos(betaAux * 3.14 / 180.0);
+            camY = rAux *                                     Math.sin(betaAux * 3.14 / 180.0);
+        }
+    }
+
+    function handleMouseScroll(event) {
+
+        var direction;
+
+        if(event.wheelDelta > 0)
+            direction = 1;
+        else
+            direction = -1;
+
+        r += direction * 0.1;
+        if(r < 0.1)
+            r = 0.1;
+
+        camX = rAux * Math.sin(alpha * 3.14 / 180.0) * Math.cos(beta * 3.14 / 180.0);
+        camZ = rAux * Math.cos(alpha * 3.14 / 180.0) * Math.cos(beta * 3.14 / 180.0);
+        camY = rAux *                                  Math.sin(beta * 3.14 / 180.0);
     }
 
     function setupObjects() {
@@ -240,8 +324,8 @@
 
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-        
-        camera.draw(1,2,3,4,5,6);
+
+        camera.draw(0.0, 3.0, 50.0, camX, camY, camZ);
 
     	roadMargin.render(shaderProgram);
     	road.render(shaderProgram);
@@ -276,20 +360,21 @@
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.enable(gl.DEPTH_TEST);
 
+        tick();
+
         canvas.onmousedown = handleMouseDown;
         document.onmouseup = handleMouseUp;
         document.onmousemove = handleMouseMove;
+        document.onmousewheel = handleMouseScroll;
 
         document.onkeydown = handleKeyDown;
         document.onkeyup = handleKeyUp
-
-        tick();
     }
 
 </script>
 
 </head>
 
-<body onload="webGLStart();">  
+<body onload="webGLStart();" oncontextmenu="return false;">  
 
 </html>
