@@ -13,7 +13,9 @@
 <script type="text/javascript" src="sphere.js"></script>
 <script type="text/javascript" src="camera.js"></script>
 <script type="text/javascript" src="car.js"></script>
+<script type="text/javascript" src="frog.js"></script>
 <script type="text/javascript" src="turtle.js"></script>
+<script type="text/javascript" src="wood.js"></script>
 <script type="text/javascript" src="roadMargin.js"></script>
 <script type="text/javascript" src="road.js"></script>
 <script type="text/javascript" src="riverMargin.js"></script>
@@ -37,6 +39,7 @@
     var camY = 0.0;
     var camZ = 0.0;
 
+    var frog;
     //Lights
     var light;
 
@@ -166,12 +169,16 @@
 
         switch(key) {
             case "A":
+                frog.move(-0.5, 0.0, 0.0, 1.5);
                 break;
             case "Q":
+                frog.move(0.5, 0.0, 0.0, 1.5);
                 break;
             case "O":
+                 frog.move(0.0, 0.0, -0.5, 2);
                 break;
             case "P":
+                frog.move(0.0, 0.0, 0.5, 2);
                 break;
             case "S":
                 break;
@@ -308,6 +315,7 @@
         
 		fog = new Fog();
         obstacles = new Obstacles();
+        frog = new Frog(0.0,0.0, 50.0);
 		
     	light = new Light();
     	light.addLight("directional", [0.0, 10.0, 0.0, 0.0], 0.0, 0.0, 0);
@@ -339,6 +347,7 @@
     	riverMargin2.render(shaderProgram);
     	light.draw(shaderProgram);
 		fog.draw(shaderProgram);
+        frog.render(shaderProgram);
 
         obstacles.updatePosition();
         obstacles.render();

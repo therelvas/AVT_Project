@@ -4,6 +4,10 @@ function Turtle(x, y, z) {
 	this.y = y;
 	this.z = z;
 
+	this.iX = x;
+	this.iY = y;
+	this.iZ = z;
+
 	this.shell = new Sphere(1.0);
 	this.head = new Sphere(0.4);
 	this.paws = new Sphere(0.3);
@@ -109,6 +113,24 @@ Turtle.prototype.resetPosition = function() {
 	this.y = this.iY;
 	this.z = this.iZ;
 }
+
+Turtle.prototype.isInitialPos = function() {
+
+	if(this.x == this.iX && this.y == this.iY && this.z == this.iZ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+Turtle.prototype.resetPosition = function() {
+
+	this.x = this.iX;
+	this.y = this.iY;
+	this.z = this.iZ;
+}
+
+
 
 /*Turtle.prototype.collide = function(Frog frog){
 	var frogBoundingBox = frog.getBoundingBox();

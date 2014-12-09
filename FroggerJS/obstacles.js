@@ -41,14 +41,14 @@ Obstacles.prototype.generateEnemies = function() {
 		var pos = Math.floor(Math.random() * 3);
 
 		//Car
-		if (type < 10) {
+		if (type < 7) {
 			this.enemies.push(new Car(this.startingPosCarX[pos], 0.0, 0.0));
 		} 
-		else if (type >= 10 && type <= 15) {
+		else if (type >= 7 && type <= 15) {
 			this.enemies.push(new Turtle(this.startingPosTurtleX[0], 0.0, 100.0));
 		} 
 		else if (type > 15) {
-			//this.enemies.push(new Wood(startingPosWoodX[pos], -1.0, 0.0));
+			this.enemies.push(new Wood(this.startingPosWoodX[pos], -1.0, 0.0));
 		}
 		size = this.enemies.length;
 	}
