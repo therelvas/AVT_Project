@@ -12,6 +12,7 @@
 <script type="text/javascript" src="cube.js"></script>
 <script type="text/javascript" src="sphere.js"></script>
 <script type="text/javascript" src="camera.js"></script>
+<script type="text/javascript" src="car.js"></script>
 <script type="text/javascript" src="roadMargin.js"></script>
 <script type="text/javascript" src="road.js"></script>
 <script type="text/javascript" src="riverMargin.js"></script>
@@ -47,6 +48,7 @@
     var riverMargin1;
     var riverMargin2;
     var river;
+    var car;
 
     //Keyboard/Mouse
     var mouseDown = false;
@@ -304,6 +306,7 @@
     	riverMargin1 = new RiverMargin(16.0, -1.0, 50.0);
     	river = new River(23.0, -1.0, 50.0);
     	riverMargin2 = new RiverMargin(30.0, -1.0, 50.0);
+        car =  new Car(6.0, 0.0, 0,0);
 
 		fog = new Fog();
 		
@@ -334,7 +337,11 @@
     	river.render(shaderProgram);
     	riverMargin2.render(shaderProgram);
 
+        car.render(shaderProgram);
+
     	light.draw(shaderProgram);
+
+        car.move(1);
 		
 		fog.draw(shaderProgram);
     }
