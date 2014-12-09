@@ -42,7 +42,7 @@ Light.prototype.addLight = function(lightType, pos, spotDir, spotCutOff, index) 
 	}
 }
 
-Light.prototype.draw = function(shaderProgram) {
+Light.prototype.draw = function() {
 
 	for(var i = 0; i < 8; i++) {
 

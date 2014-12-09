@@ -79,7 +79,7 @@ Sphere.prototype.setupObjects = function(radius) {
       this.sphereVertexIndexBuffer.numItems = indexData.length;
 }
 
-Sphere.prototype.setMaterial = function(shaderProgram) {
+Sphere.prototype.setMaterial = function() {
 
       var loc = gl.getUniformLocation(shaderProgram, "mat.ambient");
       gl.uniform4fv(loc, this.materialAmbient);
@@ -108,9 +108,9 @@ Sphere.prototype.setColor = function(materialType, colorVec) {
       }
 }
 
-Sphere.prototype.render = function(shaderProgram) {
+Sphere.prototype.render = function() {
 
-      this.setMaterial(shaderProgram);
+      this.setMaterial();
 
       //Vertex Position
       gl.bindBuffer(gl.ARRAY_BUFFER, this.sphereVertexPositionBuffer);

@@ -17,7 +17,7 @@ RiverMargin.prototype.setupObjects = function() {
 	this.cube.setColor("shininess", 80.0);
 }
 
-RiverMargin.prototype.render = function(shaderProgram) {
+RiverMargin.prototype.render = function() {
 	
 	mat4.identity(mMatrix);
 	
