@@ -36,4 +36,14 @@ Fog.prototype.draw = function(shaderProgram) {
 		//
 		loc = gl.getUniformLocation(shaderProgram, "fogParams.iEquation");
 		gl.uniform1i(loc, this.fogParams.iEquation);
- }
+}
+
+Fog.prototype.switchFog = function() {
+
+	if (this.fogParams.isEnabled) {
+		this.fogParams.isEnabled = false;
+	}
+	else {
+		this.fogParams.isEnabled = true;
+	}
+}
