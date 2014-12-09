@@ -1,9 +1,9 @@
 function Camera(w, h, v) {
 
+	this.view = v;
 	this.width = w;
 	this.height = h;
 	this.ortho = 30.0;
-	this.view = v;
 	this.ratio = 1.0 * (w / h);	
 }
 

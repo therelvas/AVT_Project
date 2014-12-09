@@ -20,6 +20,20 @@ var fragmentShaderSrc =
 		"int texCount;" +
 	"};" +
 
+	"struct FogParameters {" + 
+		"bool isEnabled;" +
+		"float vFogColorR;" +
+		"float vFogColorG;" +
+		"float vFogColorB;" +
+		"float fStart;" +
+		"float fEnd;" +
+		"float fDensity;" +
+    
+		"int iEquation;" +
+	"};"+
+	
+	"uniform FogParameters fogParams;" +
+
 	"const int numLights = 8;" +
 	"uniform LightSource lights[numLights];" +
 	"uniform Materials mat;" +
@@ -27,9 +41,25 @@ var fragmentShaderSrc =
 	"varying vec3 normal;" +
 	"varying vec2 texCoord;" +
 	"varying vec4 position;" +
+	"varying vec4 eye;" +
 
 	"uniform sampler2D texUnit;" +
 
+	"float getFogFactor(FogParameters params, float fFogCoord) {" +
+		"float fResult = 0.0;" +
+			
+		"if(params.iEquation == 0)" +
+			"fResult = (params.fEnd-fFogCoord)/(params.fEnd-params.fStart);" +
+		"else if(params.iEquation == 1)" +
+			"fResult = exp(-params.fDensity*fFogCoord);" +
+		"else if(params.iEquation == 2)" +
+			"fResult = exp(-pow(params.fDensity*fFogCoord, 2.0));" +
+
+		"fResult = 1.0-clamp(fResult, 0.0, 1.0);" +
+    
+		"return fResult;" +
+	"}" +
+	
     "void main(void) {" +
 
     	// normalize both input vectors
@@ -94,5 +124,13 @@ var fragmentShaderSrc =
 			"}" +
 		"}" +
 
-		"gl_FragColor = max(diffuse + specular, mat.ambient);" +
+		"vec4 color = max(diffuse + specular, mat.ambient);" +
+		
+		// Add fog
+		"if(fogParams.isEnabled&&color.w>0){" +
+			"vec4 fogColor = vec4(fogParams.vFogColorR, fogParams.vFogColorG, fogParams.vFogColorB, 1.0);" +
+			"float fFogCoord = abs(eye.z/eye.w);" +
+			"gl_FragColor = mix(color, fogColor, getFogFactor(fogParams, fFogCoord));" +
+		"}" +
+		"else gl_FragColor = color;" +
 	"}";

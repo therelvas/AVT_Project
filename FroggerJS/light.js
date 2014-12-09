@@ -32,7 +32,7 @@ Light.prototype.addLight = function(lightType, pos, spotDir, spotCutOff, index) 
 
 		} else if(lightType == "spot") {
 
-			this.lights[index].isEnabled = true;
+			this.lights[index].isEnabled = false;
 			this.lights[index].isLocal = true;
 			this.lights[index].isSpot = true;
 			this.lights[index].l_pos = pos;
@@ -79,8 +79,17 @@ Light.prototype.draw = function(shaderProgram) {
 
 			//Light position
 			loc = gl.getUniformLocation(shaderProgram, String.format("lights[{0}].l_pos", i));
-			console.log(vMatrix);
 			gl.uniform4fv(loc, multMatrixPoint(this.lights[i].l_pos, vMatrix));
 		}
 	}
- }
+}
+
+Light.prototype.switchLight = function(index) {
+
+	if (this.lights[index].isEnabled) {
+		this.lights[index].isEnabled = false;
+	}
+	else {
+		this.lights[index].isEnabled = true;
+	}
+}

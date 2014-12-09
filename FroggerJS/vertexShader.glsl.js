@@ -11,9 +11,11 @@ var vertexShaderSrc =
 	"varying vec3 normal;" +
 	"varying vec2 texCoord;" +
 	"varying vec4 position;" +
+	"varying vec4 eye;" +
 	
 	"void main (void) {" +
 
+		"eye = m_viewModel*vertexPosition;" +
 		"normal = normalize(m_normal * vertexNormal);" +
 		"position = m_viewModel * vertexPosition;" +
 		"texCoord = texCoordinates;" +
