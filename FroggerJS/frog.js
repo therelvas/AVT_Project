@@ -15,7 +15,7 @@ function Frog(x, y, z) {
 	this.frogBodyRef = new Sphere(0.5);
 
 	this.gamePoints = 0;
-	this.lives = 0;
+	this.lives = 5;
 
 	this.setupObjects();
 }
@@ -172,7 +172,7 @@ Frog.prototype.getBoundingBox = function(){
 	return boundingBox;
 }
 
-Frog.prototype.resetLifes = function(){
+Frog.prototype.resetLives = function(){
 	this.lives = 5;
 	this.gamePoints = 0;
 }

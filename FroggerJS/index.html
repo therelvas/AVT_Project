@@ -201,47 +201,53 @@
 
         var key = String.fromCharCode(event.keyCode);
 
-        switch(key) {
-            case "A":
-                frog.move(-0.5, 0.0, 0.0, 1.5);
-                break;
-            case "Q":
-                frog.move(0.5, 0.0, 0.0, 1.5);
-                break;
-            case "O":
-                frog.move(0.0, 0.0, -0.5, 2);
-                break;
-            case "P":
-                frog.move(0.0, 0.0, 0.5, 2);
-                break;
-            case "S":
-                break;
-            case "1":
-                camera.setView(1);
-                break;
-            case "2":
-                camera.setView(2);
-                break
-            case "3":
-                camera.setView(3);
-                break
-            case "N":
-                light.switchLight(0);
-                light.switchLight(7);
-                break;
-            case "C":
-                light.switchLight(1);
-                light.switchLight(2);
-                light.switchLight(3);
-                light.switchLight(4);
-                light.switchLight(5);
-                light.switchLight(6);
-                break;
-            case "R":
-                break;
-            case "F":
-                fog.switchFog();
-		        break;
+        if (key === "L" && frog.getLives() === 0){
+        frog.resetLives();
+        return;
+        }
+        if(frog.getLives() > 0){
+            switch(key) {
+                case "A":
+                    frog.move(-0.5, 0.0, 0.0, 1.5);
+                    break;
+                case "Q":
+                    frog.move(0.5, 0.0, 0.0, 1.5);
+                    break;
+                case "O":
+                    frog.move(0.0, 0.0, -0.5, 2);
+                    break;
+                case "P":
+                    frog.move(0.0, 0.0, 0.5, 2);
+                    break;
+                case "S":
+                    break;
+                case "1":
+                    camera.setView(1);
+                    break;
+                case "2":
+                    camera.setView(2);
+                    break
+                case "3":
+                    camera.setView(3);
+                    break
+                case "N":
+                    light.switchLight(0);
+                    light.switchLight(7);
+                    break;
+                case "C":
+                    light.switchLight(1);
+                    light.switchLight(2);
+                    light.switchLight(3);
+                    light.switchLight(4);
+                    light.switchLight(5);
+                    light.switchLight(6);
+                    break;
+                case "R":
+                    break;
+                case "F":
+                    fog.switchFog();
+    		        break;
+            }
         }
     }
 
