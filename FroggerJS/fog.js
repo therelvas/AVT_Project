@@ -1,6 +1,6 @@
 function Fog() {
 	
-	this.fogParams = { isEnabled: false, fDensity: 0.04, vFogColorR: 0.7, vFogColorG: 0.7, vFogColorB: 0.7, fStart: 10.0, fEnd: 75.0, iEquation: 2};
+	this.fogParams = { isEnabled: false, fDensity: 0.02, vFogColorR: 0.7, vFogColorG: 0.7, vFogColorB: 0.7, fStart: 10.0, fEnd: 75.0, iEquation: 2};
 }
 
 Fog.prototype.draw = function() {
