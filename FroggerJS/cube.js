@@ -174,6 +174,27 @@ Cube.prototype.setColor = function(materialType, colorVec) {
             this.materialShininess = colorVec
       }
 }
+var teste;
+function handleLoadedTexture(texture) {
+
+	gl.bindTexture(gl.TEXTURE_2D, texture);
+	gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+	gl.bindTexture(gl.TEXTURE_2D, null);
+}
+
+Cube.prototype.initTexture = function(str) {
+	console.log(str);
+	this.texture = gl.createTexture();
+	this.texture.image = new Image();
+	teste=this.texture;
+	this.texture.image.onload = function() {
+		handleLoadedTexture(teste)
+	}
+	this.texture.image.src = str;
+}
 
 Cube.prototype.render = function() {
 
@@ -190,9 +211,14 @@ Cube.prototype.render = function() {
       //Tex Coordinates
       gl.bindBuffer(gl.ARRAY_BUFFER, this.cubeVertexTextureCoordBuffer);
       gl.vertexAttribPointer(shaderProgram.texCoordinatesAttribute, this.cubeVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        
+      
+		gl.activeTexture(gl.TEXTURE0);
+		gl.bindTexture(gl.TEXTURE_2D, this.texture);
+		gl.uniform1i(shaderProgram.samplerUniform, 0);
+	
       //Face Index
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.cubeVertexIndexBuffer);
       sendMatricesToGL();
       gl.drawElements(gl.TRIANGLES, this.cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+	  gl.bindTexture(gl.TEXTURE_2D, null);
 }
