@@ -19,8 +19,8 @@ Turtle.prototype.setupObjects = function() {
 
 	this.shell.setColor("ambient", [0.25, 0.148, 0.06475, 1.0]);
 	this.shell.setColor("diffuse", [0.4, 0.2368, 0.1036, 1.0]);
-	this.shell.setColor("specular", [0.332741, 0.328634, 0.346435, 1.0]);
-	this.shell.setColor("emissive", [0.774597, 0.458561, 0.200621, 1.0]);
+	this.shell.setColor("specular", [0.774597, 0.458561, 0.200621, 1.0]);
+	this.shell.setColor("emissive", [0.332741, 0.328634, 0.346435, 1.0]);
 	this.shell.setColor("shininess", 76.8);
 
 	this.head.setColor("ambient", [0.05, 0.05, 0.0, 1.0]);
@@ -41,40 +41,54 @@ Turtle.prototype.render = function() {
 	mat4.identity(mMatrix);
 	
 	pushMatrix();
+
 	mat4.translate(mMatrix, [this.x, this.y - 0.5, this.z]);
 	mat4.scale(mMatrix, [1.0, 0.4, 1.0]);
 	this.shell.render(shaderProgram);
+
 	popMatrix();
 
 	pushMatrix();
+
 	mat4.translate(mMatrix, [this.x, this.y - 0.5, this.z - 1]);
 	this.head.render(shaderProgram);
+
 	popMatrix();
 
 	pushMatrix();
+
 	mat4.translate(mMatrix, [this.x - 0.9, this.y - 0.6, this.z - 0.7]);
 	this.paws.render(shaderProgram);
+
 	popMatrix();
 
 	pushMatrix();
+
 	mat4.translate(mMatrix, [this.x + 0.9, this.y - 0.6, this.z + 0.7]);
 	this.paws.render(shaderProgram);
+
 	popMatrix();
 
 	pushMatrix();
+
 	mat4.translate(mMatrix, [this.x - 0.9, this.y - 0.6, this.z + 0.7]);
 	this.paws.render(shaderProgram);
+
 	popMatrix();
 
 	pushMatrix();
+
 	mat4.translate(mMatrix, [this.x + 0.9, this.y - 0.6, this.z - 0.7]);
 	this.paws.render(shaderProgram);
+
 	popMatrix();
 
 	pushMatrix();
+
 	mat4.translate(mMatrix, [this.x, this.y - 0.6, this.z +1]);
 	mat4.scale(mMatrix, [0.7, 1, 2.0]);
 	this.paws.render(shaderProgram);
+
 	popMatrix();
 }
 
@@ -113,24 +127,6 @@ Turtle.prototype.resetPosition = function() {
 	this.y = this.iY;
 	this.z = this.iZ;
 }
-
-Turtle.prototype.isInitialPos = function() {
-
-	if(this.x == this.iX && this.y == this.iY && this.z == this.iZ) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-Turtle.prototype.resetPosition = function() {
-
-	this.x = this.iX;
-	this.y = this.iY;
-	this.z = this.iZ;
-}
-
-
 
 /*Turtle.prototype.collide = function(Frog frog){
 	var frogBoundingBox = frog.getBoundingBox();

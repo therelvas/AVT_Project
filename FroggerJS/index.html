@@ -53,6 +53,9 @@
     var riverMargin2;
     var river;
 
+    //Frog
+    var frog;
+
     //Enemies
     var obstacles;
 
@@ -138,7 +141,7 @@
                 
         river.render();
 
-        frog.render(this.shaderProgram);
+        frog.render();
     }
 
     // ------------------------------------------------------------
@@ -171,7 +174,7 @@
                 frog.move(0.5, 0.0, 0.0, 1.5);
                 break;
             case "O":
-                 frog.move(0.0, 0.0, -0.5, 2);
+                frog.move(0.0, 0.0, -0.5, 2);
                 break;
             case "P":
                 frog.move(0.0, 0.0, 0.5, 2);
@@ -347,8 +350,9 @@
         river = new River(23.0, -1.0, 50.0);
         riverMargin2 = new RiverMargin(30.0, -1.0, 50.0);
 
-        obstacles = new Obstacles();
+        frog = new Frog(0.0, 0.0, 50.0);
 
+        obstacles = new Obstacles();
         fog = new Fog();
         
         light = new Light();

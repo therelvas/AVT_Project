@@ -9,6 +9,7 @@ function Wood(x, y, z) {
 	this.iZ = z;
 
 	this.cube = new Cube();
+
 	this.setupObjects();
 }
 
@@ -16,12 +17,12 @@ Wood.prototype.setupObjects = function() {
 
 	this.cube.setColor("ambient", [0.25, 0.148, 0.06475, 1.0]);
 	this.cube.setColor("diffuse", [0.4, 0.2368, 0.1036, 1.0]);
-	this.cube.setColor("specular", [0.332741, 0.328634, 0.346435, 1.0]);
-	this.cube.setColor("emissive", [0.774597, 0.458561, 0.200621, 1.0]);
+	this.cube.setColor("specular", [0.774597, 0.458561, 0.200621, 1.0]);
+	this.cube.setColor("emissive", [0.332741, 0.328634, 0.346435, 1.0]);
 	this.cube.setColor("shininess", 76.8);
 }
 
-Wood.prototype.render = function(shaderProgram) {
+Wood.prototype.render = function() {
 	
 	mat4.identity(mMatrix);
 	
@@ -29,7 +30,7 @@ Wood.prototype.render = function(shaderProgram) {
 
 	mat4.translate(mMatrix, [this.x, this.y + 0.5, this.z]);
 	mat4.scale(mMatrix, [1.0, 1.0, 7.0]);
-	this.cube.render(shaderProgram);
+	this.cube.render();
 
 	popMatrix();
 }
@@ -70,8 +71,6 @@ Wood.prototype.resetPosition = function() {
 	this.y = this.iY;
 	this.z = this.iZ;
 }
-
-
 
 /*Wood.prototype.collide(Frog frog){
 	var frogBoundingBox = frog.getBoundingBox();

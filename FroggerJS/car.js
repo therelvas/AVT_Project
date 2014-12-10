@@ -120,8 +120,6 @@ Car.prototype.resetPosition = function() {
 	this.z = this.iZ;
 }
 
-
-
 /*Car.prototype.collide(Frog frog){
 	var frogBoundingBox = frog.getBoundingBox();
 	var carBoundingBox = getBoundingBox();

@@ -80,7 +80,7 @@ Obstacles.prototype.render = function() {
 	
 	for (var i = 0; i < size; i++) {
 		if (!this.enemies[i].isInitialPos()) {
-			this.enemies[i].render(shaderProgram);
+			this.enemies[i].render();
 		}	
 	}
 }
