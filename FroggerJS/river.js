@@ -6,11 +6,11 @@ function River(x, y, z) {
 
 	this.cube = new Cube();
 	this.setupObjects();
-	this.cube.initTexture("river2.png");
 }
 
 River.prototype.setupObjects = function() {
 
+	this.cube.initTexture("river2.png");
 	this.cube.setColor("ambient", [0.0, 0.1, 0.06, 0.5]);
 	this.cube.setColor("diffuse", [0.0, 0.50980392, 0.50980392, 0.5]);
 	this.cube.setColor("specular", [0.50196078, 0.50196078, 0.50196078, 0.5]);

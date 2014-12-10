@@ -198,27 +198,27 @@ Cube.prototype.initTexture = function(str) {
 
 Cube.prototype.render = function() {
 
-      this.setMaterial(shaderProgram);
+    this.setMaterial(shaderProgram);
 
-      //Vertex Position
-      gl.bindBuffer(gl.ARRAY_BUFFER, this.cubeVertexPositionBuffer);
-      gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, this.cubeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    //Vertex Position
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.cubeVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, this.cubeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-      //Normals
-      gl.bindBuffer(gl.ARRAY_BUFFER, this.cubeNormalBuffer);
-      gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, this.cubeNormalBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    //Normals
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.cubeNormalBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, this.cubeNormalBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-      //Tex Coordinates
-      gl.bindBuffer(gl.ARRAY_BUFFER, this.cubeVertexTextureCoordBuffer);
-      gl.vertexAttribPointer(shaderProgram.texCoordinatesAttribute, this.cubeVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+    //Tex Coordinates
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.cubeVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.texCoordinatesAttribute, this.cubeVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
       
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, this.texture);
 		gl.uniform1i(shaderProgram.samplerUniform, 0);
 	
-      //Face Index
-      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.cubeVertexIndexBuffer);
-      sendMatricesToGL();
-      gl.drawElements(gl.TRIANGLES, this.cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+    //Face Index
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.cubeVertexIndexBuffer);
+    sendMatricesToGL();
+    gl.drawElements(gl.TRIANGLES, this.cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 	  gl.bindTexture(gl.TEXTURE_2D, null);
 }
