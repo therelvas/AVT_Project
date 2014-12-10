@@ -157,9 +157,13 @@ Frog.prototype.getBoundingBox = function(){
 	return boundingBox;
 }
 
-Frog.prototype.resetLives = function(){
+Frog.prototype.resetLifes = function(){
 	this.lives = 5;
 	this.gamePoints = 0;
+}
+
+Frog.prototype.loseLife = function(){
+	this.lives--;
 }
 
 Frog.prototype.getPoints = function(){
@@ -187,16 +191,8 @@ Frog.prototype.resetPosition = function() {
 }
 
 Frog.prototype.collide = function() {
-
-	if (collided === true){
-		collided = false;
-		return;
-	}
-	else {
-
-		if (this.x >= 31){
-			this.gamePoints += 10;
-			this.resetPosition();
-		}
+	if (this.x >= 31){
+		this.gamePoints += 10;
+		this.resetPosition();
 	}
 }

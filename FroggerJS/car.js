@@ -120,20 +120,19 @@ Car.prototype.resetPosition = function() {
 	this.z = this.iZ;
 }
 
-/*Car.prototype.collide(Frog frog){
+Car.prototype.collide = function(frog){
 	var frogBoundingBox = frog.getBoundingBox();
-	var carBoundingBox = getBoundingBox();
+	var carBoundingBox = this.getBoundingBox();
 	if(frogBoundingBox[0][0] >= carBoundingBox[1][0] && frogBoundingBox[0][0] <= carBoundingBox[0][0]
 		&&
 		frogBoundingBox[0][2] <= carBoundingBox[1][2] && frogBoundingBox[0][2] >= carBoundingBox[0][2]){
-		frog.
-
-	();
+		frog.loseLife()
 		frog.resetPosition();
 	}else{
 		if (frogBoundingBox[1][0] >= carBoundingBox[1][0] && frogBoundingBox[1][0] <= carBoundingBox[0][0] &&
 		frogBoundingBox[1][2] <= carBoundingBox[1][2] && frogBoundingBox[1][2] >= carBoundingBox[0][2]){
-		frog.loseLife();
-		frog.resetPosition();
+			frog.loseLife();
+			frog.resetPosition();
+		}
 	}
-}*/
+}
