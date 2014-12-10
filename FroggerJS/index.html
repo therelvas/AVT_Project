@@ -22,6 +22,7 @@
 <script type="text/javascript" src="river.js"></script>
 <script type="text/javascript" src="light.js"></script>
 <script type="text/javascript" src="fog.js"></script>
+<script type="text/javascript" src="particles.js"></script>
 <script type="text/javascript" src="obstacles.js"></script>
 <script type="text/javascript" src="utils.js"></script>
 
@@ -45,6 +46,10 @@
 
 	//Fog
 	var fog;
+	
+	//Particles
+	var particles;
+	var particlesEnabled = false;
 	
     //Scenario
     var road;
@@ -134,6 +139,14 @@
         obstacles.updatePosition();
         obstacles.render();
 
+		if (frog.x >= 2.0 && frog.x <= 3.0){
+			particles.resetParticles();
+			particlesEnabled = false;
+		}
+		else if (frog.x >= 30 || particlesEnabled){
+			particles.render();
+			particles.updateParticles();
+		}	
         roadMargin.render();
         road.render();
 
@@ -355,7 +368,8 @@
 
         obstacles = new Obstacles();
         fog = new Fog();
-        
+        particles = new Particles(35.0, 5.0, 50.0);
+		
         light = new Light();
         light.addLight("directional", [0.0, 10.0, 0.0, 0.0], 0.0, 0.0, 0);
 
