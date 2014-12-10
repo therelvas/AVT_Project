@@ -24,7 +24,7 @@ RiverMargin.prototype.setupObjects = function() {
 	this.light.setColor("shininess", 51.2);
 }
 
-RiverMargin.prototype.render = function() {
+RiverMargin.prototype.render = function(lights) {
 	
 	mat4.identity(mMatrix);
 	
@@ -35,40 +35,53 @@ RiverMargin.prototype.render = function() {
 	this.cube.render(shaderProgram);
 
 	popMatrix();
-	
-	pushMatrix();
-	mat4.translate(mMatrix, [15, 3.0, 16.0]);
-	mat4.scale(mMatrix, [1.0, 6.0, 1.0]);
-	this.light.render(shaderProgram);
-	popMatrix();
-	
-	pushMatrix();
-	mat4.translate(mMatrix, [13.5, 6.0, 16.0]);
-	mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
-	this.light.render(shaderProgram);
-	popMatrix();
 
-	pushMatrix();
-	mat4.translate(mMatrix, [15, 3.0, 56.0]);
-	mat4.scale(mMatrix, [1.0, 6.0, 1.0]);
-	this.light.render(shaderProgram);
-	popMatrix();
+	if(lights) {
 	
-	pushMatrix();
-	mat4.translate(mMatrix, [13.5, 6.0, 56.0]);
-	mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
-	this.light.render(shaderProgram);
-	popMatrix();
+		pushMatrix();
+		
+		mat4.translate(mMatrix, [16, 3.0, 16.0]);
+		mat4.scale(mMatrix, [1.0, 6.0, 1.0]);
+		this.light.render(shaderProgram);
+		popMatrix();
+	
+		pushMatrix();
+		
+		mat4.translate(mMatrix, [14.5, 6.0, 16.0]);
+		mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
+		this.light.render(shaderProgram);
+		popMatrix();
 
-	pushMatrix();
-	mat4.translate(mMatrix, [15.0, 3.0, 96.0]);
-	mat4.scale(mMatrix, [1.0, 6.0, 1.0]);
-	this.light.render(shaderProgram);
-	popMatrix();
+		pushMatrix();
+		
+		mat4.translate(mMatrix, [16, 3.0, 56.0]);
+		mat4.scale(mMatrix, [1.0, 6.0, 1.0]);
+		this.light.render(shaderProgram);
+		
+		popMatrix();
 	
-	pushMatrix();
-	mat4.translate(mMatrix, [13.5, 6.0, 96.0]);
-	mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
-	this.light.render(shaderProgram);
-	popMatrix();
+		pushMatrix();
+		
+		mat4.translate(mMatrix, [14.5, 6.0, 56.0]);
+		mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
+		this.light.render(shaderProgram);
+		
+		popMatrix();
+
+		pushMatrix();
+		
+		mat4.translate(mMatrix, [16.0, 3.0, 96.0]);
+		mat4.scale(mMatrix, [1.0, 6.0, 1.0]);
+		this.light.render(shaderProgram);
+		
+		popMatrix();
+	
+		pushMatrix();
+		
+		mat4.translate(mMatrix, [14.5, 6.0, 96.0]);
+		mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
+		this.light.render(shaderProgram);
+		
+		popMatrix();
+	}
 }

@@ -45,41 +45,54 @@ RoadMargin.prototype.render = function() {
 	mat4.translate(mMatrix, [this.x, this.y, this.z]);
 	mat4.scale(mMatrix, [4.0, 1.0, 100.0]);
 	this.cube.render(shaderProgram);
+	
 	popMatrix();
 
 	pushMatrix();
+	
 	mat4.translate(mMatrix, [2.0, 3.0, 4.0]);
 	mat4.scale(mMatrix, [1.0, 6.0, 1.0]);
 	this.light.render(shaderProgram);
+	
 	popMatrix();
 	
 	pushMatrix();
+	
 	mat4.translate(mMatrix, [3.5, 6.0, 4.0]);
 	mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
 	this.light.render(shaderProgram);
+	
 	popMatrix();
 
 	pushMatrix();
+	
 	mat4.translate(mMatrix, [2.0, 3.0, 36.0]);
 	mat4.scale(mMatrix, [1.0, 6.0, 1.0]);
 	this.light.render(shaderProgram);
+	
 	popMatrix();
 	
 	pushMatrix();
+	
 	mat4.translate(mMatrix, [3.5, 6.0, 36.0]);
 	mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
 	this.light.render(shaderProgram);
+	
 	popMatrix();
 
 	pushMatrix();
+	
 	mat4.translate(mMatrix, [2.0, 3.0, 76.0]);
 	mat4.scale(mMatrix, [1.0, 6.0, 1.0]);
 	this.light.render(shaderProgram);
+	
 	popMatrix();
 	
 	pushMatrix();
+	
 	mat4.translate(mMatrix, [3.5, 6.0, 76.0]);
 	mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
 	this.light.render(shaderProgram);
+	
 	popMatrix();
 }
