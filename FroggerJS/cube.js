@@ -174,7 +174,8 @@ Cube.prototype.setColor = function(materialType, colorVec) {
             this.materialShininess = colorVec
       }
 }
-var teste;
+
+
 function handleLoadedTexture(texture) {
 
 	gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -185,13 +186,13 @@ function handleLoadedTexture(texture) {
 	gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
+var tex;
 Cube.prototype.initTexture = function(str) {
-	console.log(str);
 	this.texture = gl.createTexture();
 	this.texture.image = new Image();
-	teste=this.texture;
+	tex=this.texture;
 	this.texture.image.onload = function() {
-		handleLoadedTexture(teste)
+		handleLoadedTexture(tex)
 	}
 	this.texture.image.src = str;
 }
