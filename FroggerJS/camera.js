@@ -17,7 +17,7 @@ Camera.prototype.setView = function(v) {
 	this.view = v;
 }
 
-Camera.prototype.draw = function(oX, oY, oZ, camX, camY, camZ) {
+Camera.prototype.draw = function(camX, camY, camZ, oX, oY, oZ) {
 
 	//Orthogonal projection
 	if(this.view == 1) {

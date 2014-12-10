@@ -93,3 +93,9 @@ Light.prototype.switchLight = function(index) {
 		this.lights[index].isEnabled = true;
 	}
 }
+
+Light.prototype.updateSpotPosDir = function(index, pos, spotDir) {
+
+	this.lights[index].l_pos = pos;
+	this.lights[index].l_spotDir = spotDir;
+}

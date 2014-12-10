@@ -125,8 +125,9 @@
         //Destroy obstacles
         obstacles.destroyObstacles();
 
-        camera.draw(0.0, 3.0, 50.0, camX, camY, camZ);
+        camera.draw(camX, camY, camZ, frog.x, frog.y, frog.z);
 
+        light.updateSpotPosDir(7, [frog.x, 6.0, frog.z, 1.0], [5.0, -6.0, 0.0, 0.0]);
         light.draw();
         fog.draw();
 
