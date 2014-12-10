@@ -124,7 +124,14 @@ var fragmentShaderSrc =
 			"}" +
 		"}" +
 
-		"vec4 color = max(diffuse + specular, mat.ambient);" +
+		//Textures
+		"vec4 test = vec4(0.0, 0.0, 0.0, 1.0);" +
+		"vec4 texel = texture2D(texUnit, vec2(texCoord.s, texCoord.t));" +
+		"vec4 color;" +
+
+		"if(texel==test)" +
+			"color = max(diffuse + specular, mat.ambient);" +
+		"else color = max(diffuse + specular, mat.ambient)*texel;" +
 		
 		//Add fog
 		"if(fogParams.isEnabled&&color.w>0.0){" +
