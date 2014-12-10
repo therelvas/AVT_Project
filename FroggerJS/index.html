@@ -139,6 +139,7 @@
 		else if (frog.x >= 30 || particlesEnabled){
 			particles.render();
 			particles.updateParticles();
+			particlesEnabled = true;
 		}
 
         //Fog
@@ -158,7 +159,9 @@
 
         //Frog
         frog.render();
-
+	document.getElementById("lives").innerHTML = frog.lives;
+	document.getElementById("score").innerHTML = frog.gamePoints;
+	
         gl.enable(gl.STENCIL_TEST);
 
         //Draw river
@@ -459,7 +462,11 @@
     }
 
 </script>
-
+<p><span class="auto-style1">
+	<b>Lives:</b> <span id="lives"></span>
+	<b>Score:</b> <span id="score"></span>
+	<span id="gameover"></span>
+</span></p>
 </head>
 
 <body onload="webGLStart();" oncontextmenu="return false;">  
