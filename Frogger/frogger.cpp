@@ -133,12 +133,13 @@ void renderScene(void) {
 
 	frog->render(shader);
 
-	tree[0]->updateRotation(frog->getPosition());
-	tree[0]->render(shader);
+	//tree[0]->updateRotation(frog->getPosition());
+	//tree[0]->render(shader);
 
-	//tree[1]->updateRotation(frog->getPosition());
-	//tree[1]->render(shader);
+	tree[1]->updateRotation(frog->getPosition());
+	tree[1]->render(shader);
 
+	/*
 	tree[2]->updateRotation(frog->getPosition());
 	tree[2]->render(shader);
 
@@ -146,7 +147,7 @@ void renderScene(void) {
 	tree[3]->render(shader);
 
 	tree[4]->updateRotation(frog->getPosition());
-	tree[4]->render(shader);
+	tree[4]->render(shader);*/
 
 	//Planar reflection and stencil buffer
 	glEnable(GL_STENCIL_TEST);

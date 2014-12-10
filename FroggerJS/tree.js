@@ -15,7 +15,7 @@ function Tree(x, y, z) {
 
 Tree.prototype.setupObjects = function() {
 
-	this.vectorOrientation[0] = -1.0;
+	this.vectorOrientation[0] = 1.0;
 	this.vectorOrientation[1] = 0.0;
 	this.vectorOrientation[2] = 0.0;
 
@@ -34,8 +34,10 @@ Tree.prototype.render = function() {
 
 	mat4.translate(mMatrix, [this.x, this.y, this.z]);
 
-	if ((this.angle < 0.99990) && (this.angle > -0.9999))
+	if ((this.angle < 0.99990) && (this.angle > -0.9999)) {
+		//GLMatrix 1.3.7 rotate function doesn't work as expected. We need to upgrade lib version in the future.
 		mat4.rotate(mMatrix, Math.acos(-this.angle) * (180.0 / 3.14), this.auxVector);
+	}
 
 	mat4.scale(mMatrix, [1.0, 10.0, 8.0]);
 	this.surface.render();
@@ -49,7 +51,7 @@ Tree.prototype.updateRotation = function() {
 	this.vector[1] = 0.0;
 	this.vector[2] = frog.z - this.z;
 
-	this.vector = vec3.normalize(this.vector);
-	this.auxVector = vec3.cross(this.vector, this.vectorOrientation);
+	vec3.normalize(this.vector);
+	vec3.cross(this.vector, this.vectorOrientation, this.auxVector);
 	this.angle = vec3.dot(this.vector, this.vectorOrientation);
 }
