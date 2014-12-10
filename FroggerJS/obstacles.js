@@ -62,7 +62,7 @@ Obstacles.prototype.updatePosition = function() {
 	
 	for(var i = 0; i < size; i++) {
 		move = Math.floor(Math.random() * 150);
-		//this.enemies[i].collide(this.frog);
+		this.enemies[i].collide(frog);
 
 		if (this.enemies[i].isInitialPos() && move == 1) {
 			this.enemies[i].move(this.level);
@@ -71,7 +71,7 @@ Obstacles.prototype.updatePosition = function() {
 			this.enemies[i].move(this.level);
 		}
 	}
-	//this.frog.collide(this.frog);
+	frog.collide();
 }
 
 Obstacles.prototype.render = function() {

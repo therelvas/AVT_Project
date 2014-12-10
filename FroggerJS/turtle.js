@@ -122,26 +122,21 @@ Turtle.prototype.isInitialPos = function() {
 }
 
 Turtle.prototype.resetPosition = function() {
-
 	this.x = this.iX;
 	this.y = this.iY;
 	this.z = this.iZ;
 }
 
-/*Turtle.prototype.collide = function(Frog frog){
+Turtle.prototype.collide = function(frog){
 	var frogBoundingBox = frog.getBoundingBox();
 	var turtleBoundingBox = this.getBoundingBox();
-	if(frogBoundingBox[0][0] >= turtleBoundingBox[1][0] && frogBoundingBox[0][0] <= turtleBoundingBox[0][0]
-		&&
-		frogBoundingBox[0][2] <= turtleBoundingBox[1][2] && frogBoundingBox[0][2] >= turtleBoundingBox[0][2]){
-		frog.
-
-	();
-		frog.resetPosition();
-	}else{
-		if (frogBoundingBox[1][0] >= turtleBoundingBox[1][0] && frogBoundingBox[1][0] <= turtleBoundingBox[0][0] &&
-		frogBoundingBox[1][2] <= turtleBoundingBox[1][2] && frogBoundingBox[1][2] >= turtleBoundingBox[0][2]){
+	if((frogBoundingBox[0][0] >= turtleBoundingBox[1][0] && frogBoundingBox[0][0] <= turtleBoundingBox[0][0]) && (frogBoundingBox[0][2] <= turtleBoundingBox[1][2] && frogBoundingBox[0][2] >= turtleBoundingBox[0][2])){
 		frog.loseLife();
 		frog.resetPosition();
+	}else{
+		if ((frogBoundingBox[1][0] >= turtleBoundingBox[1][0] && frogBoundingBox[1][0] <= turtleBoundingBox[0][0]) && (frogBoundingBox[1][2] <= turtleBoundingBox[1][2] && frogBoundingBox[1][2] >= turtleBoundingBox[0][2])){
+			frog.loseLife();
+			frog.resetPosition();
+		}
 	}
-}*/
+}

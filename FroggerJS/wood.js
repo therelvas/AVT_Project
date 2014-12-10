@@ -72,20 +72,19 @@ Wood.prototype.resetPosition = function() {
 	this.z = this.iZ;
 }
 
-/*Wood.prototype.collide(Frog frog){
+Wood.prototype.collide = function(frog){
 	var frogBoundingBox = frog.getBoundingBox();
-	var carBoundingBox = getBoundingBox();
-	if(frogBoundingBox[0][0] >= carBoundingBox[1][0] && frogBoundingBox[0][0] <= carBoundingBox[0][0]
+	var woodBoundingBox = this.getBoundingBox();
+	if(frogBoundingBox[0][0] >= woodBoundingBox[1][0] && frogBoundingBox[0][0] <= woodBoundingBox[0][0]
 		&&
-		frogBoundingBox[0][2] <= carBoundingBox[1][2] && frogBoundingBox[0][2] >= carBoundingBox[0][2]){
-		frog.
-
-	();
-		frog.resetPosition();
-	}else{
-		if (frogBoundingBox[1][0] >= carBoundingBox[1][0] && frogBoundingBox[1][0] <= carBoundingBox[0][0] &&
-		frogBoundingBox[1][2] <= carBoundingBox[1][2] && frogBoundingBox[1][2] >= carBoundingBox[0][2]){
+		frogBoundingBox[0][2] <= woodBoundingBox[1][2] && frogBoundingBox[0][2] >= woodBoundingBox[0][2]){
 		frog.loseLife();
 		frog.resetPosition();
+	}else{
+		if (frogBoundingBox[1][0] >= woodBoundingBox[1][0] && frogBoundingBox[1][0] <= woodBoundingBox[0][0] &&
+		frogBoundingBox[1][2] <= woodBoundingBox[1][2] && frogBoundingBox[1][2] >= woodBoundingBox[0][2]){
+		frog.loseLife();
+		frog.resetPosition();
+		}
 	}
-}*/
+}
