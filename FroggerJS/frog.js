@@ -11,6 +11,9 @@ function Frog(x, y, z) {
 	this.eye = new Sphere(0.2);
 	this.frogBody = new Sphere(0.5);
 
+	this.eyeRef = new Sphere(0.2);
+	this.frogBodyRef = new Sphere(0.5);
+
 	this.gamePoints = 0;
 	this.lives = 0;
 
@@ -20,11 +23,17 @@ function Frog(x, y, z) {
 Frog.prototype.setupObjects = function() {
 
 	//Body
-	this.frogBody.setColor("ambient", [ 0.05, 0.05, 0.0, 1.0]);
+	this.frogBody.setColor("ambient", [0.05, 0.05, 0.0, 1.0]);
 	this.frogBody.setColor("diffuse", [0.1, 0.55, 0.1, 1.0]);
 	this.frogBody.setColor("specular", [0.35, 0.65, 0.45, 1.0]);
 	this.frogBody.setColor("emissive", [0.727811, 0.626959, 0.626959, 1.0]);
 	this.frogBody.setColor("shininess", 0.25);
+
+	this.frogBodyRef.setColor("ambient", [0.05, 0.05, 0.0, 1.0]);
+	this.frogBodyRef.setColor("diffuse", [0.0, 0.0, 0.0, 1.0]);
+	this.frogBodyRef.setColor("specular", [0.0, 0.0, 0.0, 1.0]);
+	this.frogBodyRef.setColor("emissive", [0.727811, 0.626959, 0.626959, 1.0]);
+	this.frogBodyRef.setColor("shininess", 0.25);
 
 	//Eyes
 	this.eye.setColor("ambient", [1.0, 1.0, 1.0, 1.0]);
@@ -32,6 +41,12 @@ Frog.prototype.setupObjects = function() {
 	this.eye.setColor("specular", [1.0, 1.0, 1.0, 1.0]);
 	this.eye.setColor("emissive", [1.0, 1.0, 1.0, 1.0]);
 	this.eye.setColor("shininess", 0);
+
+	this.eyeRef.setColor("ambient", [1.0, 1.0, 1.0, 1.0]);
+	this.eyeRef.setColor("diffuse", [1.0, 1.0, 1.0, 1.0]);
+	this.eyeRef.setColor("specular", [0.0, 0.0, 0.0, 1.0]);
+	this.eyeRef.setColor("emissive", [1.0, 1.0, 1.0, 1.0]);
+	this.eyeRef.setColor("shininess", 0);
 }
 
 Frog.prototype.render = function() {
@@ -89,21 +104,21 @@ Frog.prototype.renderReflection = function() {
 	pushMatrix();
 
 	mat4.translate(mMatrix, [this.x + 0.5, -(this.y + 1.5), this.z]);
-	this.frogBody.render();
+	this.frogBodyRef.render();
 
 	popMatrix();
 
 	pushMatrix();
 
 	mat4.translate(mMatrix, [this.x + 0.8, -(this.y + 1.8), this.z + 0.2]);
-	this.eye.render();
+	this.eyeRef.render();
 
 	popMatrix();
 
 	pushMatrix();
 
 	mat4.translate(mMatrix, [this.x + 0.8, -(this.y + 1.8), this.z - 0.2]);
-	this.eye.render();
+	this.eyeRef.render();
 
 	popMatrix();
 
@@ -111,21 +126,21 @@ Frog.prototype.renderReflection = function() {
 
 	mat4.translate(mMatrix, [this.x, -[this.y + 1.0], this.z]);
 	mat4.scale(mMatrix, [1.0, 1.0, 2.0]);
-	this.frogBody.render();
+	this.frogBodyRef.render();
 
 	popMatrix();
 
 	pushMatrix();
 
 	mat4.translate(mMatrix, [this.x, -(this.y + 1.0), this.z + 0.5]);
-	this.frogBody.render();
+	this.frogBodyRef.render();
 
 	popMatrix();
 
 	pushMatrix();
 
 	mat4.translate(mMatrix, [this.x, -(this.y + 1.0), this.z - 0.5]);
-	this.frogBody.render();
+	this.frogBodyRef.render();
 
 	popMatrix();	
 }

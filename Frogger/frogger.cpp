@@ -118,7 +118,7 @@ void renderScene(void) {
 		particlesEnabled = true;
 	}
 
-	//reder fog
+	//Render fog
 	fog->draw(shader);
 
 	//Render obstacles

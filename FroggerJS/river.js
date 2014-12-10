@@ -14,7 +14,7 @@ River.prototype.setupObjects = function() {
 	this.cube.setColor("diffuse", [0.0, 0.50980392, 0.50980392, 0.5]);
 	this.cube.setColor("specular", [0.50196078, 0.50196078, 0.50196078, 0.5]);
 	this.cube.setColor("emissive", [0.0, 0.0, 0.0, 0.5]);
-	this.cube.setColor("shininess", 80.0);
+	this.cube.setColor("shininess", 70.0);
 }
 
 River.prototype.render = function() {

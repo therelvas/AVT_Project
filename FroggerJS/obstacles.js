@@ -1,6 +1,5 @@
-function Obstacles(frog) {
+function Obstacles() {
 	
-	this.frog = frog;
 	this.level = 1;
 
 	this.startingPosCarX = [];
@@ -48,7 +47,7 @@ Obstacles.prototype.generateEnemies = function() {
 			this.enemies.push(new Turtle(this.startingPosTurtleX[0], 0.0, 100.0));
 		} 
 		else if (type > 15) {
-			this.enemies.push(new Wood(this.startingPosWoodX[pos], -1.0, 0.0));
+			this.enemies.push(new Wood(this.startingPosWoodX[pos], 0.0, 0.0));
 		}
 		size = this.enemies.length;
 	}

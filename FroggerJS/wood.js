@@ -28,7 +28,7 @@ Wood.prototype.render = function() {
 	
 	pushMatrix();
 
-	mat4.translate(mMatrix, [this.x, this.y + 0.5, this.z]);
+	mat4.translate(mMatrix, [this.x, this.y - 0.5, this.z]);
 	mat4.scale(mMatrix, [1.0, 1.0, 7.0]);
 	this.cube.render();
 
