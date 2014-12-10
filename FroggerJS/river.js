@@ -6,6 +6,7 @@ function River(x, y, z) {
 
 	this.cube = new Cube();
 	this.setupObjects();
+	this.cube.initTexture("river2.png");
 }
 
 River.prototype.setupObjects = function() {
