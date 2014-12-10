@@ -109,7 +109,7 @@ Frog.prototype.renderReflection = function() {
 
 	pushMatrix();
 
-	mat4.translate(mMatrix, [this.x - 0.05, -this.y, this.z]);
+	mat4.translate(mMatrix, [this.x, -[this.y + 1.0], this.z]);
 	mat4.scale(mMatrix, [1.0, 1.0, 2.0]);
 	this.frogBody.render();
 
@@ -117,14 +117,14 @@ Frog.prototype.renderReflection = function() {
 
 	pushMatrix();
 
-	mat4.translate(mMatrix, [this.x, -(this.y + 1), this.z + 0.5]);
+	mat4.translate(mMatrix, [this.x, -(this.y + 1.0), this.z + 0.5]);
 	this.frogBody.render();
 
 	popMatrix();
 
 	pushMatrix();
 
-	mat4.translate(mMatrix, [this.x, -(this.y + 1), this.z - 0.5]);
+	mat4.translate(mMatrix, [this.x, -(this.y + 1.0), this.z - 0.5]);
 	this.frogBody.render();
 
 	popMatrix();	
@@ -155,7 +155,6 @@ Frog.prototype.getBoundingBox = function(){
 	boundingBox[1][2] = this.z + 1;
 
 	return boundingBox;
-
 }
 
 Frog.prototype.resetLives = function(){

@@ -127,18 +127,19 @@
         
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
-        //Destroy obstacles
-        obstacles.destroyObstacles();
-
+        //Camera and light
         camera.draw(camX, camY, camZ, frog.x, frog.y, frog.z);
 
         light.updateSpotPosDir(7, [frog.x, 6.0, frog.z, 1.0], [5.0, -6.0, 0.0, 0.0]);
         light.draw();
         fog.draw();
 
+        //Obstacles
+        obstacles.destroyObstacles();
         obstacles.updatePosition();
         obstacles.render();
 
+        //Particle checks
 		if (frog.x >= 2.0 && frog.x <= 3.0){
 			particles.resetParticles();
 			particlesEnabled = false;
@@ -146,16 +147,34 @@
 		else if (frog.x >= 30 || particlesEnabled){
 			particles.render();
 			particles.updateParticles();
-		}	
+		}
+
+        //Scenario
         roadMargin.render();
         road.render();
 
         riverMargin1.render();
-        riverMargin2.render();
-                
+        riverMargin2.render();   
+        
+        frog.render();
+
+        gl.enable(gl.STENCIL_TEST);
+
+        /*gl.stencilFunc(gl.ALWAYS, 1, 0xFF); // Set any stencil to 1
+        gl.stencilOp(gl.KEEP, gl.KEEP, gl.REPLACE);
+        gl.stencilMask(0xFF); // Write to stencil buffer
+        gl.depthMask(gl.FALSE); // Don't write to depth buffer
+        gl.clear(gl.STENCIL_BUFFER_BIT); // Clear stencil buffer (0 by default)*/
         river.render();
 
-        frog.render();
+        // Draw frog reflection
+       /* gl.depthMask(gl.TRUE); // Write to depth buffer
+        gl.stencilFunc(gl.EQUAL, 1, 0xFF); // Pass test if stencil value is 1
+        gl.stencilMask(0x00); // Don't write anything to stencil buffer
+        gl.depthMask(gl.TRUE); // Write to depth buffer*/
+        frog.renderReflection();
+
+        //gl.disable(gl.STENCIL_TEST);
     }
 
     // ------------------------------------------------------------
@@ -165,10 +184,10 @@
 
     function display() {
 
-        requestAnimFrame(display);
-
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         renderScene();
+
+        requestAnimFrame(display);
     }
 
     // ------------------------------------------------------------
@@ -390,7 +409,7 @@
 
     function initGL(canvas) {
         try {
-            gl = canvas.getContext("experimental-webgl");
+            gl = canvas.getContext("experimental-webgl", {stencil:true, depth: true, alpha: true});
 
             gl.viewportWidth = canvas.width;
             gl.viewportHeight = canvas.height;
@@ -427,9 +446,8 @@
         initGL(canvas);
         setupShaders();
         setupObjects();
-        setupWebGL();
-
         display();
+        setupWebGL();
     }
 
 </script>
