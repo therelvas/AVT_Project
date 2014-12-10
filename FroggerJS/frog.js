@@ -171,7 +171,7 @@ Frog.prototype.getLives = function(){
 	return this.lives;
 }
 
-Car.prototype.isInitialPos = function() {
+Frog.prototype.isInitialPos = function() {
 
 	if(this.x == this.iX && this.y == this.iY && this.z == this.iZ) {
 		return true;
@@ -180,7 +180,7 @@ Car.prototype.isInitialPos = function() {
 	}
 }
 
-Car.prototype.resetPosition = function() {
+Frog.prototype.resetPosition = function() {
 
 	this.x = this.iX;
 	this.y = this.iY;
