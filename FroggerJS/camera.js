@@ -47,7 +47,7 @@ Camera.prototype.draw = function(camX, camY, camZ, oX, oY, oZ, side) {
 		mat4.identity(pMatrix);
 
 		gl.viewport(0, 0, width, height);
-		mat4.perspective(60.0, ratio, 0.1, 1000.0, pMatrix);
+		mat4.perspective(60.0, ratio, 0.1, 100.0, pMatrix);
 
         mat4.identity(vMatrix);
         mat4.identity(mMatrix);
@@ -61,7 +61,7 @@ Camera.prototype.draw = function(camX, camY, camZ, oX, oY, oZ, side) {
 		mat4.identity(pMatrix);
 
 		gl.viewport(0, 0, width, height);
-		mat4.perspective(60.0, ratio, 0.1, 1000.0, pMatrix);
+		mat4.perspective(60.0, ratio, 0.1, 100.0, pMatrix);
 
 		mat4.identity(vMatrix);
 		mat4.identity(mMatrix);
@@ -77,24 +77,24 @@ Camera.prototype.draw = function(camX, camY, camZ, oX, oY, oZ, side) {
 			mat4.identity(pMatrix);
 
 			gl.viewport(0, 0, width/2, height);	
-			mat4.perspective(60.0, ratio, 0.1, 1000.0, pMatrix);
+			mat4.perspective(60.0, ratio, 0.1, 100.0, pMatrix);
 
 			mat4.identity(vMatrix);
 			mat4.identity(mMatrix);
 		
-			mat4.lookAt([oX - 10.0, oY + 6.0, oZ - 0.005], [oX - camX, oY - camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
+			mat4.lookAt([oX - 10.0, oY + 6.0, oZ - 3.333], [oX - camX, oY - camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
 		}
 		//Right
 		else {
 			mat4.identity(pMatrix);
 
 			gl.viewport(width/2, 0, width/2, height);	
-			mat4.perspective(60.0, ratio, 0.1, 1000.0, pMatrix);
+			mat4.perspective(60.0, ratio, 0.1, 100.0, pMatrix);
 
 			mat4.identity(vMatrix);
 			mat4.identity(mMatrix);
 
-			mat4.lookAt([oX - 10.0, oY + 6.0, oZ + 0.005], [oX - camX, oY - camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
+			mat4.lookAt([oX - 10.0, oY + 6.0, oZ + 3.333], [oX - camX, oY - camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
 		}
 	}
 }
