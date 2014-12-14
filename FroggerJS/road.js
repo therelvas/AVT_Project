@@ -10,6 +10,7 @@ function Road(x, y, z) {
 
 Road.prototype.setupObjects = function() {
 
+	//this.cube.initTexture("road3.jpg");
 	this.cube.setColor("ambient", [0.05375, 0.05, 0.06625, 1.0]);
 	this.cube.setColor("diffuse", [0.18275, 0.17, 0.22525, 1.0]);
 	this.cube.setColor("specular", [0.332741, 0.328634, 0.346435, 1.0]);

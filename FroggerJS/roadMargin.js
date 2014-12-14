@@ -7,16 +7,6 @@ function RoadMargin(x, y, z) {
 	this.cube = new Cube();
 	this.light = new Cube();
 	this.setupObjects();
-
-
-	/*light.addLight("spot", [5.0, 6.0, 4.0, 1.0],   [0.0, -1.0, 0.0, 0.0], 0.90, 1);
-        light.addLight("spot", [13.0, 6.0, 16.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 2);
-        light.addLight("spot", [5.0, 6.0, 36.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 3);
-        light.addLight("spot", [13.0, 6.0, 56.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 4);
-        light.addLight("spot", [5.0, 6.0, 76.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 5);
-        light.addLight("spot", [13.0, 6.0, 96.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 6);
-
-        light.addLight("spot", [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 0.0], 0.90, 7);*/
 }
 
 
@@ -48,6 +38,8 @@ RoadMargin.prototype.render = function() {
 	
 	popMatrix();
 
+	//Lights 
+	/*
 	pushMatrix();
 	
 	mat4.translate(mMatrix, [2.0, 3.0, 4.0]);
@@ -94,5 +86,5 @@ RoadMargin.prototype.render = function() {
 	mat4.scale(mMatrix, [4.0, 1.0, 1.0]);
 	this.light.render(shaderProgram);
 	
-	popMatrix();
+	popMatrix();*/
 }

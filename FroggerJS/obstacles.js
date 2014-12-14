@@ -34,7 +34,7 @@ Obstacles.prototype.generateEnemies = function() {
 
 	var size = this.enemies.length;
 
-	while (size < 20) {
+	while (size < 10) {
 
 		var type = Math.floor(Math.random() * 25);
 		var pos = Math.floor(Math.random() * 3);

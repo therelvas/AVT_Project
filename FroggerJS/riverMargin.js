@@ -36,6 +36,7 @@ RiverMargin.prototype.render = function(lights) {
 
 	popMatrix();
 
+	/*
 	if(lights) {
 	
 		pushMatrix();
@@ -83,5 +84,5 @@ RiverMargin.prototype.render = function(lights) {
 		this.light.render(shaderProgram);
 		
 		popMatrix();
-	}
+	}*/
 }
