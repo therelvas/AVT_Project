@@ -125,10 +125,10 @@
     // Render stufff
     //
 
-    function renderScene() {
+    function renderScene(side) {
          
         //Camera
-        camera.draw(camX, camY, camZ, frog.x, frog.y, frog.z, "left");
+        camera.draw(camX, camY, camZ, frog.x, frog.y, frog.z, side);
         
         //Light
         light.updateSpotPosDir(7, [frog.x, 6.0, frog.z, 1.0], [5.0, -6.0, 0.0, 0.0]);
@@ -185,67 +185,6 @@
         gl.disable(gl.STENCIL_TEST);
     }
 
-
-    function renderSceneStereo() {
-         
-        //Camera
-        camera.draw(camX, camY, camZ, frog.x, frog.y, frog.z, "right");
-        
-        //Light
-        light.updateSpotPosDir(7, [frog.x, 6.0, frog.z, 1.0], [5.0, -6.0, 0.0, 0.0]);
-        light.draw();
-
-        //Particle checks
-        if (frog.x >= 2.0 && frog.x <= 3.0){
-            particles.resetParticles();
-            particlesEnabled = false;
-        }
-        else if (frog.x >= 30 || particlesEnabled){
-            particles.render();
-            particles.updateParticles();
-            particlesEnabled = true;
-        }
-
-        //Fog
-        fog.draw();
-
-        //Scenario
-        roadMargin.render();
-        road.render();
-        riverMargin1.render(true);
-        riverMargin2.render(false);
-
-        //Obstacles
-        obstacles.destroyObstacles();
-        obstacles.updatePosition();
-        obstacles.render();
-
-        //Frog
-        frog.render();
-
-        //Tree
-        //tree.updateRotation([frog.x, frog.y, frog.z]);
-        //tree.render();
-
-        gl.enable(gl.STENCIL_TEST);
-
-        //Draw river
-        gl.stencilFunc(gl.ALWAYS, 1, 0xFF); // Set any stencil to 1
-        gl.stencilOp(gl.KEEP, gl.KEEP, gl.REPLACE);
-        gl.stencilMask(0xFF); // Write to stencil buffer
-        gl.depthMask(false); // Don't write to depth buffer
-        gl.clear(gl.STENCIL_BUFFER_BIT); // Clear stencil buffer (0 by default) */
-        river.render();
-
-        //Draw frog reflection
-        gl.depthMask(true); // Write to depth buffer
-        gl.stencilFunc(gl.EQUAL, 1, 0xFF); // Pass test if stencil value is 1
-        gl.stencilMask(0x00); // Don't write anything to stencil buffer
-        frog.renderReflection();
-
-        gl.disable(gl.STENCIL_TEST);
-    }
-
     // ------------------------------------------------------------
     //
     // Callback display function
@@ -258,9 +197,9 @@
         document.getElementById("lives").innerHTML = frog.lives;
         document.getElementById("score").innerHTML = frog.gamePoints;
         
-        renderScene();
+        renderScene("left");
         if(stereo) {
-            renderSceneStereo();
+            renderScene("right");
         }
 
         requestAnimFrame(display);
@@ -533,6 +472,8 @@
         document.onmousemove = handleMouseMove;
        
         document.onkeydown = handleKeyDown;
+
+        window.
         
         initGL(canvas);
         setupShaders();
