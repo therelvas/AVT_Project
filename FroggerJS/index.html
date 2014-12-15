@@ -69,6 +69,8 @@
     //Keyboard/Mouse
     var mouseDown = false;
     var tracking = false;
+    var selfMovement = false;
+    var flagMovement =0;
 
     var startX = 0;
     var startY = 0;
@@ -144,6 +146,31 @@
 			particles.updateParticles();
 			particlesEnabled = true;
 		}
+
+        if(selfMovement && frog.getLives() > 0){
+            if(flagMovement <= 150){
+                frog.move(0.5, 0.0, 0.0, 0.1);
+                flagMovement++;
+            }else{
+                if(flagMovement > 150 && flagMovement <= 350){
+                    frog.move(0.0, 0.0, 0.5, 0.1);
+                    flagMovement++;
+                }
+                else{
+                    if(flagMovement > 350 && flagMovement <= 800){
+                     frog.move(0.5, 0.0, 0.0, 0.1);
+                     flagMovement++;
+                    }else{
+                        frog.move(0.0, 0.0, -0.5, 0.1);
+                        flagMovement++;
+                    }
+
+                    if(flagMovement >= 1000)
+                        flagMovement = 0;
+                }
+
+            }
+        }
 
         //Fog
         fog.draw();
@@ -248,6 +275,7 @@
                     break;
                 case "4":
                     camera.setView(4);
+                    selfMovement = true;
                     stereo = true;
                     break
                 case "N":
