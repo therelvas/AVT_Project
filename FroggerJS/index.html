@@ -36,7 +36,7 @@
 
     //Camera
     var camera;
-    var stereo = true;
+    var stereo = false;
    
     var camX = 0.0;
     var camY = 0.0;
@@ -431,7 +431,7 @@
 
     function setupObjects() {
 
-        camera = new Camera(4);
+        camera = new Camera(1);
        
         roadMargin = new RoadMargin(2.0, -1.0, 50.0);
         road = new Road(9.0, -1.0, 50.0);
@@ -450,14 +450,14 @@
         light = new Light();
         light.addLight("directional", [0.0, 10.0, 0.0, 0.0], 0.0, 0.0, 0);
 
-        //light.addLight("spot", [5.0, 6.0, 4.0, 1.0],   [0.0, -1.0, 0.0, 0.0], 0.90, 1);
-        //light.addLight("spot", [13.0, 6.0, 16.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 2);
-        //light.addLight("spot", [5.0, 6.0, 36.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 3);
-        //light.addLight("spot", [13.0, 6.0, 56.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 4);
-        //light.addLight("spot", [5.0, 6.0, 76.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 5);
-        //light.addLight("spot", [13.0, 6.0, 96.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 6);
+        light.addLight("spot", [5.0, 6.0, 4.0, 1.0],   [0.0, -1.0, 0.0, 0.0], 0.90, 1);
+        light.addLight("spot", [13.0, 6.0, 16.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 2);
+        light.addLight("spot", [5.0, 6.0, 36.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 3);
+        light.addLight("spot", [13.0, 6.0, 56.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 4);
+        light.addLight("spot", [5.0, 6.0, 76.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 5);
+        light.addLight("spot", [13.0, 6.0, 96.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 6);
 
-        //light.addLight("spot", [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 0.0], 0.90, 7);
+        light.addLight("spot", [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 0.0], 0.90, 7);
     }
 
     // ------------------------------------------------------------
