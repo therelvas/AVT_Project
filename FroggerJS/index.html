@@ -36,7 +36,7 @@
 
     //Camera
     var camera;
-    var stereo = false;
+    var stereo = true;
    
     var camX = 0.0;
     var camY = 0.0;
@@ -271,6 +271,34 @@
         }
     }
 
+
+    // ------------------------------------------------------------
+    //
+    // Device motion events
+    //
+    function deviceMotion(event) {
+
+        var deltaX, deltaY;
+        var alphaAux, betaAux;
+        var rAux;
+
+        deltaX = -(accelerationIncludingGravity.x) + startX;
+        deltaY = accelerationIncludingGravity.y - startY;
+
+        alphaAux = alpha + deltaX;
+        betaAux = beta + deltaY;
+
+        if(beta > 85.0)
+            betaAux = 85.0;
+        else if(betaAux < -85.0)
+            betaAux = -85.0;
+        rAux = r;
+         
+        camX = rAux * Math.sin(alphaAux * 3.14 / 180.0) * Math.cos(betaAux * 3.14 / 180.0);
+        camZ = rAux * Math.cos(alphaAux * 3.14 / 180.0) * Math.cos(betaAux * 3.14 / 180.0);
+        camY = rAux *                                     Math.sin(betaAux * 3.14 / 180.0);
+    }
+
     // ------------------------------------------------------------
     //
     // Mouse events
@@ -403,7 +431,7 @@
 
     function setupObjects() {
 
-        camera = new Camera(1);
+        camera = new Camera(4);
        
         roadMargin = new RoadMargin(2.0, -1.0, 50.0);
         road = new Road(9.0, -1.0, 50.0);
@@ -422,14 +450,14 @@
         light = new Light();
         light.addLight("directional", [0.0, 10.0, 0.0, 0.0], 0.0, 0.0, 0);
 
-        light.addLight("spot", [5.0, 6.0, 4.0, 1.0],   [0.0, -1.0, 0.0, 0.0], 0.90, 1);
-        light.addLight("spot", [13.0, 6.0, 16.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 2);
-        light.addLight("spot", [5.0, 6.0, 36.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 3);
-        light.addLight("spot", [13.0, 6.0, 56.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 4);
-        light.addLight("spot", [5.0, 6.0, 76.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 5);
-        light.addLight("spot", [13.0, 6.0, 96.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 6);
+        //light.addLight("spot", [5.0, 6.0, 4.0, 1.0],   [0.0, -1.0, 0.0, 0.0], 0.90, 1);
+        //light.addLight("spot", [13.0, 6.0, 16.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 2);
+        //light.addLight("spot", [5.0, 6.0, 36.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 3);
+        //light.addLight("spot", [13.0, 6.0, 56.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 4);
+        //light.addLight("spot", [5.0, 6.0, 76.0, 1.0],  [0.0, -1.0, 0.0, 0.0], 0.90, 5);
+        //light.addLight("spot", [13.0, 6.0, 96.0, 1.0], [0.0, -1.0, 0.0, 0.0], 0.90, 6);
 
-        light.addLight("spot", [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 0.0], 0.90, 7);
+        //light.addLight("spot", [0.0, 0.0, 0.0, 1.0], [0.0, 0.0, 0.0, 0.0], 0.90, 7);
     }
 
     // ------------------------------------------------------------
@@ -473,7 +501,7 @@
        
         document.onkeydown = handleKeyDown;
 
-        //document.ondevicemotion = deviceMotion;
+        document.ondevicemotion = deviceMotion;
                 
         initGL(canvas);
         setupShaders();
