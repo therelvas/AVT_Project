@@ -148,11 +148,13 @@
 			particlesEnabled = true;
 		}
 
+        //Frog self movement
         if(selfMovement && frog.getLives() > 0){
             if(flagMovement <= 150){
                 frog.move(0.5, 0.0, 0.0, 0.1);
                 flagMovement++;
-            }else{
+            } 
+            else{
                 if(flagMovement > 150 && flagMovement <= 350){
                     frog.move(0.0, 0.0, 0.5, 0.1);
                     flagMovement++;
@@ -161,7 +163,7 @@
                     if(flagMovement > 350 && flagMovement <= 800){
                      frog.move(0.5, 0.0, 0.0, 0.1);
                      flagMovement++;
-                    }else{
+                    } else{
                         frog.move(0.0, 0.0, -0.5, 0.1);
                         flagMovement++;
                     }
@@ -169,7 +171,6 @@
                     if(flagMovement >= 1000)
                         flagMovement = 0;
                 }
-
             }
         }
 
@@ -265,22 +266,18 @@
                 case "1":
                     camera.setView(1);
                     selfMovement = false;
-                    stereo = false;
                     break;
                 case "2":
                     camera.setView(2);
                     selfMovement = false;
-                    stereo = false;
                     break;
                 case "3":
                     camera.setView(3);
                     selfMovement = false;
-                    stereo = false;
                     break;
                 case "4":
                     camera.setView(4);
                     selfMovement = true;
-                    stereo = true;
                     break
                 case "N":
                     light.switchLight(0);
@@ -362,14 +359,17 @@
             case 90:
                 orientation = 90;
                 camera.setView(4);
+                selfMovement = true;
                 break;
             case -90:
                 orientation = -90;
                 camera.setView(4);
+                selfMovement = true;
                 break;
             default:
                 orientation = 0;
                 camera.setView(1);
+                selfMovement = false;
                 break;
         }
     }
@@ -508,9 +508,11 @@
 
         //Mobile devices verification (Uncomment for proper use)
 
-        //if(orientation != 0)
-        //    camera = new Camera(4);
-        //else
+        /*if(orientation != 0) {
+            camera = new Camera(4);
+            selfMovement = true;
+        }
+        else*/
             camera = new Camera(1);
        
         roadMargin = new RoadMargin(2.0, -1.0, 50.0);

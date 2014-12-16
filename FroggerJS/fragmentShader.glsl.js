@@ -73,21 +73,30 @@ var fragmentShaderSrc =
 
 		"for (int i = 0; i < numLights; i++) {" +
 
-			"if(!lights[i].isEnabled) {" +
+			"bool isEnabled = lights[i].isEnabled;" +
+			"bool isLocal = lights[i].isLocal;" +
+			"bool isSpot = lights[i].isSpot;" +
+
+			"if(!isEnabled) {" +
 				"continue;" +
 			"}" +
 
-			"if (lights[i].isLocal) {" +
+			"vec4 l_pos = lights[i].l_pos;" +
 
-				"l = normalize(vec3(lights[i].l_pos - position));" +
+			"if (isLocal) {" +
+
+				"l = normalize(vec3(l_pos - position));" +
 			
 				//Spotlight
-				"if(lights[i].isSpot) {" +
+				"if(isSpot) {" +
 					
-					"vec3 s = normalize(vec3(-lights[i].l_spotDir));" +
+					"vec4 l_spotDir = lights[i].l_spotDir;" +
+					"float l_spotCutOff = lights[i].l_spotCutOff;" +
+
+					"vec3 s = normalize(vec3(-l_spotDir));" +
 				
 					//Inside the cone?
-					"if(dot(s, l) > lights[i].l_spotCutOff) {" +
+					"if(dot(s, l) > l_spotCutOff) {" +
 
 						"diffuse += max(dot(n, l), 0.0) * mat.diffuse;" +
 						
@@ -113,7 +122,7 @@ var fragmentShaderSrc =
 			//Directional Light
 			"else {" +
 				
-				"l = normalize(vec3(lights[i].l_pos));" +
+				"l = normalize(vec3(l_pos));" +
 
 				"diffuse += max(dot(n, l), 0.0) * mat.diffuse;" +
 
@@ -131,7 +140,7 @@ var fragmentShaderSrc =
 
 		"if(texel==test)" +
 			"color = max(diffuse + specular, mat.ambient);" +
-		"else color = max(diffuse + specular, mat.ambient)*texel;" +
+		"else color = max(diffuse + specular, mat.ambient) * texel;" +
 		
 		//Add fog
 		"if(fogParams.isEnabled&&color.w>0.0){" +
