@@ -82,7 +82,7 @@ Camera.prototype.draw = function(camX, camY, camZ, oX, oY, oZ, side) {
 			mat4.identity(vMatrix);
 			mat4.identity(mMatrix);
 		
-			mat4.lookAt([oX - 10.0, oY + 6.0, oZ - 0.25], [oX - camX, oY - camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
+			mat4.lookAt([oX - 10.0, oY + 6.0, oZ - 0.025], [oX - camX, oY - camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
 		}
 		//Right
 		else {
@@ -94,7 +94,7 @@ Camera.prototype.draw = function(camX, camY, camZ, oX, oY, oZ, side) {
 			mat4.identity(vMatrix);
 			mat4.identity(mMatrix);
 
-			mat4.lookAt([oX - 10.0, oY + 6.0, oZ + 0.25], [oX - camX, oY - camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
+			mat4.lookAt([oX - 10.0, oY + 6.0, oZ + 0.025], [oX - camX, oY - camY, oZ - camZ], [0.0, 1.0, 0.0], vMatrix);
 		}
 	}
 }
