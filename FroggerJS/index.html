@@ -30,6 +30,9 @@
 
 <script type="text/javascript">
 
+    //Mobile check
+    var mobilecheck;
+
 	//GL and Shader
     var gl;
     var shaderProgram;
@@ -71,7 +74,7 @@
     var mouseDown = false;
     var tracking = false;
     var selfMovement = false;
-    var flagMovement =0;
+    var flagMovement = 0;
 
     var startX = 0;
     var startY = 0;
@@ -372,6 +375,9 @@
                 selfMovement = false;
                 break;
         }
+
+        //Refresh page
+        location.reload();
     }
 
     // ------------------------------------------------------------
@@ -506,13 +512,11 @@
 
     function setupObjects() {
 
-        //Mobile devices verification (Uncomment for proper use)
-
-        /*if(orientation != 0) {
-            camera = new Camera(4);
+        if(orientation != 0 && mobilecheck) {
             selfMovement = true;
+            camera = new Camera(4);
         }
-        else*/
+        else
             camera = new Camera(1);
        
         roadMargin = new RoadMargin(2.0, -1.0, 50.0);
@@ -583,10 +587,12 @@
        
         document.onkeydown = handleKeyDown;
 
-        //Mobile devices (Uncomment for proper use)
+        mobilecheck = mobileCheck();
 
-        //window.onorientationchange = deviceOrientationChange;
-        //window.ondeviceorientation = deviceOrientation;
+        if(mobilecheck) {
+            window.onorientationchange = deviceOrientationChange;
+            window.ondeviceorientation = deviceOrientation;
+        }
                 
         initGL(canvas);
         setupShaders();
