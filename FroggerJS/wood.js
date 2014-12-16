@@ -44,11 +44,11 @@ Wood.prototype.getBoundingBox = function(){
 
 	var boundingBox = [[],[]];
 
-	boundingBox[0][0] = this.x +1;
+	boundingBox[0][0] = this.x + 0.5;
 	boundingBox[0][1] = 0;
 	boundingBox[0][2] = this.z - 3.5;
 
-	boundingBox[1][0] = this.x - 1;
+	boundingBox[1][0] = this.x - 0.5;
 	boundingBox[1][1] = 0;
 	boundingBox[1][2] = this.z + 3.5;
 
