@@ -351,7 +351,7 @@
             }
         }
         else {
-            alert("WARNING: For stereoscopy use landscape orientation");
+            alert("WARNING: For stereoscopy use landscape orientation (Google Chrome only!)");
         }
     }
 
@@ -588,7 +588,7 @@
         document.onkeydown = handleKeyDown;
 
         mobilecheck = mobileCheck();
-
+      
         if(mobilecheck) {
             window.onorientationchange = deviceOrientationChange;
             window.ondeviceorientation = deviceOrientation;
