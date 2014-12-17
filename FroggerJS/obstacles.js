@@ -1,6 +1,6 @@
 function Obstacles() {
 	
-	this.level = 1;
+	this.level = 1.0;
 
 	this.startingPosCarX = [];
 	this.startingPosWoodX = [];
